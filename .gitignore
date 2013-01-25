@@ -161,3 +161,11 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+#Keil
+.bak
+.plg
+.o
+.d
+.__i
+.crf
