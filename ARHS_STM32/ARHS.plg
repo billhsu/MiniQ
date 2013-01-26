@@ -1,0 +1,1033 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\Projects\MiniQ\ARHS_STM32\ARHS.uvproj
+Project File Date:  01/25/2013
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+SRC\main.c(20): warning:  #177-D: variable "led_cnt" was declared but never referenced
+SRC\main.c:     unsigned long led_cnt=0;
+SRC\main.c:                   ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+compiling stm32f10x_it.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling misc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+assembling startup_stm32f10x_hd.s...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling UARTs.c...
+SRC\driver\UARTs.c(12): error:  #5: cannot open source input file "UART2.h": No such file or directory
+SRC\driver\UARTs.c:   #include "UART2.h"
+SRC\driver\UARTs.c:                     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 1 error
+Target not created
+Build target 'Target 1'
+compiling UARTs.c...
+linking...
+ARHS.axf: Error: L6200E: Symbol NVIC_Configuration multiply defined (by uarts.o and main.o).
+ARHS.axf: Error: L6200E: Symbol USART1_IRQHandler multiply defined (by uarts.o and main.o).
+ARHS.axf: Not enough information to list image symbols.
+ARHS.axf: Not enough information to list the image map.
+ARHS.axf: Finished: 2 information, 0 warning and 2 error messages.
+Target not created
+Build target 'Target 1'
+compiling UARTs.c...
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 0 errors
+linking...
+ARHS.axf: Error: L6200E: Symbol USART1_IRQHandler multiply defined (by uarts.o and main.o).
+ARHS.axf: Not enough information to list image symbols.
+ARHS.axf: Not enough information to list the image map.
+ARHS.axf: Finished: 2 information, 0 warning and 1 error messages.
+Target not created
+Build target 'Target 1'
+compiling main.c...
+SRC\main.c(2): error:  #5: cannot open source input file "UARTs.h": No such file or directory
+SRC\main.c:   #include "UARTs.h"
+SRC\main.c:                     ^
+SRC\main.c: SRC\main.c: 0 warnings, 1 error
+compiling UARTs.c...
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 0 errors
+Target not created
+Build target 'Target 1'
+compiling main.c...
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(268): warning:  #47-D: incompatible redefinition of macro "SCS_BASE" (declared at line 687 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCS_BASE            (0xE000E000)                              /*!< System Control Space Base Address    */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(276): warning:  #47-D: incompatible redefinition of macro "SCB" (declared at line 935 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct             */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(277): warning:  #47-D: incompatible redefinition of macro "SysTick" (declared at line 930 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration struct         */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(278): warning:  #47-D: incompatible redefinition of macro "NVIC" (declared at line 934 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struct            */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(312): error:  #256: invalid redeclaration of type name "s32" (declared at line 23 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef int32_t  s32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(316): error:  #256: invalid redeclaration of type name "sc32" (declared at line 27 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const int32_t sc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(320): error:  #256: invalid redeclaration of type name "vs32" (declared at line 31 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO int32_t  vs32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(324): error:  #256: invalid redeclaration of type name "vsc32" (declared at line 35 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I int32_t vsc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                       ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(328): error:  #256: invalid redeclaration of type name "u32" (declared at line 39 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef uint32_t  u32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(332): error:  #256: invalid redeclaration of type name "uc32" (declared at line 43 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const uint32_t uc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(336): error:  #256: invalid redeclaration of type name "vu32" (declared at line 47 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO uint32_t  vu32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(340): error:  #256: invalid redeclaration of type name "vuc32" (declared at line 51 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I uint32_t vuc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                        ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "FALSE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "TRUE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #256: invalid redeclaration of type name "bool" (declared at line 55 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "RESET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "SET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "FlagStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "ITStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                      ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "DISABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "ENABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #256: invalid redeclaration of type name "FunctionalState" (declared at line 59 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "ERROR" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "SUCCESS" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #256: invalid redeclaration of type name "ErrorStatus" (declared at line 62 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(389): error:  #256: invalid redeclaration of type name "ADC_TypeDef" (declared at line 58 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } ADC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(488): error:  #256: invalid redeclaration of type name "BKP_TypeDef" (declared at line 154 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } BKP_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(500): error:  #256: invalid redeclaration of type name "CAN_TxMailBox_TypeDef" (declared at line 163 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TxMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(512): error:  #256: invalid redeclaration of type name "CAN_FIFOMailBox_TypeDef" (declared at line 171 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FIFOMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(522): error:  #256: invalid redeclaration of type name "CAN_FilterRegister_TypeDef" (declared at line 177 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FilterRegister_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(556): error:  #256: invalid redeclaration of type name "CAN_TypeDef" (declared at line 203 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(569): error:  #256: invalid redeclaration of type name "CRC_TypeDef" (declared at line 213 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CRC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(590): error:  #256: invalid redeclaration of type name "DAC_TypeDef" (declared at line 232 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } DAC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(600): error:  #256: invalid redeclaration of type name "DBGMCU_TypeDef" (declared at line 239 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   }DBGMCU_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h: SRC\main.c: 4 warnings, 30 errors
+Target not created
+Build target 'Target 1'
+compiling main.c...
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(268): warning:  #47-D: incompatible redefinition of macro "SCS_BASE" (declared at line 687 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCS_BASE            (0xE000E000)                              /*!< System Control Space Base Address    */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(276): warning:  #47-D: incompatible redefinition of macro "SCB" (declared at line 935 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct             */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(277): warning:  #47-D: incompatible redefinition of macro "SysTick" (declared at line 930 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration struct         */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(278): warning:  #47-D: incompatible redefinition of macro "NVIC" (declared at line 934 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struct            */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(312): error:  #256: invalid redeclaration of type name "s32" (declared at line 23 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef int32_t  s32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(316): error:  #256: invalid redeclaration of type name "sc32" (declared at line 27 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const int32_t sc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(320): error:  #256: invalid redeclaration of type name "vs32" (declared at line 31 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO int32_t  vs32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(324): error:  #256: invalid redeclaration of type name "vsc32" (declared at line 35 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I int32_t vsc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                       ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(328): error:  #256: invalid redeclaration of type name "u32" (declared at line 39 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef uint32_t  u32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(332): error:  #256: invalid redeclaration of type name "uc32" (declared at line 43 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const uint32_t uc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(336): error:  #256: invalid redeclaration of type name "vu32" (declared at line 47 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO uint32_t  vu32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(340): error:  #256: invalid redeclaration of type name "vuc32" (declared at line 51 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I uint32_t vuc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                        ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "FALSE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "TRUE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #256: invalid redeclaration of type name "bool" (declared at line 55 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "RESET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "SET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "FlagStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "ITStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                      ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "DISABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "ENABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #256: invalid redeclaration of type name "FunctionalState" (declared at line 59 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "ERROR" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "SUCCESS" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #256: invalid redeclaration of type name "ErrorStatus" (declared at line 62 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(389): error:  #256: invalid redeclaration of type name "ADC_TypeDef" (declared at line 58 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } ADC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(488): error:  #256: invalid redeclaration of type name "BKP_TypeDef" (declared at line 154 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } BKP_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(500): error:  #256: invalid redeclaration of type name "CAN_TxMailBox_TypeDef" (declared at line 163 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TxMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(512): error:  #256: invalid redeclaration of type name "CAN_FIFOMailBox_TypeDef" (declared at line 171 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FIFOMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(522): error:  #256: invalid redeclaration of type name "CAN_FilterRegister_TypeDef" (declared at line 177 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FilterRegister_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(556): error:  #256: invalid redeclaration of type name "CAN_TypeDef" (declared at line 203 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(569): error:  #256: invalid redeclaration of type name "CRC_TypeDef" (declared at line 213 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CRC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(590): error:  #256: invalid redeclaration of type name "DAC_TypeDef" (declared at line 232 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } DAC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(600): error:  #256: invalid redeclaration of type name "DBGMCU_TypeDef" (declared at line 239 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   }DBGMCU_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h: SRC\main.c: 4 warnings, 30 errors
+compiling UARTs.c...
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 0 errors
+Target not created
+Build target 'Target 1'
+compiling main.c...
+SRC\main.c(21): warning:  #223-D: function "USART1_Configuration" declared implicitly
+SRC\main.c:     USART1_Configuration();
+SRC\main.c:     ^
+SRC\main.c(18): warning:  #177-D: variable "led_cnt" was declared but never referenced
+SRC\main.c:     unsigned long led_cnt=0;
+SRC\main.c:                   ^
+SRC\main.c: SRC\main.c: 2 warnings, 0 errors
+linking...
+ARHS.axf: Error: L6218E: Undefined symbol USART1_Configuration (referred from main.o).
+ARHS.axf: Not enough information to list image symbols.
+ARHS.axf: Finished: 1 information, 0 warning and 1 error messages.
+Target not created
+Build target 'Target 1'
+compiling main.c...
+SRC\main.c(21): warning:  #223-D: function "USART1_Configuration" declared implicitly
+SRC\main.c:     USART1_Configuration();
+SRC\main.c:     ^
+SRC\main.c(18): warning:  #177-D: variable "led_cnt" was declared but never referenced
+SRC\main.c:     unsigned long led_cnt=0;
+SRC\main.c:                   ^
+SRC\main.c: SRC\main.c: 2 warnings, 0 errors
+compiling stm32f10x_it.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling misc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+assembling startup_stm32f10x_hd.s...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling UARTs.c...
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 0 errors
+linking...
+ARHS.axf: Error: L6218E: Undefined symbol USART1_Configuration (referred from main.o).
+ARHS.axf: Not enough information to list image symbols.
+ARHS.axf: Finished: 1 information, 0 warning and 1 error messages.
+Target not created
+Build target 'Target 1'
+compiling main.c...
+SRC\main.c(18): warning:  #177-D: variable "led_cnt" was declared but never referenced
+SRC\main.c:     unsigned long led_cnt=0;
+SRC\main.c:                   ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=5524 RO-data=336 RW-data=32 ZI-data=1896  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5520 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(268): warning:  #47-D: incompatible redefinition of macro "SCS_BASE" (declared at line 687 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCS_BASE            (0xE000E000)                              /*!< System Control Space Base Address    */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(276): warning:  #47-D: incompatible redefinition of macro "SCB" (declared at line 935 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct             */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(277): warning:  #47-D: incompatible redefinition of macro "SysTick" (declared at line 930 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration struct         */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(278): warning:  #47-D: incompatible redefinition of macro "NVIC" (declared at line 934 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struct            */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(312): error:  #256: invalid redeclaration of type name "s32" (declared at line 23 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef int32_t  s32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(316): error:  #256: invalid redeclaration of type name "sc32" (declared at line 27 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const int32_t sc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(320): error:  #256: invalid redeclaration of type name "vs32" (declared at line 31 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO int32_t  vs32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(324): error:  #256: invalid redeclaration of type name "vsc32" (declared at line 35 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I int32_t vsc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                       ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(328): error:  #256: invalid redeclaration of type name "u32" (declared at line 39 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef uint32_t  u32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(332): error:  #256: invalid redeclaration of type name "uc32" (declared at line 43 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const uint32_t uc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(336): error:  #256: invalid redeclaration of type name "vu32" (declared at line 47 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO uint32_t  vu32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(340): error:  #256: invalid redeclaration of type name "vuc32" (declared at line 51 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I uint32_t vuc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                        ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "FALSE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "TRUE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #256: invalid redeclaration of type name "bool" (declared at line 55 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "RESET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "SET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "FlagStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "ITStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                      ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "DISABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "ENABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #256: invalid redeclaration of type name "FunctionalState" (declared at line 59 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "ERROR" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "SUCCESS" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #256: invalid redeclaration of type name "ErrorStatus" (declared at line 62 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(389): error:  #256: invalid redeclaration of type name "ADC_TypeDef" (declared at line 58 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } ADC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(488): error:  #256: invalid redeclaration of type name "BKP_TypeDef" (declared at line 154 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } BKP_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(500): error:  #256: invalid redeclaration of type name "CAN_TxMailBox_TypeDef" (declared at line 163 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TxMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(512): error:  #256: invalid redeclaration of type name "CAN_FIFOMailBox_TypeDef" (declared at line 171 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FIFOMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(522): error:  #256: invalid redeclaration of type name "CAN_FilterRegister_TypeDef" (declared at line 177 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FilterRegister_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(556): error:  #256: invalid redeclaration of type name "CAN_TypeDef" (declared at line 203 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(569): error:  #256: invalid redeclaration of type name "CRC_TypeDef" (declared at line 213 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CRC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(590): error:  #256: invalid redeclaration of type name "DAC_TypeDef" (declared at line 232 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } DAC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(600): error:  #256: invalid redeclaration of type name "DBGMCU_TypeDef" (declared at line 239 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   }DBGMCU_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h: SRC\main.c: 4 warnings, 30 errors
+compiling stm32f10x_it.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling misc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+assembling startup_stm32f10x_hd.s...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling UARTs.c...
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 0 errors
+Target not created
+Build target 'Target 1'
+compiling main.c...
+compiling UARTs.c...
+SRC\driver\UARTs.h(6): error:  #20: identifier "u32" is undefined
+SRC\driver\UARTs.h:   void Initial_UART1(u32 baudrate);
+SRC\driver\UARTs.h:                      ^
+SRC\driver\UARTs.h(8): error:  #20: identifier "u8" is undefined
+SRC\driver\UARTs.h:   u8 UART1_Get_Char(void);
+SRC\driver\UARTs.h:   ^
+SRC\driver\UARTs.c(14): error:  #20: identifier "u8" is undefined
+SRC\driver\UARTs.c:   u8 TxBuffer[258];
+SRC\driver\UARTs.c:   ^
+SRC\driver\UARTs.c(15): error:  #20: identifier "u8" is undefined
+SRC\driver\UARTs.c:   u8 TxCounter=0;
+SRC\driver\UARTs.c:   ^
+SRC\driver\UARTs.c(16): error:  #20: identifier "u8" is undefined
+SRC\driver\UARTs.c:   u8 count=0; 
+SRC\driver\UARTs.c:   ^
+SRC\driver\UARTs.c(26): error:  #20: identifier "u32" is undefined
+SRC\driver\UARTs.c:   void Initial_UART1(u32 baudrate)
+SRC\driver\UARTs.c:                      ^
+SRC\driver\UARTs.c(28): error:  #20: identifier "GPIO_InitTypeDef" is undefined
+SRC\driver\UARTs.c:     GPIO_InitTypeDef GPIO_InitStructure;
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c(29): error:  #20: identifier "USART_InitTypeDef" is undefined
+SRC\driver\UARTs.c:     USART_InitTypeDef USART_InitStructure;
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c(32): warning:  #223-D: function "RCC_APB2PeriphClockCmd" declared implicitly
+SRC\driver\UARTs.c:     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c(32): error:  #20: identifier "RCC_APB2Periph_USART1" is undefined
+SRC\driver\UARTs.c:     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+SRC\driver\UARTs.c:                            ^
+SRC\driver\UARTs.c(32): error:  #20: identifier "RCC_APB2Periph_GPIOA" is undefined
+SRC\driver\UARTs.c:     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+SRC\driver\UARTs.c:                                                    ^
+SRC\driver\UARTs.c(32): error:  #20: identifier "ENABLE" is undefined
+SRC\driver\UARTs.c:     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+SRC\driver\UARTs.c:                                                                          ^
+SRC\driver\UARTs.c(37): error:  #20: identifier "GPIO_Pin_9" is undefined
+SRC\driver\UARTs.c:             GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+SRC\driver\UARTs.c:                                           ^
+SRC\driver\UARTs.c(38): error:  #20: identifier "GPIO_Mode_AF_PP" is undefined
+SRC\driver\UARTs.c:     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+SRC\driver\UARTs.c:                                    ^
+SRC\driver\UARTs.c(39): error:  #20: identifier "GPIO_Speed_50MHz" is undefined
+SRC\driver\UARTs.c:             GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+SRC\driver\UARTs.c:                                             ^
+SRC\driver\UARTs.c(40): warning:  #223-D: function "GPIO_Init" declared implicitly
+SRC\driver\UARTs.c:             GPIO_Init(GPIOA, &GPIO_InitStructure);    
+SRC\driver\UARTs.c:             ^
+SRC\driver\UARTs.c(40): error:  #20: identifier "GPIOA" is undefined
+SRC\driver\UARTs.c:             GPIO_Init(GPIOA, &GPIO_InitStructure);    
+SRC\driver\UARTs.c:                       ^
+SRC\driver\UARTs.c(45): error:  #20: identifier "GPIO_Pin_10" is undefined
+SRC\driver\UARTs.c:             GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
+SRC\driver\UARTs.c:                                           ^
+SRC\driver\UARTs.c(46): error:  #20: identifier "GPIO_Mode_IN_FLOATING" is undefined
+SRC\driver\UARTs.c:             GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+SRC\driver\UARTs.c:                                            ^
+SRC\driver\UARTs.c(59): error:  #20: identifier "USART_WordLength_8b" is undefined
+SRC\driver\UARTs.c:     USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+SRC\driver\UARTs.c:                                            ^
+SRC\driver\UARTs.c(60): error:  #20: identifier "USART_StopBits_1" is undefined
+SRC\driver\UARTs.c:     USART_InitStructure.USART_StopBits = USART_StopBits_1;
+SRC\driver\UARTs.c:                                          ^
+SRC\driver\UARTs.c(61): error:  #20: identifier "USART_Parity_No" is undefined
+SRC\driver\UARTs.c:     USART_InitStructure.USART_Parity = USART_Parity_No ;
+SRC\driver\UARTs.c:                                        ^
+SRC\driver\UARTs.c(62): error:  #20: identifier "USART_HardwareFlowControl_None" is undefined
+SRC\driver\UARTs.c:     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+SRC\driver\UARTs.c:                                                     ^
+SRC\driver\UARTs.c(63): error:  #20: identifier "USART_Mode_Rx" is undefined
+SRC\driver\UARTs.c:     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+SRC\driver\UARTs.c:                                      ^
+SRC\driver\UARTs.c(63): error:  #20: identifier "USART_Mode_Tx" is undefined
+SRC\driver\UARTs.c:     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+SRC\driver\UARTs.c:                                                      ^
+SRC\driver\UARTs.c(65): warning:  #223-D: function "USART_Init" declared implicitly
+SRC\driver\UARTs.c:     USART_Init(USART1, &USART_InitStructure); 
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c(65): error:  #20: identifier "USART1" is undefined
+SRC\driver\UARTs.c:     USART_Init(USART1, &USART_InitStructure); 
+SRC\driver\UARTs.c:                ^
+SRC\driver\UARTs.c(66): warning:  #223-D: function "USART_ITConfig" declared implicitly
+SRC\driver\UARTs.c:     USART_ITConfig(USART1, USART_IT_TXE, DISABLE);        
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c(66): error:  #20: identifier "USART_IT_TXE" is undefined
+SRC\driver\UARTs.c:     USART_ITConfig(USART1, USART_IT_TXE, DISABLE);        
+SRC\driver\UARTs.c:                            ^
+SRC\driver\UARTs.c(66): error:  #20: identifier "DISABLE" is undefined
+SRC\driver\UARTs.c:     USART_ITConfig(USART1, USART_IT_TXE, DISABLE);        
+SRC\driver\UARTs.c:                                          ^
+SRC\driver\UARTs.c(67): warning:  #223-D: function "USART_ClearFlag" declared implicitly
+SRC\driver\UARTs.c:       USART_ClearFlag(USART1,USART_FLAG_TC);
+SRC\driver\UARTs.c:       ^
+SRC\driver\UARTs.c(67): error:  #20: identifier "USART_FLAG_TC" is undefined
+SRC\driver\UARTs.c:       USART_ClearFlag(USART1,USART_FLAG_TC);
+SRC\driver\UARTs.c:                              ^
+SRC\driver\UARTs.c(69): warning:  #223-D: function "USART_Cmd" declared implicitly
+SRC\driver\UARTs.c:             USART_Cmd(USART1, ENABLE);
+SRC\driver\UARTs.c:             ^
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c(88): warning:  #223-D: function "USART_ITConfig" declared implicitly
+SRC\driver\UARTs.c:       USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
+SRC\driver\UARTs.c:       ^
+SRC\driver\UARTs.c(88): error:  #20: identifier "USART1" is undefined
+SRC\driver\UARTs.c:       USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
+SRC\driver\UARTs.c:                      ^
+SRC\driver\UARTs.c(88): error:  #20: identifier "USART_IT_TXE" is undefined
+SRC\driver\UARTs.c:       USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
+SRC\driver\UARTs.c:                              ^
+SRC\driver\UARTs.c(88): error:  #20: identifier "ENABLE" is undefined
+SRC\driver\UARTs.c:       USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
+SRC\driver\UARTs.c:                                            ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 8 warnings, 30 errors
+Target not created
+Build target 'Target 1'
+compiling main.c...
+compiling UARTs.c...
+SRC\driver\UARTs.c(70): warning:  #223-D: function "NVIC_Configuration" declared implicitly
+SRC\driver\UARTs.c:     NVIC_Configuration();
+SRC\driver\UARTs.c:     ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 0 errors
+linking...
+Program Size: Code=5520 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling UARTs.c...
+linking...
+Program Size: Code=5516 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5524 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5536 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\ARHS_STM32\\ARHS.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\ARHS_STM32\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.261V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5548 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\ARHS_STM32\\ARHS.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\ARHS_STM32\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.261V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5536 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+"ARHS.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\ARHS_STM32\\ARHS.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\ARHS_STM32\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.261V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+compiling stm32f10x_it.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling misc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+assembling startup_stm32f10x_hd.s...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling UARTs.c...
+linking...
+Program Size: Code=5500 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling delay.c...
+linking...
+Program Size: Code=5500 RO-data=336 RW-data=28 ZI-data=1892  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(268): warning:  #47-D: incompatible redefinition of macro "SCS_BASE" (declared at line 687 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCS_BASE            (0xE000E000)                              /*!< System Control Space Base Address    */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(276): warning:  #47-D: incompatible redefinition of macro "SCB" (declared at line 935 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct             */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(277): warning:  #47-D: incompatible redefinition of macro "SysTick" (declared at line 930 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration struct         */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\core_cm3.h(278): warning:  #47-D: incompatible redefinition of macro "NVIC" (declared at line 934 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:   #define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struct            */
+.\Libraries\CMSIS\Core\CM3\core_cm3.h:           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(312): error:  #256: invalid redeclaration of type name "s32" (declared at line 23 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef int32_t  s32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(316): error:  #256: invalid redeclaration of type name "sc32" (declared at line 27 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const int32_t sc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(320): error:  #256: invalid redeclaration of type name "vs32" (declared at line 31 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO int32_t  vs32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                         ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(324): error:  #256: invalid redeclaration of type name "vsc32" (declared at line 35 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I int32_t vsc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                       ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(328): error:  #256: invalid redeclaration of type name "u32" (declared at line 39 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef uint32_t  u32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(332): error:  #256: invalid redeclaration of type name "uc32" (declared at line 43 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef const uint32_t uc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(336): error:  #256: invalid redeclaration of type name "vu32" (declared at line 47 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __IO uint32_t  vu32;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(340): error:  #256: invalid redeclaration of type name "vuc32" (declared at line 51 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef __I uint32_t vuc32;  /*!< Read Only */
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                        ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "FALSE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #101: "TRUE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(345): error:  #256: invalid redeclaration of type name "bool" (declared at line 55 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                           ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "RESET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #101: "SET" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "FlagStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                          ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(348): error:  #256: invalid redeclaration of type name "ITStatus" (declared at line 57 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                      ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "DISABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #101: "ENABLE" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(350): error:  #256: invalid redeclaration of type name "FunctionalState" (declared at line 59 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "ERROR" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                 ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #101: "SUCCESS" has already been declared in the current scope
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                            ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(353): error:  #256: invalid redeclaration of type name "ErrorStatus" (declared at line 62 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_type.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:                                              ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(389): error:  #256: invalid redeclaration of type name "ADC_TypeDef" (declared at line 58 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } ADC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(488): error:  #256: invalid redeclaration of type name "BKP_TypeDef" (declared at line 154 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } BKP_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(500): error:  #256: invalid redeclaration of type name "CAN_TxMailBox_TypeDef" (declared at line 163 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TxMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(512): error:  #256: invalid redeclaration of type name "CAN_FIFOMailBox_TypeDef" (declared at line 171 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FIFOMailBox_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(522): error:  #256: invalid redeclaration of type name "CAN_FilterRegister_TypeDef" (declared at line 177 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_FilterRegister_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(556): error:  #256: invalid redeclaration of type name "CAN_TypeDef" (declared at line 203 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CAN_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(569): error:  #256: invalid redeclaration of type name "CRC_TypeDef" (declared at line 213 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } CRC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(590): error:  #256: invalid redeclaration of type name "DAC_TypeDef" (declared at line 232 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   } DAC_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:     ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h(600): error:  #256: invalid redeclaration of type name "DBGMCU_TypeDef" (declared at line 239 of "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x\stm32f10x_map.h")
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:   }DBGMCU_TypeDef;
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h:    ^
+.\Libraries\CMSIS\Core\CM3\stm32f10x.h: SRC\main.c: 4 warnings, 30 errors
+Target not created
+Build target 'Target 1'
+compiling main.c...
+compiling delay.c...
+linking...
+Program Size: Code=5676 RO-data=336 RW-data=32 ZI-data=1896  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\ARHS_STM32\\Output\\ARHS.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\ARHS_STM32\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.261V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5688 RO-data=336 RW-data=32 ZI-data=1896  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling stm32f10x_it.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling misc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+assembling startup_stm32f10x_hd.s...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling UARTs.c...
+compiling delay.c...
+linking...
+Program Size: Code=5688 RO-data=336 RW-data=32 ZI-data=1896  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\ARHS_STM32\\Output\\ARHS.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\ARHS_STM32\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.261V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: Code=5688 RO-data=336 RW-data=32 ZI-data=1896  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\ARHS_STM32\\Output\\ARHS.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\ARHS_STM32\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.261V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+compiling stm32f10x_it.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling misc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+assembling startup_stm32f10x_hd.s...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling UARTs.c...
+compiling delay.c...
+linking...
+Program Size: Code=5688 RO-data=336 RW-data=32 ZI-data=1896  
+FromELF: creating hex file...
+".\Output\ARHS.axf" - 0 Error(s), 0 Warning(s).

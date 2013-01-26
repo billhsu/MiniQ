@@ -163,18 +163,4 @@ pip-log.txt
 .DS_Store
 
 #Keil
-ARHS_STM32/*.bak
-ARHS_STM32/*.plg
-ARHS_STM32/*.o
-ARHS_STM32/*.d
-ARHS_STM32/*.__i
-ARHS_STM32/*.crf
-ARHS_STM32/*.htm
-ARHS_STM32/*.map
-ARHS_STM32/*.axf
-ARHS_STM32/*.sct
-ARHS_STM32/*.dep
-ARHS_STM32/*.lst
-ARHS_STM32/*.tra
-ARHS_STM32/*.iex
-ARHS_STM32/*.lnp
+ARHS_STM32/Output/*.*

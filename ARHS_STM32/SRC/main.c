@@ -1,35 +1,31 @@
 #include "stm32f10x_lib.h"
+#include "driver/UARTs.h"
+#include "driver/delay.h"
 
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-void USART1_IRQHandler(void);
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
-void USART1_Configuration(void);
 void WWDG_Configuration(void);
 void Delay(u32 nTime);
 void Delayms(vu32 m);  
 
-volatile char status=0;
-
 
 int main(void)
 {
-  unsigned long led_cnt=0;
   RCC_Configuration();
+  delay_init(72);
   GPIO_Configuration();
-  USART1_Configuration();
-
+  Initial_UART1(115200L);
   NVIC_Configuration();
- 
-  //WWDG_Configuration();
  
  
   while(1)
   {
-    
+    UART1_Put_String("Hello World!\n");
+    delay_ms(1000);
   }
 		     
 }
@@ -121,39 +117,6 @@ void GPIO_Configuration(void)
 }
 
 
-void USART1_Configuration(void)
-{
-
-USART_InitTypeDef USART_InitStructure;
-USART_ClockInitTypeDef  USART_ClockInitStructure;
-
-RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1 |RCC_APB2Periph_USART1, ENABLE  );
-
-USART_ClockInitStructure.USART_Clock = USART_Clock_Disable;			// 时钟低电平活动
-USART_ClockInitStructure.USART_CPOL = USART_CPOL_Low;				// 时钟低电平
-USART_ClockInitStructure.USART_CPHA = USART_CPHA_2Edge;				// 时钟第二个边沿进行数据捕获
-USART_ClockInitStructure.USART_LastBit = USART_LastBit_Disable;		// 最后一位数据的时钟脉冲不从SCLK输出
-/* Configure the USART1 synchronous paramters */
-USART_ClockInit(USART1, &USART_ClockInitStructure);					// 时钟参数初始化设置
-																	 
-USART_InitStructure.USART_BaudRate = 115200;						  // 波特率为：115200
-USART_InitStructure.USART_WordLength = USART_WordLength_8b;			  // 8位数据
-USART_InitStructure.USART_StopBits = USART_StopBits_1;				  // 在帧结尾传输1个停止位
-USART_InitStructure.USART_Parity = USART_Parity_No ;				  // 奇偶失能
-USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;	// 硬件流控制失能
-
-USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;		  // 发送使能+接收使能
-/* Configure USART1 basic and asynchronous paramters */
-USART_Init(USART1, &USART_InitStructure);
-    
-  /* Enable USART1 */
-USART_ClearFlag(USART1, USART_IT_RXNE); 			//清中断，以免一启用中断后立即产生中断
-USART_ITConfig(USART1,USART_IT_RXNE, ENABLE);		//使能USART1中断源
-USART_Cmd(USART1, ENABLE);							//USART1总开关：开启 
-}
-
-
-
 void NVIC_Configuration(void)
 { 
   NVIC_InitTypeDef NVIC_InitStructure;  
@@ -164,10 +127,10 @@ void NVIC_Configuration(void)
   NVIC_Init(&NVIC_InitStructure);
 
 
-  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;//???????1??
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; //??????0
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;              //???????0
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;          //????
+  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure); 
 
 }
@@ -183,23 +146,6 @@ void WWDG_Configuration(void)
   WWDG_EnableIT();			       // Enable EW interrupt
 }
 
- void Delay(vu32 nCount)
-{
-  for(; nCount != 0; nCount--);
-}
-
-
- void Delayms(vu32 m)
-{
-  u32 i;
-  
-  for(; m != 0; m--)	
-       for (i=0; i<50000; i++);
-}
-
-
-
-
 
 void WWDG_IRQHandler(void)
 {
@@ -211,19 +157,4 @@ void WWDG_IRQHandler(void)
   
 }
 
-
-void USART1_IRQHandler(void)                            //??1??
-{
-	char RX_dat;                                                       //??????
-
-	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)   //????????
-	{
-		USART_ClearITPendingBit(USART1,   USART_IT_RXNE);       //??????
-
-		RX_dat=USART_ReceiveData(USART1) & 0x7F;                       //????,???????
-		USART_SendData(USART1, RX_dat);                                     //????
-		status=RX_dat;
-		while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}//??????
-	}
-}
 
