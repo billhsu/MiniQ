@@ -199,7 +199,7 @@ unsigned char I2C_ReadByte(void)  //数据从高位到低位//
 bool Single_Write(unsigned char SlaveAddress,unsigned char REG_Address,unsigned char REG_data)		     //void
 {
   	if(!I2C_Start())return FALSE;
-    I2C_SendByte(SlaveAddress);   //发送设备地址+写信号//I2C_SendByte(((REG_Address & 0x0700) >>7) | SlaveAddress & 0xFFFE);//设置高起始地址+器件地址 
+    I2C_SendByte(SlaveAddress);   //发送设备地址+写信号
     if(!I2C_WaitAck()){I2C_Stop(); return FALSE;}
     I2C_SendByte(REG_Address );   //设置低起始地址      
     I2C_WaitAck();	

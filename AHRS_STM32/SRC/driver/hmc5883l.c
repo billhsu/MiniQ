@@ -1,75 +1,44 @@
-#include <stdint.h>
 #include "hmc5883l.h"
-#include "i2c.h"
+#include "ioi2c.h"
+#include "delay.h"
+#include <stdint.h>
 
-uint8_t hmc5883l_init_ready=0;
-
-uint8_t hmc5883l_detect(void)
+void  HMC5883L_Init(void)
 {
-	uint8_t write, read[3];
-	write=0x0A;
-	if(i2c_transmit(HMC5883L_ADDRESS, &write, 1, read, 3)){
-		if((read[0]=='H') &&
-			(read[1]=='4') &&
-			(read[2]=='3')){
-			hmc5883l_init_ready=1;
-			return 1;
-		}
-	}
-	return 0;
+   Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x14);   //30Hz
+   Single_Write(HMC5883L_Addr,HMC5883L_MODE,0x00);   //连续测量模式
 }
 
-uint8_t hmc5883l_cal(uint8_t calibration_gain)
+void HMC5883L_Calibrate(void)
 {
-	uint8_t write[4];
-	if(!hmc5883l_init_ready)
-		return 0;
-	write[0]=ConfigRegA;
-	write[1]=(SampleAveraging_8 << 5) | (DataOutputRate_1_5HZ << 2) | PositiveBiasConfig;
-	write[2]=calibration_gain;
-	write[3]=SingleConversion;
-	if(i2c_transmit(HMC5883L_ADDRESS, write, 4, NULL, 0))
-		return 1;
-	return 0;
+   Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x15);   //30Hz,启动自检模式
+   Single_Write(HMC5883L_Addr,HMC5883L_MODE,0x01);   //单一测量模式
+   delay_ms(10);
+   Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x14);
+   Single_Write(HMC5883L_Addr,HMC5883L_MODE,0x00);   //回到工作模式
 }
 
-uint8_t hmc5883l_finish_cal(void)
+void HMC5883L_Read(int16_t * data)
 {
-    // leave test mode
-	uint8_t write[4];
-	if(!hmc5883l_init_ready)
-		return 0;
-	write[0]=ConfigRegA;
-	write[1]=(SampleAveraging_8 << 5) | (DataOutputRate_1_5HZ << 2) | NormalOperation;
-	write[2]=magGain;
-	write[3]=ContinuousConversion;
-	if(i2c_transmit(HMC5883L_ADDRESS, write, 4, NULL, 0))
-		return 1;
-	return 0;
-}
+    uint8_t tmp[6];
+    int32_t s32Val;
+    
+    Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x14);   //30Hz
+    Single_Write(HMC5883L_Addr,HMC5883L_MODE,0x00);   //连续测量模式
+    delay_ms(10);
+    
+    tmp[0]=Single_Read(HMC5883L_Addr,HMC5883L_HX_H);//OUT_X_L_A
+    tmp[1]=Single_Read(HMC5883L_Addr,HMC5883L_HX_L);//OUT_X_H_A
+    
+    tmp[2]=Single_Read(HMC5883L_Addr,HMC5883L_HZ_H);//OUT_Z_L_A
+    tmp[3]=Single_Read(HMC5883L_Addr,HMC5883L_HZ_L);//OUT_Z_H_A
+    
+    tmp[4]=Single_Read(HMC5883L_Addr,HMC5883L_HY_H);//OUT_Y_L_A
+    tmp[5]=Single_Read(HMC5883L_Addr,HMC5883L_HY_L);//OUT_Y_H_A
 
-uint8_t hmc5883l_read(int16_t *x, int16_t *y, int16_t *z, int16_t *data)
-{
-	uint8_t write, read[6];
-	if(!hmc5883l_init_ready)
-		return 0;
-	write=MAG_DATA_REGISTER;
-	if(i2c_transmit(HMC5883L_ADDRESS, &write, 1, read, 6)){
-		if(data){
-			*data=(read[0]<<8)|read[1];
-			*(data+1)=(read[2]<<8)|read[3];
-			*(data+2)=(read[4]<<8)|read[5];
-		}
-		if(x){
-			*x=(read[0]<<8)|read[1];
-			if(y)
-				*y=(read[2]<<8)|read[3];
-			if(z)
-				*z=(read[4]<<8)|read[5];
-		}
-		if(data || x)
-			return 1;
-	}
-	return 0;
+    data[0]  = (int16_t)((tmp[0] << 8) | tmp[1])+HMC5883L_OFFSET_X;
+    s32Val = (int16_t)((tmp[4] << 8) | tmp[5])+HMC5883L_OFFSET_Y;    
+    s32Val = (s32Val*HMC5883L_GAIN_Y)/10000;
+    data[1]    = (int16_t)s32Val;
+    data[2]    = (int16_t)((tmp[2] << 8) | tmp[3]);
 }
-

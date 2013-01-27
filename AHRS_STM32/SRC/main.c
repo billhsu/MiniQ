@@ -4,6 +4,7 @@
 #include "driver/ioi2c.h"
 
 #include "driver/mpu6050.h"
+#include "driver/hmc5883l.h"
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
@@ -33,14 +34,19 @@ int main(void)
   Initial_UART1(115200L);
   I2C_GPIO_Config();
   NVIC_Configuration();
+  
   delay_ms(10);
-  Init_MPU6050();  
+  Init_MPU6050();
+  
+  delay_ms(10);
+  HMC5883L_Init();
+    
   while(1)
   {
-    UART1_Put_Char(0x5a);
     UART1_Put_Char(0xa5);
-    UART1_Put_Char(13);
-    UART1_Put_Char(0x01);
+    UART1_Put_Char(0x5a);
+    UART1_Put_Char(0x12);
+    UART1_Put_Char(0xa1);
     
     Read_MPU6050_ACC(data);
     out_int16_t(&data[0]);
@@ -51,7 +57,15 @@ int main(void)
     out_int16_t(&data[0]);
     out_int16_t(&data[1]);
     out_int16_t(&data[2]);
+    
+    
+    HMC5883L_Read(data);
+    out_int16_t(&data[0]);
+    out_int16_t(&data[1]);
+    out_int16_t(&data[2]);
+    
     UART1_Put_Char(0xed);
+    
     delay_ms(5);
   }
 		     
