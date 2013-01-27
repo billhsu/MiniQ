@@ -1,7 +1,9 @@
 #include "stm32f10x_lib.h"
 #include "driver/UARTs.h"
 #include "driver/delay.h"
+#include "driver/ioi2c.h"
 
+#include "driver/mpu6050.h"
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
@@ -10,22 +12,47 @@ void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void WWDG_Configuration(void);
 void Delay(u32 nTime);
-void Delayms(vu32 m);  
-
-
+void Delayms(vu32 m);
+ 
+void out_int16_t(int16_t * data)
+{
+  char ctemp;
+  if(data[0]<0)data[0]=32768-data[0];
+	ctemp=data[0]>>8;
+	UART1_Put_Char(ctemp);
+	ctemp=data[0];
+	UART1_Put_Char(ctemp);
+}
 int main(void)
 {
+  
+  int16_t data[3] = {0,0,0};
   RCC_Configuration();
   delay_init(72);
   GPIO_Configuration();
   Initial_UART1(115200L);
+  I2C_GPIO_Config();
   NVIC_Configuration();
- 
- 
+  delay_ms(10);
+  Init_MPU6050();  
   while(1)
   {
-    UART1_Put_String("Hello World!\n");
-    delay_ms(1000);
+    UART1_Put_Char(0x5a);
+    UART1_Put_Char(0xa5);
+    UART1_Put_Char(13);
+    UART1_Put_Char(0x01);
+    
+    Read_MPU6050_ACC(data);
+    out_int16_t(&data[0]);
+    out_int16_t(&data[1]);
+    out_int16_t(&data[2]);
+    
+    Read_MPU6050_GYRO(data);
+    out_int16_t(&data[0]);
+    out_int16_t(&data[1]);
+    out_int16_t(&data[2]);
+    UART1_Put_Char(0xed);
+    delay_ms(5);
   }
 		     
 }
