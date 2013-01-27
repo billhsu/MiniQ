@@ -485,6 +485,21 @@
               <FileType>1</FileType>
               <FilePath>.\SRC\driver\mpu6050.c</FilePath>
             </File>
+            <File>
+              <FileName>hmc5883l.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SRC\driver\hmc5883l.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>algorithm</GroupName>
+          <Files>
+            <File>
+              <FileName>imu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SRC\algorithm\imu.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

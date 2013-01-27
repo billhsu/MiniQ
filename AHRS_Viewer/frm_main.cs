@@ -18,11 +18,11 @@ namespace uart_cam
         bool start_flag = false;
         int start_match_pos = 0;
         int recv_cnt = 0;
-        bool odd = false;
+
         Bitmap image = null;
-        byte[] recv_data = new byte[19];
+        byte[] recv_data = new byte[25];
         byte[] start_mark={0xa5,0x5a,0x12,0xa1};
-        Int32[] imu_result = new Int32[9];
+        Int32[] imu_result = new Int32[12];
         public mainForm()
         {
             InitializeComponent();
@@ -40,6 +40,7 @@ namespace uart_cam
                 System.IO.Ports.SerialDataReceivedEventHandler(comm_DataReceived);
 
         }
+        
 
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -75,9 +76,9 @@ namespace uart_cam
 
                         recv_data[recv_cnt] = b;
                         ++recv_cnt;
-                        if (recv_cnt == 19) 
+                        if (recv_cnt == 25) 
                         {
-                            for (int i = 0; i < 18; i+=2)
+                            for (int i = 0; i < 24; i+=2)
                             {
                                 imu_result[i / 2] = (Int32)(UInt16)(recv_data[i] << 8 | recv_data[i + 1]);
                                 if (imu_result[i / 2] >= 32768)
@@ -98,9 +99,12 @@ namespace uart_cam
                             lb_mx.Text = "" + imu_result[6] / 10.0f;
                             lb_my.Text = "" + imu_result[7] / 10.0f;
                             lb_mz.Text = "" + imu_result[8] / 10.0f;
-
+                            lb_yaw.Text = "" + imu_result[9] / 10.0f;
+                            lb_pitch.Text = "" + imu_result[10] / 10.0f;
+                            lb_roll.Text = "" + imu_result[11] / 10.0f;
                             start_flag = false;
                         }
+                        else if (recv_cnt > 25) { start_flag = false; recv_cnt = 0; }
                     }
                 }
                 
@@ -111,7 +115,8 @@ namespace uart_cam
         private void button1_Click(object sender, EventArgs e)
         {
             Trace.Write("Click\n");
-            if (comm.IsOpen) comm.Close();
+            if (comm.IsOpen) this.Invoke((EventHandler)(delegate
+            { comm.Close(); }));
             else
             {
                 comm.PortName = comboPortName.Text;
@@ -135,6 +140,11 @@ namespace uart_cam
                 }
             }
             button1.Text = comm.IsOpen ? "Close" : "Open"; 
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }

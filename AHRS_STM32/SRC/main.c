@@ -2,11 +2,18 @@
 #include "driver/UARTs.h"
 #include "driver/delay.h"
 #include "driver/ioi2c.h"
-
 #include "driver/mpu6050.h"
 #include "driver/hmc5883l.h"
+
+#include "algorithm/imu.h"
+
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
+
+uint32_t system_micrsecond;
+
+#define Upload_Speed  15   //数据上传速度  单位 Hz
+#define upload_time (1000000/Upload_Speed)/2  //计算上传的时间。单位为us
 
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
@@ -24,10 +31,13 @@ void out_int16_t(int16_t * data)
 	ctemp=data[0];
 	UART1_Put_Char(ctemp);
 }
+
+
 int main(void)
 {
   
-  int16_t data[3] = {0,0,0};
+  int16_t data[9] = {0,0,0,0,0,0,0,0,0};
+  int16_t result[3] ={0, 0, 0};
   RCC_Configuration();
   delay_init(72);
   GPIO_Configuration();
@@ -40,32 +50,42 @@ int main(void)
   
   delay_ms(10);
   HMC5883L_Init();
-    
+  delay_ms(10);
+  system_micrsecond=micros();
+  IMU_init();
   while(1)
   {
-    UART1_Put_Char(0xa5);
-    UART1_Put_Char(0x5a);
-    UART1_Put_Char(0x12);
-    UART1_Put_Char(0xa1);
-    
-    Read_MPU6050_ACC(data);
-    out_int16_t(&data[0]);
-    out_int16_t(&data[1]);
-    out_int16_t(&data[2]);
-    
-    Read_MPU6050_GYRO(data);
-    out_int16_t(&data[0]);
-    out_int16_t(&data[1]);
-    out_int16_t(&data[2]);
-    
-    
-    HMC5883L_Read(data);
-    out_int16_t(&data[0]);
-    out_int16_t(&data[1]);
-    out_int16_t(&data[2]);
-    
-    UART1_Put_Char(0xed);
-    
+    if((micros()-system_micrsecond)>upload_time){
+      UART1_Put_Char(0xa5);
+      UART1_Put_Char(0x5a);
+      UART1_Put_Char(0x12);
+      UART1_Put_Char(0xa1);
+      
+      Read_MPU6050_ACC(&data[0]);
+      out_int16_t(&data[0]);
+      out_int16_t(&data[1]);
+      out_int16_t(&data[2]);
+      
+      Read_MPU6050_GYRO(&data[3]);
+      out_int16_t(&data[3]);
+      out_int16_t(&data[4]);
+      out_int16_t(&data[5]);
+      
+      
+      HMC5883L_Read(&data[6]);
+      out_int16_t(&data[6]);
+      out_int16_t(&data[7]);
+      out_int16_t(&data[8]);
+      
+      IMU_getYawPitchRoll((float*)result,(float*)data);
+      out_int16_t(&result[0]);
+      out_int16_t(&result[1]);
+      out_int16_t(&result[2]);
+      
+      UART1_Put_Char(0xed);
+      system_micrsecond=micros();
+    }
+    else{UART1_Put_Char(0);}
     delay_ms(5);
   }
 		     
