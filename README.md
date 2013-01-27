@@ -1,4 +1,4 @@
-MiniQ
+[![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_Logo.png)](http://github.com/billhsu/MiniQ/)
 =====
 
-Mini Quadcopter: Hardware design &amp; Software algorithm
+A mini quadcopter: Hardware design &amp; Software algorithm
