@@ -163,4 +163,4 @@ pip-log.txt
 .DS_Store
 
 #Keil
-ARHS_STM32/Output/*.*
+AHRS_STM32/Output/*.*

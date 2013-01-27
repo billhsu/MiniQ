@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "mpu6050.h"
 #include "rtl.h"
-#include "i2c.h"
+#include "ioi2c.h"
 
 
 uint8_t mpu6050_detect(void)

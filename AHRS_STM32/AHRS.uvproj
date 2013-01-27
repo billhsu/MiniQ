@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>ARHS</TargetName>
+      <TargetName>AHRS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -474,6 +474,16 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\SRC\driver\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>ioi2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SRC\driver\ioi2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpu6050.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SRC\driver\mpu6050.c</FilePath>
             </File>
           </Files>
         </Group>
