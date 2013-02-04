@@ -41,7 +41,7 @@ namespace uart_cam
                 System.IO.Ports.SerialDataReceivedEventHandler(comm_DataReceived);
 
         }
-        
+
 
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -103,9 +103,19 @@ namespace uart_cam
                             lb_my.Text = "" + imu_result[7] / 10.0f;
                             lb_mz.Text = "" + imu_result[8] / 10.0f;
                             lb_yaw.Text = "" + imu_result[9] / 10.0f;
+                            progressBar1.Value = progressBar1.Value + 1;
+                            progressBar1.Value = (int)((imu_result[9] / 10.0f + 180.0f) / 3.6f);
+                            progressBar1.Value = (progressBar1.Value - 1)>0?(progressBar1.Value - 1):0;
                             lb_pitch.Text = "" + imu_result[10] / 10.0f;
+                            progressBar2.Value = progressBar2.Value + 1;
+                            progressBar2.Value = (int)((imu_result[10] / 10.0f + 180.0f) / 3.6f);
+                            progressBar2.Value = progressBar2.Value - 1;
                             lb_roll.Text = "" + imu_result[11] / 10.0f;
-                            lb_hlt.Text = "" + imu_result[12];
+                            progressBar3.Value = progressBar3.Value + 1;
+                            progressBar3.Value = (int)((imu_result[11] / 10.0f + 180.0f) / 3.6f);
+                            progressBar3.Value = (progressBar3.Value - 1) > 0 ? (progressBar3.Value - 1) : 0;
+                            lb_hlt.Text = "" + progressBar1.Value+0*imu_result[12];
+                            
                             }));
                             start_flag = false;
                             recv_cnt = 0;

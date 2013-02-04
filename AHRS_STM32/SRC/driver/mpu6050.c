@@ -38,6 +38,7 @@ void Read_MPU6050_GYRO(int16_t *data)
   read[0]=Single_Read(MPU6050_Addr,GYRO_XOUT_L); 
   read[1]=Single_Read(MPU6050_Addr,GYRO_XOUT_H);
   data[0]=	(read[1]<<8)|read[0];
+  data[0]+=39;
   //data[0]/=16.4; 						   //Read x Gyro
 
   read[2]=Single_Read(MPU6050_Addr,GYRO_YOUT_L);
