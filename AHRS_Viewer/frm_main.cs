@@ -20,9 +20,10 @@ namespace uart_cam
         int recv_cnt = 0;
 
         Bitmap image = null;
-        byte[] recv_data = new byte[25];
+        byte[] recv_data = new byte[26];
         byte[] start_mark={0xa5,0x5a,0x12,0xa1};
-        Int32[] imu_result = new Int32[12];
+        Int32[] imu_result = new Int32[14];
+        int mFPS = 0;
         public mainForm()
         {
             InitializeComponent();
@@ -50,8 +51,7 @@ namespace uart_cam
 
             comm.Read(buf, 0, n);
             //Trace.Write(n);
-            this.Invoke((EventHandler)(delegate
-            {
+            
                 
                 foreach (byte b in buf)
                 {
@@ -67,6 +67,7 @@ namespace uart_cam
                                 recv_cnt = 0;
                                 start_match_pos = 0;
                                 //Trace.WriteLine("Start a frame");
+                                mFPS++;
                             }
                         }
                         else start_match_pos = 0;
@@ -76,9 +77,9 @@ namespace uart_cam
 
                         recv_data[recv_cnt] = b;
                         ++recv_cnt;
-                        if (recv_cnt == 25) 
+                        if (recv_cnt == 26)
                         {
-                            for (int i = 0; i < 24; i+=2)
+                            for (int i = 0; i < 26; i += 2)
                             {
                                 imu_result[i / 2] = (Int32)(UInt16)(recv_data[i] << 8 | recv_data[i + 1]);
                                 if (imu_result[i / 2] >= 32768)
@@ -88,6 +89,8 @@ namespace uart_cam
                                 }
                             }
                             recv_cnt = 0;
+                            this.Invoke((EventHandler)(delegate
+                            {
                             lb_ax.Text = "" + imu_result[0] / 10.0f ;
                             lb_ay.Text = "" + imu_result[1] / 10.0f;
                             lb_az.Text = "" + imu_result[2] / 10.0f;
@@ -102,13 +105,17 @@ namespace uart_cam
                             lb_yaw.Text = "" + imu_result[9] / 10.0f;
                             lb_pitch.Text = "" + imu_result[10] / 10.0f;
                             lb_roll.Text = "" + imu_result[11] / 10.0f;
+                            lb_hlt.Text = "" + imu_result[12];
+                            }));
                             start_flag = false;
+                            recv_cnt = 0;
+                            start_match_pos = 0;
                         }
                         else if (recv_cnt > 25) { start_flag = false; recv_cnt = 0; }
                     }
                 }
                 
-            }));
+            
         }  
 
 
@@ -144,7 +151,19 @@ namespace uart_cam
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
+        }
+
+        private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (comm.IsOpen) this.Invoke((EventHandler)(delegate
+            { comm.Close(); }));
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lb_fps.Text = "FPS: " + mFPS;
+            mFPS = 0;
         }
     }
 }

@@ -7,7 +7,7 @@
 volatile float exInt, eyInt, ezInt;  // 误差积分
 volatile float q0, q1, q2, q3; // 全局四元数
 volatile uint32_t lastUpdate, now; // 采样周期计数 单位 us
-
+extern int16_t _hlt;
 #include <math.h>
 #define M_PI  (float)3.1415926535
 
@@ -145,12 +145,15 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   now = micros();  //读取时间
   if(now<lastUpdate){ //定时器溢出过了。
   halfT =  ((float)(now + (0xffff- lastUpdate)) / 2000000.0f);
+  //_hlt = (now + (0xffff- lastUpdate));
   }
   else	{
   halfT =  ((float)(now - lastUpdate) / 2000000.0f);
+  //_hlt = (now - lastUpdate);
   }
   lastUpdate = now;	//更新时间
-
+  halfT=0.066f;
+  _hlt = (int16_t)gx;
   norm = invSqrt(ax*ax + ay*ay + az*az);       
   ax = ax * norm;
   ay = ay * norm;
@@ -217,7 +220,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
 void IMU_getQ(float * q,float* mygetqval) {
   //将陀螺仪的测量值转成弧度每秒
   //加速度和磁力计保持 ADC值　不需要转换
-  IMU_AHRSupdate(mygetqval[3] * M_PI/180, mygetqval[4] * M_PI/180, mygetqval[5] * M_PI/180,
+  IMU_AHRSupdate(mygetqval[3] * M_PI/5832.0f, mygetqval[4] * M_PI/5832.0f, mygetqval[5] * M_PI/5832.0f,
    mygetqval[0], mygetqval[1], mygetqval[2], mygetqval[6], mygetqval[7], mygetqval[8]);
 
   q[0] = q0; //返回当前值
@@ -233,14 +236,28 @@ void IMU_getQ(float * q,float* mygetqval) {
 输入参数： 将要存放姿态角的数组首地址
 输出参数：没有
 *******************************************************************************/
-void IMU_getYawPitchRoll(float * angles,float *data) {
+void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   float q[4]; //　四元数
+  float f_data[9];
+  int i;
   volatile float gx=0.0, gy=0.0, gz=0.0; //估计重力方向
-  IMU_getQ(q,data); //更新全局四元数
+  for(i=0;i<9;++i)
+  {
+    if(data[i]<0)
+    {
+      data[i]+=32768;
+      data[i]=-data[i];
+      
+    }
+    f_data[i]=(float)data[i];
+    //if(i>=3 && i<6)f_data[i]/=32.8f;
+  }
   
-  angles[0] = -atan2(2 * q[1] * q[2] + 2 * q[0] * q[3], -2 * q[2]*q[2] - 2 * q[3] * q[3] + 1)* 180/M_PI; // yaw
-  angles[1] = -asin(-2 * q[1] * q[3] + 2 * q[0] * q[2])* 180/M_PI; // pitch
-  angles[2] = atan2(2 * q[2] * q[3] + 2 * q[0] * q[1], -2 * q[1] * q[1] - 2 * q[2] * q[2] + 1)* 180/M_PI; // roll
+  IMU_getQ(q,f_data); //更新全局四元数
+  //_hlt = (int16_t)f_data[0];
+  angles[0] = (int16_t)(-atan2(2 * q[1] * q[2] + 2 * q[0] * q[3], -2 * q[2]*q[2] - 2 * q[3] * q[3] + 1)* 1800/M_PI); // yaw
+  angles[1] = (int16_t)(-asin(-2 * q[1] * q[3] + 2 * q[0] * q[2])* 1800/M_PI); // pitch
+  angles[2] = (int16_t)(atan2(2 * q[2] * q[3] + 2 * q[0] * q[1], -2 * q[1] * q[1] - 2 * q[2] * q[2] + 1)* 1800/M_PI); // roll
   //if(angles[0]<0)angles[0]+=360.0f;  //将 -+180度  转成0-360度
 }
 

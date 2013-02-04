@@ -21,7 +21,7 @@ void NVIC_Configuration(void);
 void WWDG_Configuration(void);
 void Delay(u32 nTime);
 void Delayms(vu32 m);
- 
+int16_t _hlt;
 void out_int16_t(int16_t * data)
 {
   char ctemp;
@@ -35,9 +35,9 @@ void out_int16_t(int16_t * data)
 
 int main(void)
 {
-  
-  int16_t data[9] = {0,0,0,0,0,0,0,0,0};
-  int16_t result[3] ={0, 0, 0};
+  int16_t data[9];
+  int16_t result[3];
+  int16_t hlt;
   RCC_Configuration();
   delay_init(72);
   GPIO_Configuration();
@@ -77,15 +77,14 @@ int main(void)
       out_int16_t(&data[7]);
       out_int16_t(&data[8]);
       
-      IMU_getYawPitchRoll((float*)result,(float*)data);
+      IMU_getYawPitchRoll(result,data);
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
-      
-      UART1_Put_Char(0xed);
+      hlt = _hlt;
+      out_int16_t(&hlt);
       system_micrsecond=micros();
     }
-    else{UART1_Put_Char(0);}
     delay_ms(5);
   }
 		     

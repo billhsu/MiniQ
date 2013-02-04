@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboPortName = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -55,6 +56,11 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lb_fps = new System.Windows.Forms.Label();
+            this.lb_hlt = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboPortName
@@ -308,11 +314,46 @@
             this.button2.Text = "3D View";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lb_fps
+            // 
+            this.lb_fps.AutoSize = true;
+            this.lb_fps.Location = new System.Drawing.Point(17, 181);
+            this.lb_fps.Name = "lb_fps";
+            this.lb_fps.Size = new System.Drawing.Size(30, 13);
+            this.lb_fps.TabIndex = 28;
+            this.lb_fps.Text = "FPS:";
+            // 
+            // lb_hlt
+            // 
+            this.lb_hlt.AutoSize = true;
+            this.lb_hlt.Location = new System.Drawing.Point(160, 186);
+            this.lb_hlt.Name = "lb_hlt";
+            this.lb_hlt.Size = new System.Drawing.Size(0, 13);
+            this.lb_hlt.TabIndex = 29;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pictureBox1.Location = new System.Drawing.Point(330, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(170, 170);
+            this.pictureBox1.TabIndex = 30;
+            this.pictureBox1.TabStop = false;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 201);
+            this.ClientSize = new System.Drawing.Size(509, 201);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lb_hlt);
+            this.Controls.Add(this.lb_fps);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
@@ -346,7 +387,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AHRS Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.Load += new System.EventHandler(this.mainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -381,6 +424,10 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lb_fps;
+        private System.Windows.Forms.Label lb_hlt;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
