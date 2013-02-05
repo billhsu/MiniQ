@@ -62,6 +62,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.progressBar3 = new System.Windows.Forms.ProgressBar();
+            this.openGLControl1 = new SharpGL.OpenGLControl();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboPortName
@@ -240,7 +242,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(247, 55);
+            this.label4.Location = new System.Drawing.Point(241, 55);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(20, 20);
             this.label4.TabIndex = 23;
@@ -250,7 +252,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(205, 55);
+            this.label5.Location = new System.Drawing.Point(193, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 20);
             this.label5.TabIndex = 22;
@@ -270,7 +272,7 @@
             // 
             this.lb_pitch.AutoSize = true;
             this.lb_pitch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_pitch.Location = new System.Drawing.Point(247, 81);
+            this.lb_pitch.Location = new System.Drawing.Point(241, 81);
             this.lb_pitch.Name = "lb_pitch";
             this.lb_pitch.Size = new System.Drawing.Size(31, 20);
             this.lb_pitch.TabIndex = 20;
@@ -280,7 +282,7 @@
             // 
             this.lb_yaw.AutoSize = true;
             this.lb_yaw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_yaw.Location = new System.Drawing.Point(205, 81);
+            this.lb_yaw.Location = new System.Drawing.Point(193, 81);
             this.lb_yaw.Name = "lb_yaw";
             this.lb_yaw.Size = new System.Drawing.Size(31, 20);
             this.lb_yaw.TabIndex = 19;
@@ -314,6 +316,7 @@
             this.button2.TabIndex = 27;
             this.button2.Text = "3D View";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // timer1
             // 
@@ -368,11 +371,27 @@
             this.progressBar3.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar3.TabIndex = 32;
             // 
+            // openGLControl1
+            // 
+            this.openGLControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLControl1.BitDepth = 24;
+            this.openGLControl1.DrawFPS = false;
+            this.openGLControl1.FrameRate = 28;
+            this.openGLControl1.Location = new System.Drawing.Point(343, 12);
+            this.openGLControl1.Name = "openGLControl1";
+            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
+            this.openGLControl1.Size = new System.Drawing.Size(399, 314);
+            this.openGLControl1.TabIndex = 33;
+            this.openGLControl1.OpenGLDraw += new System.Windows.Forms.PaintEventHandler(this.openGLControl1_OpenGLDraw);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 341);
+            this.ClientSize = new System.Drawing.Size(754, 339);
+            this.Controls.Add(this.openGLControl1);
             this.Controls.Add(this.progressBar3);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.progressBar1);
@@ -413,6 +432,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.Load += new System.EventHandler(this.mainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -453,6 +473,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.ProgressBar progressBar3;
+        private SharpGL.OpenGLControl openGLControl1;
     }
 }
 
