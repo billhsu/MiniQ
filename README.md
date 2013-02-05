@@ -2,3 +2,5 @@
 =====
 
 MiniQ: A mini quadcopter: Hardware design &amp; Software algorithm
+
+In progress..
