@@ -220,7 +220,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
 void IMU_getQ(float * q,float* mygetqval) {
   //将陀螺仪的测量值转成弧度每秒
   //加速度和磁力计保持 ADC值　不需要转换
-  IMU_AHRSupdate(mygetqval[3] * M_PI/5832.0f, mygetqval[4] * M_PI/5832.0f, mygetqval[5] * M_PI/5832.0f,
+  IMU_AHRSupdate(mygetqval[3] * M_PI/360.0f, mygetqval[4] * M_PI/360.0f, mygetqval[5] * M_PI/360.0f,
    mygetqval[0], mygetqval[1], mygetqval[2], mygetqval[6], mygetqval[7], mygetqval[8]);
 
   q[0] = q0; //返回当前值

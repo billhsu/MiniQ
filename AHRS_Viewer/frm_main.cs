@@ -25,7 +25,10 @@ namespace uart_cam
         byte[] start_mark={0xa5,0x5a,0x12,0xa1};
         Int32[] imu_result = new Int32[14];
         int mFPS = 0;
-        float rtri = 0;
+
+        float ax, ay, az, gx, gy, gz, mx, my, mz, yaw, pitch, roll;
+
+
         Texture texture = new Texture();
         float rx, ry, rz;
         public mainForm()
@@ -38,7 +41,8 @@ namespace uart_cam
             gl.Enable(OpenGL.GL_TEXTURE_2D);
 
             //  Create our texture object from a file. This creates the texture for OpenGL.
-            texture.Create(gl, "E:/Projects/MiniQ/AHRS_Viewer/Crate.bmp");
+            Trace.WriteLine(System.IO.Directory.GetCurrentDirectory());
+            texture.Create(gl, "Crate.bmp");
         }
         private void openGLControl1_OpenGLDraw(object sender, PaintEventArgs e)
         {
@@ -109,6 +113,12 @@ namespace uart_cam
 
         }
 
+        int setProgressValue(int value)
+        {
+            if (value > 100) return 100;
+            else if (value < 0) return 0;
+            else return value;
+        }
 
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -135,7 +145,7 @@ namespace uart_cam
                                 start_flag = true; 
                                 recv_cnt = 0;
                                 start_match_pos = 0;
-                                //Trace.WriteLine("Start a frame");
+                                Trace.WriteLine("Start a frame");
                                 mFPS++;
                             }
                         }
@@ -158,38 +168,53 @@ namespace uart_cam
                                 }
                             }
                             recv_cnt = 0;
-                            
-                            lb_ax.Text = "" + imu_result[0] / 10.0f ;
-                            lb_ay.Text = "" + imu_result[1] / 10.0f;
-                            lb_az.Text = "" + imu_result[2] / 10.0f;
+                            ax = imu_result[0] / 10.0f;
+                            ay = imu_result[1] / 10.0f;
+                            az = imu_result[2] / 10.0f;
 
-                            lb_gx.Text = "" + imu_result[3] / 10.0f;
-                            lb_gy.Text = "" + imu_result[4] / 10.0f;
-                            lb_gz.Text = "" + imu_result[5] / 10.0f;
+                            gx = imu_result[3] / 10.0f;
+                            gy = imu_result[4] / 10.0f;
+                            gz = imu_result[5] / 10.0f;
 
-                            lb_mx.Text = "" + imu_result[6] / 10.0f;
-                            lb_my.Text = "" + imu_result[7] / 10.0f;
-                            lb_mz.Text = "" + imu_result[8] / 10.0f;
-                            lb_yaw.Text = "" + imu_result[9] / 10.0f;
-                            progressBar1.Value = progressBar1.Value + 1;
-                            progressBar1.Value = (int)((imu_result[9] / 10.0f + 180.0f) / 3.6f);
-                            progressBar1.Value = (progressBar1.Value - 1)>0?(progressBar1.Value - 1):0;
-                            lb_pitch.Text = "" + imu_result[10] / 10.0f;
-                            progressBar2.Value = progressBar2.Value + 1;
-                            progressBar2.Value = (int)((imu_result[10] / 10.0f + 180.0f) / 3.6f);
-                            progressBar2.Value = progressBar2.Value - 1;
-                            lb_roll.Text = "" + imu_result[11] / 10.0f;
-                            progressBar3.Value = progressBar3.Value + 1;
-                            progressBar3.Value = (int)((imu_result[11] / 10.0f + 180.0f) / 3.6f);
-                            progressBar3.Value = (progressBar3.Value - 1) > 0 ? (progressBar3.Value - 1) : 0;
-                            lb_hlt.Text = "" + progressBar1.Value+0*imu_result[12];
+                            mx = imu_result[6] / 10.0f;
+                            my = imu_result[7] / 10.0f;
+                            mz = imu_result[8] / 10.0f;
 
-                            ry = (imu_result[9]) / 10.0f;
-                            rz = -(imu_result[10]) / 10.0f;
-                            rx = (imu_result[11]) / 10.0f;
+                            yaw = imu_result[9] / 10.0f;
+                            pitch = imu_result[10] / 10.0f;
+                            roll = imu_result[11] / 10.0f;
+
+                            lb_ax.Text = "" + ax;
+                            lb_ay.Text = "" + ay;
+                            lb_az.Text = "" + az;
+
+                            lb_gx.Text = "" + gx;
+                            lb_gy.Text = "" + gy;
+                            lb_gz.Text = "" + gz;
+
+                            lb_mx.Text = "" + mx;
+                            lb_my.Text = "" + my;
+                            lb_mz.Text = "" + mz;
+                            lb_yaw.Text = "" + yaw;
+                            progressBar1.Value = setProgressValue(progressBar1.Value + 1);
+                            progressBar1.Value = setProgressValue((progressBar1.Value - 1));
+                            progressBar1.Value = setProgressValue((int)((yaw + 180.0f) / 3.6f));
+                            lb_pitch.Text = "" + pitch;
+                            progressBar2.Value = setProgressValue(progressBar2.Value + 1);
+                            progressBar2.Value = setProgressValue(progressBar2.Value - 1);
+                            progressBar2.Value = setProgressValue((int)((pitch + 180.0f) / 3.6f));
+                            lb_roll.Text = "" + roll;
+                            progressBar3.Value = setProgressValue(progressBar3.Value + 1);
+                            progressBar3.Value = setProgressValue((progressBar3.Value - 1));
+                            progressBar3.Value = setProgressValue((int)((roll + 180.0f) / 3.6f));
+
+                            ry = -yaw;
+                            rz = -pitch;
+                            rx = roll;
                             start_flag = false;
                             recv_cnt = 0;
                             start_match_pos = 0;
+                            Trace.WriteLine("End frame");
                         }
                         else if (recv_cnt > 25) { start_flag = false; recv_cnt = 0; }
                     }
@@ -231,13 +256,12 @@ namespace uart_cam
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            
         }
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (comm.IsOpen) this.Invoke((EventHandler)(delegate
-            { comm.Close(); }));
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -248,7 +272,11 @@ namespace uart_cam
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
+            string[] ports = SerialPort.GetPortNames();
+            Array.Sort(ports);
+            comboPortName.Items.Clear();
+            comboPortName.Items.AddRange(ports);
+            comboPortName.SelectedIndex = comboPortName.Items.Count > 0 ? 0 : -1;
         }
     }
 }
