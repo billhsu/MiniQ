@@ -381,11 +381,12 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.openGLControl1.BitDepth = 24;
             this.openGLControl1.DrawFPS = false;
+            this.openGLControl1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.openGLControl1.FrameRate = 28;
             this.openGLControl1.Location = new System.Drawing.Point(343, 12);
             this.openGLControl1.Name = "openGLControl1";
             this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
-            this.openGLControl1.Size = new System.Drawing.Size(399, 314);
+            this.openGLControl1.Size = new System.Drawing.Size(399, 319);
             this.openGLControl1.TabIndex = 33;
             this.openGLControl1.OpenGLDraw += new System.Windows.Forms.PaintEventHandler(this.openGLControl1_OpenGLDraw);
             // 
@@ -423,7 +424,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 339);
+            this.ClientSize = new System.Drawing.Size(754, 344);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);

@@ -1,27 +1,28 @@
-#include "stm32f10x_lib.h"
+#include <stdint.h>
+#include "stm32f10x.h"
 #include "driver/UARTs.h"
 #include "driver/delay.h"
 #include "driver/ioi2c.h"
 #include "driver/mpu6050.h"
 #include "driver/hmc5883l.h"
-
+#include "driver/timer.h"
 #include "algorithm/imu.h"
 
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-uint32_t system_micrsecond;
-
-#define Upload_Speed  15   //数据上传速度  单位 Hz
+#define Upload_Speed  20   //数据上传速度  单位 Hz
 #define upload_time (1000000/Upload_Speed)/2  //计算上传的时间。单位为us
 
-void RCC_Configuration(void);
+
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void WWDG_Configuration(void);
-void Delay(u32 nTime);
-void Delayms(vu32 m);
+
+uint32_t system_microsec;
+
 int16_t _hlt;
+
 void out_int16_t(int16_t * data)
 {
   char ctemp;
@@ -38,7 +39,8 @@ int main(void)
   int16_t data[9];
   int16_t result[3];
   int16_t hlt;
-  RCC_Configuration();
+
+  SystemInit();
   delay_init(72);
   GPIO_Configuration();
   Initial_UART1(115200L);
@@ -51,11 +53,17 @@ int main(void)
   delay_ms(10);
   HMC5883L_Init();
   delay_ms(10);
-  system_micrsecond=micros();
+
   IMU_init();
+  
+  Initial_Timer3();
+  system_microsec=micros();
+
+  
   while(1)
   {
-    if((micros()-system_micrsecond)>upload_time){
+    if(micros()-system_microsec>upload_time)
+    {
       UART1_Put_Char(0xa5);
       UART1_Put_Char(0x5a);
       UART1_Put_Char(0x12);
@@ -83,60 +91,16 @@ int main(void)
       out_int16_t(&result[2]);
       hlt = _hlt;
       out_int16_t(&hlt);
-      system_micrsecond=micros();
+      system_microsec = micros();
     }
-    delay_ms(5);
+
+    //delay_ms(5);
+
   }
 		     
 }
 
-void RCC_Configuration(void)
-{   
-  /* RCC system reset(for debug purpose) */
-  RCC_DeInit();
 
-  /* Enable HSE */
-  RCC_HSEConfig(RCC_HSE_ON);
-
-  /* Wait till HSE is ready */
-  HSEStartUpStatus = RCC_WaitForHSEStartUp();
-
-  if(HSEStartUpStatus == SUCCESS)
-  {
-    /* HCLK = SYSCLK */
-    RCC_HCLKConfig(RCC_SYSCLK_Div1); 
-  
-    /* PCLK2 = HCLK */
-    RCC_PCLK2Config(RCC_HCLK_Div1); 
-
-    /* PCLK1 = HCLK/2 */
-    RCC_PCLK1Config(RCC_HCLK_Div2);
-
-    /* Flash 2 wait state */
-    FLASH_SetLatency(FLASH_Latency_2);
-    /* Enable Prefetch Buffer */
-    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
-
-    /* PLLCLK = 8MHz * 9 = 72 MHz */
-    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
-
-    /* Enable PLL */ 
-    RCC_PLLCmd(ENABLE);
-
-    /* Wait till PLL is ready */
-    while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET)
-    {
-    }
-
-    /* Select PLL as system clock source */
-    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
-
-    /* Wait till PLL is used as system clock source */
-    while(RCC_GetSYSCLKSource() != 0x08)
-    {
-    }
-  }  
-}
 
 
 void GPIO_Configuration(void)
@@ -179,19 +143,13 @@ void GPIO_Configuration(void)
 
 void NVIC_Configuration(void)
 { 
-  NVIC_InitTypeDef NVIC_InitStructure;  
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0); 
- 
-  NVIC_InitStructure.NVIC_IRQChannel = WWDG_IRQChannel;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_Init(&NVIC_InitStructure);
-
-
-  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure); 
+  NVIC_InitTypeDef NVIC_InitStructure; 
+          /* Enable the USART1 Interrupt */
+        NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 7;
+        NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+        NVIC_Init(&NVIC_InitStructure);
 
 }
 

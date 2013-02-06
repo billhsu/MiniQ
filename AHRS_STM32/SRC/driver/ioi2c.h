@@ -5,7 +5,7 @@
  extern "C" {
 #endif 
 
-#include "stm32f10x_lib.h"
+#include "stm32f10x.h"
 #include <stdbool.h>
 
 #define SCL_H         GPIOB->BSRR = GPIO_Pin_6

@@ -8,7 +8,7 @@ int16_t abs (int16_t i)
 }
 void Init_MPU6050(void)
 {
-  Single_Write(MPU6050_Addr,PWR_MGMT_1, 0x00);	//½â³ýÐÝÃß×´Ì¬
+  Single_Write(MPU6050_Addr,PWR_MGMT_1, 0x00);
 	Single_Write(MPU6050_Addr,SMPLRT_DIV, 0x07);
 	Single_Write(MPU6050_Addr,CONFIG, 0x06);
 	Single_Write(MPU6050_Addr,GYRO_CONFIG, 0x18);
@@ -43,20 +43,20 @@ void Read_MPU6050_GYRO(int16_t *data)
   read[1]=Single_Read(MPU6050_Addr,GYRO_XOUT_H);
   data[0]=	(read[1]<<8)|read[0];
   //data[0]+=39;
-  //if(abs(data[0])<40)data[0]=0;
+  if(abs(data[0])<40)data[0]=0;
   data[0]/=16.4; 						   //Read x Gyro
 
   read[2]=Single_Read(MPU6050_Addr,GYRO_YOUT_L);
   read[3]=Single_Read(MPU6050_Addr,GYRO_YOUT_H);
   data[1]=	(read[3]<<8)|read[2];
   //data[1]+=10;
-  //if(abs(data[1])<40)data[1]=0;
+  if(abs(data[1])<40)data[1]=0;
   data[1]/=16.4; 						   //Read y Gyro
    
   read[4]=Single_Read(MPU6050_Addr,GYRO_ZOUT_L);
   read[5]=Single_Read(MPU6050_Addr,GYRO_ZOUT_H);
   data[2]=	(read[5]<<8)|read[4];
   //data[2]+=22;
-  //if(abs(data[2])<40)data[2]=0;
+  if(abs(data[2])<40)data[2]=0;
   data[2]/=16.4; 					       //Read z Gyro
 }
