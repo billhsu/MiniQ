@@ -62,7 +62,7 @@ int main(void)
   
   while(1)
   {
-    if(micros()-system_microsec>upload_time)
+    //if(micros()-system_microsec>upload_time)
     {
       UART1_Put_Char(0xa5);
       UART1_Put_Char(0x5a);
