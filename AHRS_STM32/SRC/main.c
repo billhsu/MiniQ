@@ -11,8 +11,8 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Upload_Speed  20   //数据上传速度  单位 Hz
-#define upload_time (1000000/Upload_Speed)/2  //计算上传的时间。单位为us
+#define Upload_Speed  40   //数据上传速度  单位 Hz
+#define upload_time (1000000/Upload_Speed)  //计算上传的时间。单位为us
 
 
 void GPIO_Configuration(void);
@@ -37,8 +37,10 @@ void out_int16_t(int16_t * data)
 int main(void)
 {
   int16_t data[9];
+  int16_t datasum[3];
   int16_t result[3];
   int16_t hlt;
+  int i=0;
 
   SystemInit();
   delay_init(72);
@@ -62,39 +64,45 @@ int main(void)
   
   while(1)
   {
+    delay_ms(10);
+    
+    //hlt++;
     //if(micros()-system_microsec>upload_time)
     {
+    
+      Read_MPU6050_ACC(&data[0]);
+      Read_MPU6050_GYRO(&data[3]);
+      HMC5883L_Read(&data[6]);
+      IMU_getYawPitchRoll(result,data);
+      
       UART1_Put_Char(0xa5);
       UART1_Put_Char(0x5a);
       UART1_Put_Char(0x12);
       UART1_Put_Char(0xa1);
-      
-      Read_MPU6050_ACC(&data[0]);
+
       out_int16_t(&data[0]);
       out_int16_t(&data[1]);
       out_int16_t(&data[2]);
-      
-      Read_MPU6050_GYRO(&data[3]);
+
       out_int16_t(&data[3]);
       out_int16_t(&data[4]);
       out_int16_t(&data[5]);
-      
-      
-      HMC5883L_Read(&data[6]);
+
       out_int16_t(&data[6]);
       out_int16_t(&data[7]);
       out_int16_t(&data[8]);
       
-      IMU_getYawPitchRoll(result,data);
+      
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
-      hlt = _hlt;
-      out_int16_t(&hlt);
+      
+      out_int16_t(&_hlt);
       system_microsec = micros();
+      hlt = 0;
     }
 
-    //delay_ms(5);
+    
 
   }
 		     

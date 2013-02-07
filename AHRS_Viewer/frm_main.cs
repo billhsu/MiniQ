@@ -19,12 +19,15 @@ namespace uart_cam
         bool start_flag = false;
         int start_match_pos = 0;
         int recv_cnt = 0;
-        bool closing = false;
+
         Bitmap image = null;
         byte[] recv_data = new byte[26];
         byte[] start_mark={0xa5,0x5a,0x12,0xa1};
         Int32[] imu_result = new Int32[14];
         int mFPS = 0;
+
+        private bool Listening = false;
+        private bool Closing = false;
 
         float ax, ay, az, gx, gy, gz, mx, my, mz, yaw, pitch, roll;
 
@@ -129,7 +132,9 @@ namespace uart_cam
 
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (closing) return;
+            if (Closing) return;
+            //while (Listening) Application.DoEvents();
+            Listening = true;
             int n = comm.BytesToRead;
             if (n == 0) return;
             
@@ -188,10 +193,9 @@ namespace uart_cam
                         yaw = imu_result[9] / 10.0f;
                         pitch = imu_result[10] / 10.0f;
                         roll = imu_result[11] / 10.0f;
-                        try
+                        this.Invoke((EventHandler)(delegate
                         {
-                            this.Invoke((EventHandler)(delegate
-                            {
+                            if (Closing) return;
                                 lb_ax.Text = "" + ax;
                                 lb_ay.Text = "" + ay;
                                 lb_az.Text = "" + az;
@@ -210,20 +214,16 @@ namespace uart_cam
                                 lb_pitch.Text = "" + pitch;
                                 progressBar2.Value = setProgressValue(progressBar2.Value + 1);
                                 progressBar2.Value = setProgressValue(progressBar2.Value - 1);
-                                progressBar2.Value = setProgressValue((int)((pitch + 180.0f) / 3.6f));
+                                progressBar2.Value = setProgressValue((int)((pitch +90.0f) / 1.8f));
                                 lb_roll.Text = "" + roll;
                                 progressBar3.Value = setProgressValue(progressBar3.Value + 1);
                                 progressBar3.Value = setProgressValue((progressBar3.Value - 1));
-                                progressBar3.Value = setProgressValue((int)((roll + 180.0f) / 3.6f));
+                                progressBar3.Value = setProgressValue((int)((roll + 90.0f) / 1.8f));
 
                                 lb_hlt.Text = "" + imu_result[12];
                                 //Trace.WriteLine(""+gz);
-                            }));
-                        }
-                        catch(Exception ex)
-                        {
-                            Trace.WriteLine(ex.ToString());
-                        }
+                        }));
+                        
                         ry = -yaw;
                         rz = pitch;
                         rx = roll;
@@ -235,16 +235,21 @@ namespace uart_cam
                     else if (recv_cnt > 25) { start_flag = false; recv_cnt = 0; }
                 }
             }
-            
-            
+            Listening = false;
+                            
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
             Trace.Write("Click\n");
-            if (comm.IsOpen) this.Invoke((EventHandler)(delegate
-            { comm.Close(); }));
+            if (comm.IsOpen)
+            {
+                Closing = true;
+                //while (Listening) Application.DoEvents();
+                comm.Close();
+                Closing = false;
+            }
             else
             {
                 comm.PortName = comboPortName.Text;
@@ -259,7 +264,7 @@ namespace uart_cam
                 {
                     comm.Open();
                     comm.DataReceived += new
-                System.IO.Ports.SerialDataReceivedEventHandler(comm_DataReceived);
+                        System.IO.Ports.SerialDataReceivedEventHandler(comm_DataReceived);
                 }
                 catch (Exception ex)
                 {
@@ -277,11 +282,12 @@ namespace uart_cam
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            closing = true;
+            Closing = true;
             try
             {
-                this.Invoke((EventHandler)(delegate
-                { comm.Close(); }));
+                while (Listening) Application.DoEvents();
+                comm.Close();
+                Closing = false;
             }
             catch (System.Exception ex)
             {

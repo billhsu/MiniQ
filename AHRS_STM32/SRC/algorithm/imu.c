@@ -11,7 +11,7 @@ volatile float q0, q1, q2, q3;
 volatile uint32_t lastUpdate, now;
 extern int16_t _hlt;
 #include <math.h>
-#define M_PI  3.1416f
+#define M_PI  (float)3.1415926
 
 
 float invSqrt(float x) {
@@ -39,8 +39,8 @@ void IMU_init(void)
 }
 
 
-#define Kp 2.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
-#define Ki 0.005f   // integral gain governs rate of convergence of gyroscope biases
+#define Kp 3.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
+#define Ki 0.53f   // integral gain governs rate of convergence of gyroscope biases
 
 void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
   float norm;
@@ -58,16 +58,16 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   float q1q1 = q1*q1;
   float q1q2 = q1*q2;
   float q1q3 = q1*q3;
-  float q2q2 = q2*q2;   
+  float q2q2 = q2*q2;
   float q2q3 = q2*q3;
-  float q3q3 = q3*q3;          
+  float q3q3 = q3*q3;
   
   
 
   now = micros();
-  halfT =  ((float)(now - lastUpdate) / 2000000.0f);
+  halfT =  ((float)(now - lastUpdate) / 1000000.0f);
   lastUpdate = now;
-  halfT = 0.025;
+  //halfT = 0.0125;
   norm = sqrt(ax*ax + ay*ay + az*az);       
   ax = ax / norm;
   ay = ay / norm;
@@ -81,9 +81,9 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   // compute reference direction of flux
   hx = 2*mx*(0.5 - q2q2 - q3q3) + 2*my*(q1q2 - q0q3) + 2*mz*(q1q3 + q0q2);
   hy = 2*mx*(q1q2 + q0q3) + 2*my*(0.5 - q1q1 - q3q3) + 2*mz*(q2q3 - q0q1);
-  hz = 2*mx*(q1q3 - q0q2) + 2*my*(q2q3 + q0q1) + 2*mz*(0.5 - q1q1 - q2q2);         
+  hz = 2*mx*(q1q3 - q0q2) + 2*my*(q2q3 + q0q1) + 2*mz*(0.5 - q1q1 - q2q2);      
   bx = sqrt((hx*hx) + (hy*hy));
-  bz = hz;     
+  bz = hz;
   
   // estimated direction of gravity and flux (v and w)
   vx = 2*(q1q3 - q0q2);
@@ -97,17 +97,17 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   ex = (ay*vz - az*vy) + (my*wz - mz*wy);
   ey = (az*vx - ax*vz) + (mz*wx - mx*wz);
   ez = (ax*vy - ay*vx) + (mx*wy - my*wx);
-  
+  if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
-  exInt = exInt + ex*Ki;
-  eyInt = eyInt + ey*Ki;
-  ezInt = ezInt + ez*Ki;
-  
+  exInt = exInt + ex*Ki * halfT;;
+  eyInt = eyInt + ey*Ki * halfT;;
+  ezInt = ezInt + ez*Ki * halfT;;
+
   // adjusted gyroscope measurements
   gx = gx + Kp*ex + exInt;
   gy = gy + Kp*ey + eyInt;
   gz = gz + Kp*ez + ezInt;
-  
+  }
   // integrate quaternion rate and normalise
   iq0 = (-q1*gx - q2*gy - q3*gz)*halfT;
   iq1 = (q0*gx + q2*gz - q3*gy)*halfT;
@@ -131,7 +131,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
 
 
 void IMU_getQ(float * q,float* mygetqval) {
-  IMU_AHRSupdate(mygetqval[3] * M_PI/360.0f, mygetqval[4] * M_PI/360.0f, mygetqval[5] * M_PI/360.0f,
+  IMU_AHRSupdate(mygetqval[3] * M_PI/180, mygetqval[4] * M_PI/180, mygetqval[5] * M_PI/180,
    mygetqval[0], mygetqval[1], mygetqval[2], mygetqval[6], mygetqval[7], mygetqval[8]);
 
   q[0] = q0;
@@ -148,13 +148,14 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   volatile float gx=0.0, gy=0.0, gz=0.0;
   for(i=0;i<9;++i)
   {
-    if(data[i]<0)
+    /*if(data[i]<0)
     {
       data[i]+=32768;
       data[i]=-data[i];
       
-    }
+    }*/
     f_data[i]=(float)data[i];
+    if(i>=3 && i<6)f_data[i]/=32.8f;
   }
   
   IMU_getQ(q,f_data);
@@ -174,5 +175,6 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   angles[0] = (int16_t)(atan2(2 * q[1] * q[2] - 2 * q[0] * q[3], 2 * q[0]*q[0] + 2 * q[1] * q[1] - 1) * 1800/M_PI);
   angles[1] = (int16_t)(atan(gx / sqrt(gy*gy + gz*gz))  * 1800/M_PI);
   angles[2] = (int16_t)(atan(gy / sqrt(gx*gx + gz*gz))  * 1800/M_PI);
+
 }
 

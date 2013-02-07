@@ -66,13 +66,17 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.openGLControl2 = new SharpGL.OpenGLControl();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl2)).BeginInit();
             this.SuspendLayout();
             // 
             // comboPortName
             // 
             this.comboPortName.FormattingEnabled = true;
-            this.comboPortName.Location = new System.Drawing.Point(75, 158);
+            this.comboPortName.Location = new System.Drawing.Point(75, 405);
             this.comboPortName.Name = "comboPortName";
             this.comboPortName.Size = new System.Drawing.Size(79, 21);
             this.comboPortName.TabIndex = 1;
@@ -80,7 +84,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 161);
+            this.label1.Location = new System.Drawing.Point(14, 408);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 2;
@@ -88,7 +92,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(160, 150);
+            this.button1.Location = new System.Drawing.Point(160, 397);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(79, 34);
             this.button1.TabIndex = 3;
@@ -313,7 +317,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(245, 150);
+            this.button2.Location = new System.Drawing.Point(245, 397);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(79, 34);
             this.button2.TabIndex = 27;
@@ -330,7 +334,7 @@
             // lb_fps
             // 
             this.lb_fps.AutoSize = true;
-            this.lb_fps.Location = new System.Drawing.Point(17, 181);
+            this.lb_fps.Location = new System.Drawing.Point(17, 428);
             this.lb_fps.Name = "lb_fps";
             this.lb_fps.Size = new System.Drawing.Size(30, 13);
             this.lb_fps.TabIndex = 28;
@@ -339,7 +343,7 @@
             // lb_hlt
             // 
             this.lb_hlt.AutoSize = true;
-            this.lb_hlt.Location = new System.Drawing.Point(160, 186);
+            this.lb_hlt.Location = new System.Drawing.Point(160, 433);
             this.lb_hlt.Name = "lb_hlt";
             this.lb_hlt.Size = new System.Drawing.Size(0, 13);
             this.lb_hlt.TabIndex = 29;
@@ -382,11 +386,11 @@
             this.openGLControl1.BitDepth = 24;
             this.openGLControl1.DrawFPS = false;
             this.openGLControl1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.openGLControl1.FrameRate = 28;
-            this.openGLControl1.Location = new System.Drawing.Point(343, 12);
+            this.openGLControl1.FrameRate = 60;
+            this.openGLControl1.Location = new System.Drawing.Point(347, 25);
             this.openGLControl1.Name = "openGLControl1";
             this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
-            this.openGLControl1.Size = new System.Drawing.Size(399, 310);
+            this.openGLControl1.Size = new System.Drawing.Size(395, 194);
             this.openGLControl1.TabIndex = 33;
             this.openGLControl1.OpenGLDraw += new System.Windows.Forms.PaintEventHandler(this.openGLControl1_OpenGLDraw);
             // 
@@ -420,11 +424,47 @@
             this.label9.TabIndex = 36;
             this.label9.Text = "Roll";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(344, 9);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(64, 13);
+            this.label16.TabIndex = 38;
+            this.label16.Text = "MCU Result";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(344, 225);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(54, 13);
+            this.label17.TabIndex = 40;
+            this.label17.Text = "PC Result";
+            // 
+            // openGLControl2
+            // 
+            this.openGLControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLControl2.BitDepth = 24;
+            this.openGLControl2.DrawFPS = false;
+            this.openGLControl2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.openGLControl2.FrameRate = 60;
+            this.openGLControl2.Location = new System.Drawing.Point(347, 241);
+            this.openGLControl2.Name = "openGLControl2";
+            this.openGLControl2.RenderContextType = SharpGL.RenderContextType.DIBSection;
+            this.openGLControl2.Size = new System.Drawing.Size(395, 194);
+            this.openGLControl2.TabIndex = 39;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 335);
+            this.ClientSize = new System.Drawing.Size(754, 447);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.openGLControl2);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -470,6 +510,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.Load += new System.EventHandler(this.mainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,6 +555,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private SharpGL.OpenGLControl openGLControl2;
     }
 }
 
