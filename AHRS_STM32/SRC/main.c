@@ -37,9 +37,8 @@ void out_int16_t(int16_t * data)
 int main(void)
 {
   int16_t data[9];
-  int16_t datasum[3];
+
   int16_t result[3];
-  int16_t hlt;
   int i=0;
 
   SystemInit();
@@ -64,9 +63,8 @@ int main(void)
   
   while(1)
   {
-    delay_ms(10);
-    
-    //hlt++;
+    //delay_ms(10);
+
     //if(micros()-system_microsec>upload_time)
     {
     
@@ -98,8 +96,7 @@ int main(void)
       out_int16_t(&result[2]);
       
       out_int16_t(&_hlt);
-      system_microsec = micros();
-      hlt = 0;
+      //system_microsec = micros();
     }
 
     

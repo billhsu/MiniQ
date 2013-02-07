@@ -39,7 +39,7 @@ void IMU_init(void)
 }
 
 
-#define Kp 3.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
+#define Kp 1.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
 #define Ki 0.53f   // integral gain governs rate of convergence of gyroscope biases
 
 void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
@@ -97,11 +97,13 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   ex = (ay*vz - az*vy) + (my*wz - mz*wy);
   ey = (az*vx - ax*vz) + (mz*wx - mx*wz);
   ez = (ax*vy - ay*vx) + (mx*wy - my*wx);
+  _hlt = (int16_t)ex*100.0f;
   if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
-  exInt = exInt + ex*Ki * halfT;;
-  eyInt = eyInt + ey*Ki * halfT;;
-  ezInt = ezInt + ez*Ki * halfT;;
+  exInt = exInt + ex*Ki * halfT;
+  eyInt = eyInt + ey*Ki * halfT;
+  ezInt = ezInt + ez*Ki * halfT;
+  
 
   // adjusted gyroscope measurements
   gx = gx + Kp*ex + exInt;
@@ -155,7 +157,9 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
       
     }*/
     f_data[i]=(float)data[i];
-    if(i>=3 && i<6)f_data[i]/=32.8f;
+    if(i<3) data[i]/=16.4;
+    else if(i<6)f_data[i]/=32.8f;
+    
   }
   
   IMU_getQ(q,f_data);

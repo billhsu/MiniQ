@@ -59,10 +59,10 @@ namespace uart_cam
             gl.Translate(0.0f, 0.0f, -5.0f);
 
             //gl.Rotate(rx, ry, rz);
-            gl.Rotate(pitch, 0.0f, 0.0f, 1.0f);
             gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
+            gl.Rotate(-pitch, 0.0f, 0.0f, 1.0f);
             gl.Rotate(-roll, 1.0f, 0.0f, 0.0f);
-
+            
             gl.Scale(1.0f, 0.5f, 2.0f);
             //  Bind the texture.
             texture.Bind(gl);
