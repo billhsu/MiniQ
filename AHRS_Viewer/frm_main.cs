@@ -59,7 +59,7 @@ namespace uart_cam
             gl.Translate(0.0f, 0.0f, -5.0f);
 
             //gl.Rotate(rx, ry, rz);
-            //gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
+            gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
             gl.Rotate(-pitch, 0.0f, 0.0f, 1.0f);
             gl.Rotate(-roll, 1.0f, 0.0f, 0.0f);
             

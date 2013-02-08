@@ -96,7 +96,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   // error is sum of cross product between reference direction of fields and direction measured by sensors
   ex = (ay*vz - az*vy) + 0*(my*wz - mz*wy);
   ey = (az*vx - ax*vz) + 0*(mz*wx - mx*wz);
-  ez = (ax*vy - ay*vx) + 0*(mx*wy - my*wx);
+  ez = (ax*vy - ay*vx) + 1*(mx*wy - my*wx);
   _hlt = (int16_t)ex*100.0f;
   if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
