@@ -67,6 +67,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.cB_PC = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -430,11 +431,22 @@
             this.label16.TabIndex = 38;
             this.label16.Text = "3D View";
             // 
+            // cB_PC
+            // 
+            this.cB_PC.AutoSize = true;
+            this.cB_PC.Location = new System.Drawing.Point(17, 258);
+            this.cB_PC.Name = "cB_PC";
+            this.cB_PC.Size = new System.Drawing.Size(85, 17);
+            this.cB_PC.TabIndex = 39;
+            this.cB_PC.Text = "PC Compute";
+            this.cB_PC.UseVisualStyleBackColor = true;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 342);
+            this.Controls.Add(this.cB_PC);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -526,6 +538,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox cB_PC;
     }
 }
 

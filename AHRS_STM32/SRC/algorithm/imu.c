@@ -68,15 +68,15 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   halfT =  ((float)(now - lastUpdate) / 1000000.0f);
   lastUpdate = now;
   //halfT = 0.0125;
-  norm = sqrt(ax*ax + ay*ay + az*az);       
-  ax = ax / norm;
-  ay = ay / norm;
-  az = az / norm;
+  norm = invSqrt(ax*ax + ay*ay + az*az);       
+  ax = ax * norm;
+  ay = ay * norm;
+  az = az * norm;
   
-  norm = sqrt(mx*mx + my*my + mz*mz);          
-  mx = mx / norm;
-  my = my / norm;
-  mz = mz / norm;
+  norm = invSqrt(mx*mx + my*my + mz*mz);          
+  mx = mx * norm;
+  my = my * norm;
+  mz = mz * norm;
   
   // compute reference direction of flux
   hx = 2*mx*(0.5 - q2q2 - q3q3) + 2*my*(q1q2 - q0q3) + 2*mz*(q1q3 + q0q2);
@@ -94,9 +94,9 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   wz = 2*bx*(q0q2 + q1q3) + 2*bz*(0.5 - q1q1 - q2q2);  
   
   // error is sum of cross product between reference direction of fields and direction measured by sensors
-  ex = (ay*vz - az*vy) + (my*wz - mz*wy);
-  ey = (az*vx - ax*vz) + (mz*wx - mx*wz);
-  ez = (ax*vy - ay*vx) + (mx*wy - my*wx);
+  ex = (ay*vz - az*vy) + 0*(my*wz - mz*wy);
+  ey = (az*vx - ax*vz) + 0*(mz*wx - mx*wz);
+  ez = (ax*vy - ay*vx) + 0*(mx*wy - my*wx);
   _hlt = (int16_t)ex*100.0f;
   if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
@@ -123,11 +123,11 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   
   // normalise quaternion
   
-  norm = sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
-  q0 = q0 / norm;
-  q1 = q1 / norm;
-  q2 = q2 / norm;
-  q3 = q3 / norm;
+  norm = invSqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
+  q0 = q0 * norm;
+  q1 = q1 * norm;
+  q2 = q2 * norm;
+  q3 = q3 * norm;
   
 }
 

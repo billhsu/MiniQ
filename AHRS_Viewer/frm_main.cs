@@ -59,7 +59,7 @@ namespace uart_cam
             gl.Translate(0.0f, 0.0f, -5.0f);
 
             //gl.Rotate(rx, ry, rz);
-            gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
+            //gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
             gl.Rotate(-pitch, 0.0f, 0.0f, 1.0f);
             gl.Rotate(-roll, 1.0f, 0.0f, 0.0f);
             
@@ -193,6 +193,13 @@ namespace uart_cam
                         yaw = imu_result[9] / 10.0f;
                         pitch = imu_result[10] / 10.0f;
                         roll = imu_result[11] / 10.0f;
+                        IMU.IMU_update(gx, gy, gz, ax, ay, az, mx, my, mz);
+                        if (cB_PC.Checked)
+                        {
+                            yaw = IMU.yaw;
+                            pitch = IMU.pitch;
+                            roll = IMU.roll;
+                        }
                         this.Invoke((EventHandler)(delegate
                         {
                             if (Closing) return;
@@ -224,9 +231,13 @@ namespace uart_cam
                                 //Trace.WriteLine(""+gz);
                         }));
                         
+                        
+
                         ry = -yaw;
                         rz = pitch;
                         rx = roll;
+
+                        
                         start_flag = false;
                         recv_cnt = 0;
                         start_match_pos = 0;
