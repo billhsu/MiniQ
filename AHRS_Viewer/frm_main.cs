@@ -61,12 +61,25 @@ namespace ahrs_viewer
             if (music != null)
                 music.MinDistance = 5.0f;
         }
-
+        float[] mat = new float[16];
         private void openGLControl1_OpenGLDraw(object sender, PaintEventArgs e)
         {
+            
+
             //  Get the OpenGL object, for quick access.
             SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
 
+            gl.PushMatrix();
+            gl.LoadIdentity();
+            gl.Rotate(yaw, 0.0f, 1.0f, 0.0f);
+            gl.Rotate(pitch, 0.0f, 0.0f, 1.0f);
+            gl.Rotate(roll, 1.0f, 0.0f, 0.0f);
+            gl.GetFloat(OpenGL.GL_MODELVIEW_MATRIX, mat);
+            gl.PopMatrix();
+            Vector3D pos3d = new Vector3D(mat[2], mat[6], mat[10]);
+            pos3d = pos3d * 5.0f;
+            music.Position = pos3d;
+            //Trace.WriteLine(mat[2]+" "+ mat[6]+" "+ mat[10]);
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.LoadIdentity();
             //gl.LookAt(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -6.0f, 0.0f, 0.0f, 1.0f);
@@ -76,7 +89,6 @@ namespace ahrs_viewer
             gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
             gl.Rotate(-pitch, 0.0f, 0.0f, 1.0f);
             gl.Rotate(-roll, 1.0f, 0.0f, 0.0f);
-            
             gl.Scale(1.0f, 0.5f, 2.0f);
             //  Bind the texture.
             texture.Bind(gl);
