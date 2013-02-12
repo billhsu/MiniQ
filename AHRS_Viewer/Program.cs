@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace uart_cam
+namespace ahrs_viewer
 {
     static class Program
     {

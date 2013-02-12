@@ -52,6 +52,9 @@
     <Reference Include="Apex">
       <HintPath>.\Apex.dll</HintPath>
     </Reference>
+    <Reference Include="irrKlang.NET4">
+      <HintPath>.\irrKlang.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="SharpGL">
       <HintPath>.\SharpGL.dll</HintPath>
     </Reference>

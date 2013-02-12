@@ -10,12 +10,15 @@ using System.Drawing.Imaging;
 using System.Diagnostics;
 using SharpGL;
 using SharpGL.SceneGraph.Assets;
+using IrrKlang;
 
-namespace uart_cam
+namespace ahrs_viewer
 {
     public partial class mainForm : Form
     {
         private SerialPort comm = new SerialPort();
+        ISoundEngine engine = new ISoundEngine();
+        ISound music;
         bool start_flag = false;
         int start_match_pos = 0;
         int recv_cnt = 0;
@@ -27,7 +30,7 @@ namespace uart_cam
         int mFPS = 0;
 
         private bool Listening = false;
-        private bool Closing = false;
+        private bool closing = false;
 
         float ax, ay, az, gx, gy, gz, mx, my, mz, yaw, pitch, roll;
 
@@ -46,6 +49,17 @@ namespace uart_cam
             //  Create our texture object from a file. This creates the texture for OpenGL.
             Trace.WriteLine(System.IO.Directory.GetCurrentDirectory());
             texture.Create(gl, "Crate.bmp");
+            music = engine.Play3D("mario.mp3",
+                     0, 0, 0, true);
+            engine.SetListenerPosition(0, 0, 0, 0, 0, 1);
+            // the following step isn't necessary, but to adjust the distance where
+            // the 3D sound can be heard, we set some nicer minimum distance
+            // (the default min distance is 1, for a small object). The minimum
+            // distance simply is the distance in which the sound gets played
+            // at maximum volume.
+
+            if (music != null)
+                music.MinDistance = 5.0f;
         }
 
         private void openGLControl1_OpenGLDraw(object sender, PaintEventArgs e)
@@ -132,7 +146,7 @@ namespace uart_cam
 
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (Closing) return;
+            if (closing) return;
             //while (Listening) Application.DoEvents();
             Listening = true;
             int n = comm.BytesToRead;
@@ -202,7 +216,7 @@ namespace uart_cam
                         }
                         this.Invoke((EventHandler)(delegate
                         {
-                            if (Closing) return;
+                            if (closing) return;
                                 lb_ax.Text = "" + ax;
                                 lb_ay.Text = "" + ay;
                                 lb_az.Text = "" + az;
@@ -256,10 +270,10 @@ namespace uart_cam
             Trace.Write("Click\n");
             if (comm.IsOpen)
             {
-                Closing = true;
+                closing = true;
                 //while (Listening) Application.DoEvents();
                 comm.Close();
-                Closing = false;
+                closing = false;
             }
             else
             {
@@ -293,12 +307,12 @@ namespace uart_cam
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Closing = true;
+            closing = true;
             try
             {
                 while (Listening) Application.DoEvents();
                 comm.Close();
-                Closing = false;
+                closing = false;
             }
             catch (System.Exception ex)
             {

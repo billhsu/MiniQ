@@ -1,4 +1,4 @@
-﻿namespace uart_cam
+﻿namespace ahrs_viewer
 {
     partial class mainForm
     {
