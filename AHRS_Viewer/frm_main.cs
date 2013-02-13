@@ -19,11 +19,13 @@ namespace ahrs_viewer
         private SerialPort comm = new SerialPort();
         ISoundEngine engine = new ISoundEngine();
         ISound music;
+
+        object lockThis = new object();
+
         bool start_flag = false;
         int start_match_pos = 0;
         int recv_cnt = 0;
 
-        Bitmap image = null;
         byte[] recv_data = new byte[26];
         byte[] start_mark={0xa5,0x5a,0x12,0xa1};
         Int32[] imu_result = new Int32[14];
@@ -49,7 +51,7 @@ namespace ahrs_viewer
             //  Create our texture object from a file. This creates the texture for OpenGL.
             Trace.WriteLine(System.IO.Directory.GetCurrentDirectory());
             texture.Create(gl, "Crate.bmp");
-            music = engine.Play3D("mario.mp3",
+            music = engine.Play3D("Minuet.mp3",
                      0, 0, 0, true);
             engine.SetListenerPosition(0, 0, 0, 0, 0, 1);
             // the following step isn't necessary, but to adjust the distance where
@@ -136,16 +138,18 @@ namespace ahrs_viewer
 
             //rtri += 1.0f;// 0.2f;						// Increase The Rotation Variable For The Triangle 
         }
+        
         private void mainForm_Load(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
             Array.Sort(ports);
             comboPortName.Items.AddRange(ports);
             comboPortName.SelectedIndex = comboPortName.Items.Count > 0 ? 0 : -1;
-            image = new Bitmap(320, 240, PixelFormat.Format32bppArgb);
-            //comm.DataReceived += comm_DataReceived;
+
             comm.DataReceived += new
                 System.IO.Ports.SerialDataReceivedEventHandler(comm_DataReceived);
+            comm.ErrorReceived += new
+                System.IO.Ports.SerialErrorReceivedEventHandler(comm_ErrorReceived);
 
         }
 
@@ -155,125 +159,104 @@ namespace ahrs_viewer
             else if (value < 0) return 0;
             else return value;
         }
-
+        void comm_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            Trace.WriteLine(sender.ToString()+" - "+e.ToString());
+        }
+        Object lockingObj = new Object();
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (closing) return;
-            //while (Listening) Application.DoEvents();
-            Listening = true;
-            int n = comm.BytesToRead;
-            if (n == 0) return;
-            
-            byte[] buf = new byte[n];
-
-            comm.Read(buf, 0, n);
-            foreach (byte b in buf)
+            lock (lockingObj)
             {
+                if (closing) return;
+                Listening = true;
+                int n = comm.BytesToRead;
+                if (n == 0) return;
+
+                byte[] buf = new byte[n];
+
+                comm.Read(buf, 0, n);
                 
-                if (!start_flag)
-                {
-                    if (b == start_mark[start_match_pos])
-                    {
-                        start_match_pos++;
-                        if (start_match_pos == start_mark.Length)
-                        {
-                            start_flag = true; 
-                            recv_cnt = 0;
-                            start_match_pos = 0;
-                            //Trace.WriteLine("Start a frame");
-                            mFPS++;
-                        }
-                    }
-                    else start_match_pos = 0;
-                }
-                else
+                foreach (byte b in buf)
                 {
 
-                    recv_data[recv_cnt] = b;
-                    ++recv_cnt;
-                    if (recv_cnt == 26)
+                    if (!start_flag)
                     {
-                        for (int i = 0; i < 26; i += 2)
+                        if (b == start_mark[start_match_pos])
                         {
-                            imu_result[i / 2] = (Int32)(UInt16)(recv_data[i] << 8 | recv_data[i + 1]);
-                            if (imu_result[i / 2] >= 32768)
+                            start_match_pos++;
+                            if (start_match_pos == start_mark.Length)
                             {
-                                imu_result[i / 2] -= 32768;
-                                imu_result[i / 2] = -imu_result[i / 2];
+                                start_flag = true;
+                                recv_cnt = 0;
+                                start_match_pos = 0;
+                                mFPS++;
                             }
                         }
-                        recv_cnt = 0;
-                        
-                        ax = imu_result[0] / 10.0f;
-                        ay = imu_result[1] / 10.0f;
-                        az = imu_result[2] / 10.0f;
-
-                        gx = imu_result[3] / 10.0f;
-                        gy = imu_result[4] / 10.0f;
-                        gz = imu_result[5] / 10.0f;
-
-                        mx = imu_result[6] / 10.0f;
-                        my = imu_result[7] / 10.0f;
-                        mz = imu_result[8] / 10.0f;
-
-                        yaw = imu_result[9] / 10.0f;
-                        pitch = imu_result[10] / 10.0f;
-                        roll = imu_result[11] / 10.0f;
-                        IMU.IMU_update(gx, gy, gz, ax, ay, az, mx, my, mz);
-                        if (cB_PC.Checked)
-                        {
-                            yaw = IMU.yaw;
-                            pitch = IMU.pitch;
-                            roll = IMU.roll;
-                        }
-                        this.Invoke((EventHandler)(delegate
-                        {
-                            if (closing) return;
-                                lb_ax.Text = "" + ax;
-                                lb_ay.Text = "" + ay;
-                                lb_az.Text = "" + az;
-
-                                lb_gx.Text = "" + gx;
-                                lb_gy.Text = "" + gy;
-                                lb_gz.Text = "" + gz;
-
-                                lb_mx.Text = "" + mx;
-                                lb_my.Text = "" + my;
-                                lb_mz.Text = "" + mz;
-                                lb_yaw.Text = "" + yaw;
-                                progressBar1.Value = setProgressValue(progressBar1.Value + 1);
-                                progressBar1.Value = setProgressValue((progressBar1.Value - 1));
-                                progressBar1.Value = setProgressValue((int)((yaw + 180.0f) / 3.6f));
-                                lb_pitch.Text = "" + pitch;
-                                progressBar2.Value = setProgressValue(progressBar2.Value + 1);
-                                progressBar2.Value = setProgressValue(progressBar2.Value - 1);
-                                progressBar2.Value = setProgressValue((int)((pitch +90.0f) / 1.8f));
-                                lb_roll.Text = "" + roll;
-                                progressBar3.Value = setProgressValue(progressBar3.Value + 1);
-                                progressBar3.Value = setProgressValue((progressBar3.Value - 1));
-                                progressBar3.Value = setProgressValue((int)((roll + 90.0f) / 1.8f));
-
-                                lb_hlt.Text = "" + imu_result[12];
-                                //Trace.WriteLine(""+gz);
-                        }));
-                        
-                        
-
-                        ry = -yaw;
-                        rz = pitch;
-                        rx = roll;
-
-                        
-                        start_flag = false;
-                        recv_cnt = 0;
-                        start_match_pos = 0;
-                        //Trace.WriteLine("End frame");
+                        else start_match_pos = 0;
                     }
-                    else if (recv_cnt > 25) { start_flag = false; recv_cnt = 0; }
+                    else
+                    {
+
+                        recv_data[recv_cnt] = b;
+                        ++recv_cnt;
+                        if (recv_cnt == 26)
+                        {
+                            for (int i = 0; i < 26; i += 2)
+                            {
+                                imu_result[i / 2] = (Int32)(UInt16)(recv_data[i] << 8 | recv_data[i + 1]);
+                                if (imu_result[i / 2] >= 32768)
+                                {
+                                    imu_result[i / 2] -= 32768;
+                                    imu_result[i / 2] = -imu_result[i / 2];
+                                }
+                            }
+                            recv_cnt = 0;
+
+                            ax = imu_result[0] / 10.0f;
+                            ay = imu_result[1] / 10.0f;
+                            az = imu_result[2] / 10.0f;
+
+                            gx = imu_result[3] / 10.0f;
+                            gy = imu_result[4] / 10.0f;
+                            gz = imu_result[5] / 10.0f;
+
+                            mx = imu_result[6] / 10.0f;
+                            my = imu_result[7] / 10.0f;
+                            mz = imu_result[8] / 10.0f;
+
+                            yaw = imu_result[9] / 10.0f;
+                            pitch = imu_result[10] / 10.0f;
+                            roll = imu_result[11] / 10.0f;
+                            /*IMU.IMU_update(gx, gy, gz, ax, ay, az, mx, my, mz);
+                            if (cB_PC.Checked)
+                            {
+                                yaw = IMU.yaw;
+                                pitch = IMU.pitch;
+                                roll = IMU.roll;
+                            }*/
+
+
+                            ry = -yaw;
+                            rz = pitch;
+                            rx = roll;
+
+
+                            start_flag = false;
+                            recv_cnt = 0;
+                            start_match_pos = 0;
+                        }
+                        else if (recv_cnt > 25)
+                        {
+                            Trace.WriteLine("This should not appear");
+                            start_flag = false;
+                            start_match_pos = 0;
+                            recv_cnt = 0;
+                        }
+                    }
                 }
-            }
-            Listening = false;
-                            
+                Listening = false;
+            } 
         }
 
 
@@ -322,7 +305,7 @@ namespace ahrs_viewer
             closing = true;
             try
             {
-                while (Listening) Application.DoEvents();
+                //while (Listening) Application.DoEvents();
                 comm.Close();
                 closing = false;
             }
@@ -333,10 +316,15 @@ namespace ahrs_viewer
             
             Trace.WriteLine("Closed");
         }
-
+        int oldFPS = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if(oldFPS>50 && mFPS<30 && comm.IsOpen){
+                Trace.WriteLine("Oops!");
+                comm.DiscardInBuffer();
+            }
             lb_fps.Text = "FPS: " + mFPS;
+            oldFPS = mFPS;
             mFPS = 0;
         }
 
@@ -347,6 +335,33 @@ namespace ahrs_viewer
             comboPortName.Items.Clear();
             comboPortName.Items.AddRange(ports);
             comboPortName.SelectedIndex = comboPortName.Items.Count > 0 ? 0 : -1;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            lb_ax.Text = "" + ax;
+            lb_ay.Text = "" + ay;
+            lb_az.Text = "" + az;
+
+            lb_gx.Text = "" + gx;
+            lb_gy.Text = "" + gy;
+            lb_gz.Text = "" + gz;
+
+            lb_mx.Text = "" + mx;
+            lb_my.Text = "" + my;
+            lb_mz.Text = "" + mz;
+            lb_yaw.Text = "" + yaw;
+            progressBar1.Value = setProgressValue(progressBar1.Value + 1);
+            progressBar1.Value = setProgressValue((progressBar1.Value - 1));
+            progressBar1.Value = setProgressValue((int)((yaw + 180.0f) / 3.6f));
+            lb_pitch.Text = "" + pitch;
+            progressBar2.Value = setProgressValue(progressBar2.Value + 1);
+            progressBar2.Value = setProgressValue(progressBar2.Value - 1);
+            progressBar2.Value = setProgressValue((int)((pitch + 90.0f) / 1.8f));
+            lb_roll.Text = "" + roll;
+            progressBar3.Value = setProgressValue(progressBar3.Value + 1);
+            progressBar3.Value = setProgressValue((progressBar3.Value - 1));
+            progressBar3.Value = setProgressValue((int)((roll + 90.0f) / 1.8f));
         }
     }
 }
