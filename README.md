@@ -5,4 +5,4 @@ MiniQ: A mini quadcopter: Hardware design &amp; Software algorithm
 
 In progress..
 
-[![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/AHRS_Viewer.png)](http://github.com/billhsu/MiniQ/)
+[![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_PCB.png)](http://github.com/billhsu/MiniQ/)
