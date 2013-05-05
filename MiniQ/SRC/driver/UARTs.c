@@ -25,36 +25,36 @@ u8 count=0;
 *******************************************************************************/
 void Initial_UART1(u32 baudrate)
 {
- 	GPIO_InitTypeDef GPIO_InitStructure;
-	USART_InitTypeDef USART_InitStructure;
+  GPIO_InitTypeDef GPIO_InitStructure;
+  USART_InitTypeDef USART_InitStructure;
 
-	/* 使能 UART1 模块的时钟  使能 UART1对应的引脚端口PA的时钟*/
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+  /* 使能 UART1 模块的时钟  使能 UART1对应的引脚端口PA的时钟*/
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
 
-  	 /* 配置UART1 的发送引脚
-	 配置PA9 为复用输出  刷新频率50MHz
-	  */
-  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+  /* 配置UART1 的发送引脚
+	配置PA9 为复用输出  刷新频率50MHz
+	*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  	GPIO_Init(GPIOA, &GPIO_InitStructure);    
-  	/* 
-	  配置UART1 的接收引脚
-	  配置PA10为浮地输入 
-	 */
-  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-  	GPIO_Init(GPIOA, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);    
+  /* 
+	配置UART1 的接收引脚
+	配置PA10为浮地输入 
+  */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
 	  
 	/* 
-	  UART1的配置:
-	  1.波特率为调用程序指定的输入 baudrate;
-	  2. 8位数据			  USART_WordLength_8b;
-	  3.一个停止位			  USART_StopBits_1;
-	  4. 无奇偶效验			  USART_Parity_No ;
-	  5.不使用硬件流控制	  USART_HardwareFlowControl_None;
-	  6.使能发送和接收功能	  USART_Mode_Rx | USART_Mode_Tx;
-	 */
+  UART1的配置:
+  1.波特率为调用程序指定的输入 baudrate;
+  2. 8位数据			  USART_WordLength_8b;
+  3.一个停止位			  USART_StopBits_1;
+  4. 无奇偶效验			  USART_Parity_No ;
+  5.不使用硬件流控制	  USART_HardwareFlowControl_None;
+  6.使能发送和接收功能	  USART_Mode_Rx | USART_Mode_Tx;
+  */
 	USART_InitStructure.USART_BaudRate = baudrate;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;

@@ -6,6 +6,7 @@
 #include "driver/mpu6050.h"
 #include "driver/hmc5883l.h"
 #include "driver/timer.h"
+#include "driver/motor.h"
 #include "algorithm/imu.h"
 
 GPIO_InitTypeDef GPIO_InitStructure;
@@ -60,6 +61,8 @@ int main(void)
   
   Initial_Timer3();
   system_microsec=micros();
+  initMotor();
+  setPWM(100,200,0,400);
 
   
   while(1)
