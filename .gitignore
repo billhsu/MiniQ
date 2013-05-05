@@ -164,5 +164,6 @@ pip-log.txt
 
 #Keil
 AHRS_STM32/Output/*.*
+MiniQ_STM32/Output/*.*
 
 AHRS_Viewer/
