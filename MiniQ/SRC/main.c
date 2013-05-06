@@ -46,7 +46,7 @@ int main(void)
   SystemInit();
   delay_init(72);
   GPIO_Configuration();
-  Initial_UART1(9600L);
+  Initial_UART1(115200L);
   I2C_GPIO_Config();
   NVIC_Configuration();
   
@@ -61,9 +61,10 @@ int main(void)
   
   Initial_Timer3();
   system_microsec=micros();
-  initMotor();
-  setPWM(100,200,0,400);
-
+  //initMotor();
+  //setPWM(100,200,0,400);
+  UART1_Put_String("AT+BUAD8\n");
+  UART1_Put_String("AT+NAMEMiniQ\n");
   
   while(1)
   {
@@ -100,8 +101,7 @@ int main(void)
       
       out_int16_t(&_hlt);
       */
-      //UART1_Put_String("AT+NAMEMiniQ");
-      
+      UART1_Put_String("AT+NAMEminiQ\n");
       system_microsec = micros();
     }
 
