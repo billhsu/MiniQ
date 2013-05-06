@@ -141,9 +141,12 @@ void USART1_IRQHandler(void)
 
   if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
   {
+    char recvData;
     // clear receive interrupt flag
     USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-    USART_SendData(USART1, USART_ReceiveData(USART1));
+    recvData = USART_ReceiveData(USART1) & 0x7F;
+    USART_SendData(USART1, recvData);
+    while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
   }
 
   if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)

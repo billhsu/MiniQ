@@ -38,7 +38,7 @@ void out_int16_t(int16_t * data)
 int main(void)
 {
   int16_t data[9];
-  char cnt;
+  char cnt=0;
   int16_t result[3];
   char recv[256];
 
@@ -46,7 +46,7 @@ int main(void)
   SystemInit();
   delay_init(72);
   GPIO_Configuration();
-  Initial_UART1(115200L);
+  Initial_UART1(9600L);
   I2C_GPIO_Config();
   NVIC_Configuration();
   
@@ -63,7 +63,7 @@ int main(void)
   system_microsec=micros();
   //initMotor();
   //setPWM(100,200,0,400);
-  UART1_Put_String("AT+BUAD8\n");
+  UART1_Put_String("AT+BUAD4\n");
   UART1_Put_String("AT+NAMEMiniQ\n");
   
   while(1)
@@ -101,7 +101,7 @@ int main(void)
       
       out_int16_t(&_hlt);
       */
-      UART1_Put_String("AT+NAMEminiQ\n");
+      UART1_Put_String("Hello!\n");
       system_microsec = micros();
     }
 
