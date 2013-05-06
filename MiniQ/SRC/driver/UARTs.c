@@ -80,12 +80,12 @@ void Initial_UART1(u32 baudrate)
 void UART1_Put_Char(unsigned char DataToSend)
 {
 	//将要发送的字节写到UART1的发送缓冲区
-	//USART_SendData(USART1, (unsigned char) DataToSend);
+	USART_SendData(USART1, (unsigned char) DataToSend);
 	//等待发送完成
-  	//while (!(USART1->SR & USART_FLAG_TXE));
+  while (!(USART1->SR & USART_FLAG_TXE));
 
-	TxBuffer[count++] = DataToSend;  
-  USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
+	//TxBuffer[count++] = DataToSend;
+  //USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
 }
 
 /**************************实现函数********************************************
@@ -145,10 +145,10 @@ void USART1_IRQHandler(void)
     // clear receive interrupt flag
     USART_ClearITPendingBit(USART1, USART_IT_RXNE);
     recvData = USART_ReceiveData(USART1) & 0x7F;
-    USART_SendData(USART1, recvData);
-    while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
+    USART_SendData(USART1, ++recvData);
   }
 
+  #ifdef 0
   if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
   {   
     /* Write one byte to the transmit data register */
@@ -163,6 +163,7 @@ void USART1_IRQHandler(void)
       USART_ITConfig(USART1, USART_IT_TXE, DISABLE);
     }    
   }
+  #endif
   
 
 

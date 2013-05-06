@@ -101,7 +101,7 @@ int main(void)
       
       out_int16_t(&_hlt);
       */
-      UART1_Put_String("Hello!\n");
+      //UART1_Put_String("Hello!\n");
       system_microsec = micros();
     }
 
