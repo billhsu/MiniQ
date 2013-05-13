@@ -12,7 +12,7 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Upload_Speed  1   //数据上传速度  单位 Hz
+#define Upload_Speed  10   //数据上传速度  单位 Hz
 #define upload_time (1000000/Upload_Speed)  //计算上传的时间。单位为us
 
 
@@ -51,27 +51,27 @@ int main(void)
   NVIC_Configuration();
   
   delay_ms(10);
-  Init_MPU6050();
+  //Init_MPU6050();
   
   delay_ms(10);
-  HMC5883L_Init();
+  //HMC5883L_Init();
   delay_ms(10);
 
-  IMU_init();
+  //IMU_init();
   
-  Initial_Timer3();
-  system_microsec=micros();
+  //Initial_Timer3();
+  //system_microsec=micros();
   //initMotor();
   //setPWM(100,200,0,400);
-  UART1_Put_String("AT+BUAD4\n");
-  UART1_Put_String("AT+NAMEMiniQ\n");
+  //UART1_Put_String("AT+BUAD4\n");
+  //UART1_Put_String("AT+NAMEMiniQ\n");
   
   while(1)
   {
-    if(micros()-system_microsec>upload_time)
+    //if(micros()-system_microsec>upload_time)
     {
-      /*
-      Read_MPU6050_ACC(&data[0]);
+      
+      /*Read_MPU6050_ACC(&data[0]);
       Read_MPU6050_GYRO(&data[3]);
       HMC5883L_Read(&data[6]);
       IMU_getYawPitchRoll(result,data);
@@ -101,8 +101,8 @@ int main(void)
       
       out_int16_t(&_hlt);
       */
-      //UART1_Put_String("Hello!\n");
-      system_microsec = micros();
+      UART1_Put_String("Hello!\n");
+      //system_microsec = micros();
     }
 
     

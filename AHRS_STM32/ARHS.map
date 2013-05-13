@@ -963,9 +963,9 @@ Image Symbol Table
     micros                                   0x08002431   Thumb Code    18  timer.o(.text)
     invSqrt                                  0x0800244d   Thumb Code    72  imu.o(.text)
     IMU_init                                 0x08002495   Thumb Code    54  imu.o(.text)
-    IMU_AHRSupdate                           0x080024cb   Thumb Code  2338  imu.o(.text)
-    IMU_getQ                                 0x08002ded   Thumb Code   126  imu.o(.text)
-    IMU_getYawPitchRoll                      0x08002e6b   Thumb Code   638  imu.o(.text)
+    IMU_AHRSupdate                           0x080024cb   Thumb Code  2336  imu.o(.text)
+    IMU_getQ                                 0x08002deb   Thumb Code   126  imu.o(.text)
+    IMU_getYawPitchRoll                      0x08002e69   Thumb Code   638  imu.o(.text)
     __use_two_region_memory                  0x08003111   Thumb Code     2  heapauxi.o(.text)
     __rt_heap_escrow$2region                 0x08003113   Thumb Code     2  heapauxi.o(.text)
     __rt_heap_expand$2region                 0x08003115   Thumb Code     2  heapauxi.o(.text)
@@ -1224,7 +1224,7 @@ Image component sizes
 
        160          8          0          4          0          0   delay.o
        248          0          0          0          0          0   hmc5883l.o
-      3268        132          0         36          0          0   imu.o
+      3268        134          0         36          0          0   imu.o
        704         20          0          0          0          0   ioi2c.o
        464         18          0         14          0          0   main.o
        248         30          0          0          0          0   misc.o
@@ -1241,7 +1241,7 @@ Image component sizes
        328         20          0          2        258          0   uarts.o
 
     ----------------------------------------------------------------------
-     12096        448        336         76       1796          0   Object Totals
+     12096        450        336         76       1796          0   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0          0          2          1   (incl. Padding)
 
@@ -1326,9 +1326,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     18256        928        496         76       1892     313164   Grand Totals
-     18256        928        496         76       1892     313164   ELF Image Totals
-     18256        928        496         76          0          0   ROM Totals
+     18256        930        496         76       1892     313164   Grand Totals
+     18256        930        496         76       1892     313164   ELF Image Totals
+     18256        930        496         76          0          0   ROM Totals
 
 ==============================================================================
 
