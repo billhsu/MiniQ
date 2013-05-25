@@ -12,7 +12,7 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Upload_Speed  20   //数据上传速度  单位 Hz
+#define Upload_Speed  50   //数据上传速度  单位 Hz
 #define upload_time (1000000/Upload_Speed)  //计算上传的时间。单位为us
 
 
@@ -46,7 +46,7 @@ int main(void)
   SystemInit();
   delay_init(72);
   GPIO_Configuration();
-  Initial_UART1(15200L);
+  Initial_UART1(115200L);
   I2C_GPIO_Config();
   NVIC_Configuration();
   
@@ -100,8 +100,13 @@ int main(void)
       
       out_int16_t(&_hlt);
       */
-      ++cnt;
-      if(cnt==20) UART1_Put_String("Hello World\n");
+      if(cnt<=49)++cnt;
+      else
+      {
+        UART1_Put_String("Hello World!\n");
+        cnt=0;
+      }
+      
       system_microsec = micros();
     }
 
