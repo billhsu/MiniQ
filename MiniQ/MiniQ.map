@@ -33,6 +33,7 @@ Section Cross References
     startup_stm32f10x_hd.o(.text) refers to startup_stm32f10x_hd.o(HEAP) for Heap_Mem
     uarts.o(.text) refers to stm32f10x_rcc.o(.text) for RCC_APB2PeriphClockCmd
     uarts.o(.text) refers to stm32f10x_usart.o(.text) for USART_ClockInit
+    uarts.o(.text) refers to motor.o(.text) for initMotor
     uarts.o(.text) refers to uarts.o(.data) for count
     uarts.o(.text) refers to uarts.o(.bss) for TxBuffer
     delay.o(.text) refers to delay.o(.data) for fac_us
@@ -521,18 +522,18 @@ Image Symbol Table
     SetSysClockTo72                          0x08001b05   Thumb Code   198  system_stm32f10x.o(.text)
     SetSysClock                              0x08001bcb   Thumb Code     8  system_stm32f10x.o(.text)
     .text                                    0x08001c28   Section        0  uarts.o(.text)
-    .text                                    0x08001d98   Section        0  delay.o(.text)
-    .text                                    0x08001e38   Section        0  ioi2c.o(.text)
-    .text                                    0x080020f8   Section        0  timer.o(.text)
-    .text                                    0x080021d4   Section        0  motor.o(.text)
-    .text                                    0x0800230c   Section        0  heapauxi.o(.text)
-    .text                                    0x08002314   Section        8  libspace.o(.text)
-    .text                                    0x0800231c   Section       74  sys_stackheap_outer.o(.text)
-    .text                                    0x08002366   Section        0  exit.o(.text)
-    .text                                    0x08002374   Section       12  rt_fp_status_addr_intlibspace.o(.text)
-    .text                                    0x08002380   Section        0  sys_exit.o(.text)
-    .text                                    0x0800238c   Section        2  use_no_semi.o(.text)
-    x$fpl$fpinit                             0x0800238e   Section       14  fpinit.o(x$fpl$fpinit)
+    .text                                    0x08001db0   Section        0  delay.o(.text)
+    .text                                    0x08001e50   Section        0  ioi2c.o(.text)
+    .text                                    0x08002110   Section        0  timer.o(.text)
+    .text                                    0x080021ec   Section        0  motor.o(.text)
+    .text                                    0x08002324   Section        0  heapauxi.o(.text)
+    .text                                    0x0800232c   Section        8  libspace.o(.text)
+    .text                                    0x08002334   Section       74  sys_stackheap_outer.o(.text)
+    .text                                    0x0800237e   Section        0  exit.o(.text)
+    .text                                    0x0800238c   Section       12  rt_fp_status_addr_intlibspace.o(.text)
+    .text                                    0x08002398   Section        0  sys_exit.o(.text)
+    .text                                    0x080023a4   Section        2  use_no_semi.o(.text)
+    x$fpl$fpinit                             0x080023a6   Section       14  fpinit.o(x$fpl$fpinit)
     .data                                    0x20000000   Section       14  main.o(.data)
     .data                                    0x2000000e   Section       20  stm32f10x_rcc.o(.data)
     APBAHBPrescTable                         0x2000000e   Data          16  stm32f10x_rcc.o(.data)
@@ -889,42 +890,42 @@ Image Symbol Table
     UART1_Put_Char                           0x08001ca1   Thumb Code    34  uarts.o(.text)
     UART1_Get_Char                           0x08001cc3   Thumb Code    24  uarts.o(.text)
     UART1_Put_String                         0x08001cdb   Thumb Code    46  uarts.o(.text)
-    USART1_IRQHandler                        0x08001d09   Thumb Code   128  uarts.o(.text)
-    delay_init                               0x08001d99   Thumb Code    44  delay.o(.text)
-    delay_ms                                 0x08001dc5   Thumb Code    54  delay.o(.text)
-    delay_us                                 0x08001dfb   Thumb Code    54  delay.o(.text)
-    I2C_GPIO_Config                          0x08001e39   Thumb Code    56  ioi2c.o(.text)
-    I2C_delay                                0x08001e71   Thumb Code    14  ioi2c.o(.text)
-    delay5ms                                 0x08001e7f   Thumb Code    14  ioi2c.o(.text)
-    I2C_Start                                0x08001e8d   Thumb Code    84  ioi2c.o(.text)
-    I2C_Stop                                 0x08001ee1   Thumb Code    48  ioi2c.o(.text)
-    I2C_Ack                                  0x08001f11   Thumb Code    48  ioi2c.o(.text)
-    I2C_NoAck                                0x08001f41   Thumb Code    48  ioi2c.o(.text)
-    I2C_WaitAck                              0x08001f71   Thumb Code    74  ioi2c.o(.text)
-    I2C_SendByte                             0x08001fbb   Thumb Code    74  ioi2c.o(.text)
-    I2C_ReadByte                             0x08002005   Thumb Code    74  ioi2c.o(.text)
-    Single_Write                             0x0800204f   Thumb Code    70  ioi2c.o(.text)
-    Single_Read                              0x08002095   Thumb Code    80  ioi2c.o(.text)
-    Initial_Timer3                           0x080020f9   Thumb Code   186  timer.o(.text)
-    micros                                   0x080021b3   Thumb Code    22  timer.o(.text)
-    initMotor                                0x080021d5   Thumb Code   222  motor.o(.text)
-    setPWM                                   0x080022b3   Thumb Code    82  motor.o(.text)
-    __use_two_region_memory                  0x0800230d   Thumb Code     2  heapauxi.o(.text)
-    __rt_heap_escrow$2region                 0x0800230f   Thumb Code     2  heapauxi.o(.text)
-    __rt_heap_expand$2region                 0x08002311   Thumb Code     2  heapauxi.o(.text)
-    __user_libspace                          0x08002315   Thumb Code     8  libspace.o(.text)
-    __user_perproc_libspace                  0x08002315   Thumb Code     0  libspace.o(.text)
-    __user_perthread_libspace                0x08002315   Thumb Code     0  libspace.o(.text)
-    __user_setup_stackheap                   0x0800231d   Thumb Code    74  sys_stackheap_outer.o(.text)
-    exit                                     0x08002367   Thumb Code    12  exit.o(.text)
-    __rt_fp_status_addr                      0x08002375   Thumb Code    12  rt_fp_status_addr_intlibspace.o(.text)
-    _sys_exit                                0x08002381   Thumb Code     8  sys_exit.o(.text)
-    __I$use$semihosting                      0x0800238d   Thumb Code     0  use_no_semi.o(.text)
-    __use_no_semihosting_swi                 0x0800238d   Thumb Code     2  use_no_semi.o(.text)
-    _fp_init                                 0x0800238f   Thumb Code    14  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x0800239b   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    Region$$Table$$Base                      0x0800239c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080023bc   Number         0  anon$$obj.o(Region$$Table)
+    USART1_IRQHandler                        0x08001d09   Thumb Code   150  uarts.o(.text)
+    delay_init                               0x08001db1   Thumb Code    44  delay.o(.text)
+    delay_ms                                 0x08001ddd   Thumb Code    54  delay.o(.text)
+    delay_us                                 0x08001e13   Thumb Code    54  delay.o(.text)
+    I2C_GPIO_Config                          0x08001e51   Thumb Code    56  ioi2c.o(.text)
+    I2C_delay                                0x08001e89   Thumb Code    14  ioi2c.o(.text)
+    delay5ms                                 0x08001e97   Thumb Code    14  ioi2c.o(.text)
+    I2C_Start                                0x08001ea5   Thumb Code    84  ioi2c.o(.text)
+    I2C_Stop                                 0x08001ef9   Thumb Code    48  ioi2c.o(.text)
+    I2C_Ack                                  0x08001f29   Thumb Code    48  ioi2c.o(.text)
+    I2C_NoAck                                0x08001f59   Thumb Code    48  ioi2c.o(.text)
+    I2C_WaitAck                              0x08001f89   Thumb Code    74  ioi2c.o(.text)
+    I2C_SendByte                             0x08001fd3   Thumb Code    74  ioi2c.o(.text)
+    I2C_ReadByte                             0x0800201d   Thumb Code    74  ioi2c.o(.text)
+    Single_Write                             0x08002067   Thumb Code    70  ioi2c.o(.text)
+    Single_Read                              0x080020ad   Thumb Code    80  ioi2c.o(.text)
+    Initial_Timer3                           0x08002111   Thumb Code   186  timer.o(.text)
+    micros                                   0x080021cb   Thumb Code    22  timer.o(.text)
+    initMotor                                0x080021ed   Thumb Code   222  motor.o(.text)
+    setPWM                                   0x080022cb   Thumb Code    82  motor.o(.text)
+    __use_two_region_memory                  0x08002325   Thumb Code     2  heapauxi.o(.text)
+    __rt_heap_escrow$2region                 0x08002327   Thumb Code     2  heapauxi.o(.text)
+    __rt_heap_expand$2region                 0x08002329   Thumb Code     2  heapauxi.o(.text)
+    __user_libspace                          0x0800232d   Thumb Code     8  libspace.o(.text)
+    __user_perproc_libspace                  0x0800232d   Thumb Code     0  libspace.o(.text)
+    __user_perthread_libspace                0x0800232d   Thumb Code     0  libspace.o(.text)
+    __user_setup_stackheap                   0x08002335   Thumb Code    74  sys_stackheap_outer.o(.text)
+    exit                                     0x0800237f   Thumb Code    12  exit.o(.text)
+    __rt_fp_status_addr                      0x0800238d   Thumb Code    12  rt_fp_status_addr_intlibspace.o(.text)
+    _sys_exit                                0x08002399   Thumb Code     8  sys_exit.o(.text)
+    __I$use$semihosting                      0x080023a5   Thumb Code     0  use_no_semi.o(.text)
+    __use_no_semihosting_swi                 0x080023a5   Thumb Code     2  use_no_semi.o(.text)
+    _fp_init                                 0x080023a7   Thumb Code    14  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x080023b3   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    Region$$Table$$Base                      0x080023b4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080023d4   Number         0  anon$$obj.o(Region$$Table)
     GPIO_InitStructure                       0x20000000   Data           4  main.o(.data)
     HSEStartUpStatus                         0x20000004   Data           1  main.o(.data)
     system_microsec                          0x20000008   Data           4  main.o(.data)
@@ -943,9 +944,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000023e4, Max: 0x00010000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000023fc, Max: 0x00010000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000023bc, Max: 0x00010000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000023d4, Max: 0x00010000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1005,22 +1006,22 @@ Memory Map of the image
     0x08001780   0x00000338   Code   RO          163    .text               stm32f10x_gpio.o
     0x08001ab8   0x0000004c   Code   RO          193    .text               startup_stm32f10x_hd.o
     0x08001b04   0x00000124   Code   RO          208    .text               system_stm32f10x.o
-    0x08001c28   0x00000170   Code   RO          235    .text               uarts.o
-    0x08001d98   0x000000a0   Code   RO          254    .text               delay.o
-    0x08001e38   0x000002c0   Code   RO          271    .text               ioi2c.o
-    0x080020f8   0x000000dc   Code   RO          316    .text               timer.o
-    0x080021d4   0x00000138   Code   RO          331    .text               motor.o
-    0x0800230c   0x00000006   Code   RO          389    .text               c_w.l(heapauxi.o)(c_w.l)
-    0x08002312   0x00000002   PAD
-    0x08002314   0x00000008   Code   RO          530    .text               c_w.l(libspace.o)(c_w.l)
-    0x0800231c   0x0000004a   Code   RO          533    .text               c_w.l(sys_stackheap_outer.o)(c_w.l)
-    0x08002366   0x0000000c   Code   RO          535    .text               c_w.l(exit.o)(c_w.l)
-    0x08002372   0x00000002   PAD
-    0x08002374   0x0000000c   Code   RO          604    .text               c_w.l(rt_fp_status_addr_intlibspace.o)(c_w.l)
-    0x08002380   0x0000000c   Code   RO          608    .text               c_w.l(sys_exit.o)(c_w.l)
-    0x0800238c   0x00000002   Code   RO          619    .text               c_w.l(use_no_semi.o)(c_w.l)
-    0x0800238e   0x0000000e   Code   RO          589    x$fpl$fpinit        fz_ws.l(fpinit.o)(fz_ws.l)
-    0x0800239c   0x00000020   Data   RO          672    Region$$Table       anon$$obj.o
+    0x08001c28   0x00000188   Code   RO          235    .text               uarts.o
+    0x08001db0   0x000000a0   Code   RO          254    .text               delay.o
+    0x08001e50   0x000002c0   Code   RO          271    .text               ioi2c.o
+    0x08002110   0x000000dc   Code   RO          316    .text               timer.o
+    0x080021ec   0x00000138   Code   RO          331    .text               motor.o
+    0x08002324   0x00000006   Code   RO          389    .text               c_w.l(heapauxi.o)(c_w.l)
+    0x0800232a   0x00000002   PAD
+    0x0800232c   0x00000008   Code   RO          530    .text               c_w.l(libspace.o)(c_w.l)
+    0x08002334   0x0000004a   Code   RO          533    .text               c_w.l(sys_stackheap_outer.o)(c_w.l)
+    0x0800237e   0x0000000c   Code   RO          535    .text               c_w.l(exit.o)(c_w.l)
+    0x0800238a   0x00000002   PAD
+    0x0800238c   0x0000000c   Code   RO          604    .text               c_w.l(rt_fp_status_addr_intlibspace.o)(c_w.l)
+    0x08002398   0x0000000c   Code   RO          608    .text               c_w.l(sys_exit.o)(c_w.l)
+    0x080023a4   0x00000002   Code   RO          619    .text               c_w.l(use_no_semi.o)(c_w.l)
+    0x080023a6   0x0000000e   Code   RO          589    x$fpl$fpinit        fz_ws.l(fpinit.o)(fz_ws.l)
+    0x080023b4   0x00000020   Data   RO          672    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000790, Max: 0x00005000, ABSOLUTE)
@@ -1060,10 +1061,10 @@ Image component sizes
        136         22          0          0          0          0   stm32f10x_wwdg.o
        292         16          0          0          0          0   system_stm32f10x.o
        220         12          0          0          0          0   timer.o
-       368         16          0          2        258          0   uarts.o
+       392         18          0          2        258          0   uarts.o
 
     ----------------------------------------------------------------------
-      8508        352        336         40       1796          0   Object Totals
+      8532        354        336         40       1796          0   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          2          0          0          0          2          2   (incl. Padding)
 
@@ -1114,15 +1115,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      8812        372        336         40       1896     306976   Grand Totals
-      8812        372        336         40       1896     306976   ELF Image Totals
-      8812        372        336         40          0          0   ROM Totals
+      8836        374        336         40       1896     307024   Grand Totals
+      8836        374        336         40       1896     307024   ELF Image Totals
+      8836        374        336         40          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 9148 (   8.93kB)
+    Total RO  Size (Code + RO Data)                 9172 (   8.96kB)
     Total RW  Size (RW Data + ZI Data)              1936 (   1.89kB)
-    Total ROM Size (Code + RO Data + RW Data)       9188 (   8.97kB)
+    Total ROM Size (Code + RO Data + RW Data)       9212 (   9.00kB)
 
 ==============================================================================
 

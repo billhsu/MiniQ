@@ -62,7 +62,7 @@ int main(void)
   Initial_Timer3();
   system_microsec=micros();
   initMotor();
-  setPWM(35,0,0,0);
+  setPWM(0,0,0,0);
   UART1_Put_String("Hello World\n");
   
   while(1)

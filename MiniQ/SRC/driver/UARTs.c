@@ -107,19 +107,25 @@ void USART1_IRQHandler(void)
 {
 
 	char RX_dat;
-
+  uint16_t pwm;
 	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
 	{
+  
+  
 		USART_ClearITPendingBit(USART1,   USART_IT_RXNE);
 
 		RX_dat=USART_ReceiveData(USART1) & 0x7F;
+    pwm = RX_dat* 10;
+    initMotor();
+    setPWM(pwm,pwm,pwm,pwm);
 		USART_SendData(USART1, RX_dat);
 
 		while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
 	}
   else if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
   {
-        USART_SendData(USART1, TxBuffer[TxCounter++]);                    
+    
+    USART_SendData(USART1, TxBuffer[TxCounter++]);                    
 
     /* Clear the USART1 transmit interrupt */
     USART_ClearITPendingBit(USART1, USART_IT_TXE); 
