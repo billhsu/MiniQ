@@ -25,49 +25,32 @@ u8 count=0;
 *******************************************************************************/
 void Initial_UART1(u32 baudrate)
 {
-  GPIO_InitTypeDef GPIO_InitStructure;
-  USART_InitTypeDef USART_InitStructure;
+USART_InitTypeDef USART_InitStructure;
+USART_ClockInitTypeDef  USART_ClockInitStructure;
 
-  /* 使能 UART1 模块的时钟  使能 UART1对应的引脚端口PA的时钟*/
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1 |RCC_APB2Periph_USART1, ENABLE  );
 
-  /* 配置UART1 的发送引脚
-	配置PA9 为复用输出  刷新频率50MHz
-	*/
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
- 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);    
-  /* 
-	配置UART1 的接收引脚
-	配置PA10为浮地输入 
-  */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
-	  
-	/* 
-  UART1的配置:
-  1.波特率为调用程序指定的输入 baudrate;
-  2. 8位数据			  USART_WordLength_8b;
-  3.一个停止位			  USART_StopBits_1;
-  4. 无奇偶效验			  USART_Parity_No ;
-  5.不使用硬件流控制	  USART_HardwareFlowControl_None;
-  6.使能发送和接收功能	  USART_Mode_Rx | USART_Mode_Tx;
-  */
-	USART_InitStructure.USART_BaudRate = baudrate;
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;
-	USART_InitStructure.USART_Parity = USART_Parity_No ;
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-	//应用配置到UART1
-	USART_Init(USART1, &USART_InitStructure); 
-	USART_ITConfig(USART1, USART_IT_TXE, DISABLE);
-  USART_ClearFlag(USART1,USART_FLAG_TC);
-  USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-	//启动UART1
-  USART_Cmd(USART1, ENABLE);
+USART_ClockInitStructure.USART_Clock = USART_Clock_Disable;			// 时钟低电平活动
+USART_ClockInitStructure.USART_CPOL = USART_CPOL_Low;				// 时钟低电平
+USART_ClockInitStructure.USART_CPHA = USART_CPHA_2Edge;				// 时钟第二个边沿进行数据捕获
+USART_ClockInitStructure.USART_LastBit = USART_LastBit_Disable;		// 最后一位数据的时钟脉冲不从SCLK输出
+/* Configure the USART1 synchronous paramters */
+USART_ClockInit(USART1, &USART_ClockInitStructure);					// 时钟参数初始化设置
+																	 
+USART_InitStructure.USART_BaudRate = 115200;						  // 波特率为：115200
+USART_InitStructure.USART_WordLength = USART_WordLength_8b;			  // 8位数据
+USART_InitStructure.USART_StopBits = USART_StopBits_1;				  // 在帧结尾传输1个停止位
+USART_InitStructure.USART_Parity = USART_Parity_No ;				  // 奇偶失能
+USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;	// 硬件流控制失能
+
+USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;		  // 发送使能+接收使能
+/* Configure USART1 basic and asynchronous paramters */
+USART_Init(USART1, &USART_InitStructure);
+    
+  /* Enable USART1 */
+USART_ClearFlag(USART1, USART_IT_RXNE); 			//清中断，以免一启用中断后立即产生中断
+USART_ITConfig(USART1,USART_IT_RXNE, ENABLE);		//使能USART1中断源
+USART_Cmd(USART1, ENABLE);							//USART1总开关：开启 
 }
 
 /**************************实现函数********************************************
@@ -79,13 +62,8 @@ void Initial_UART1(u32 baudrate)
 *******************************************************************************/
 void UART1_Put_Char(unsigned char DataToSend)
 {
-	//将要发送的字节写到UART1的发送缓冲区
-	USART_SendData(USART1, (unsigned char) DataToSend);
-	//等待发送完成
-  while (!(USART1->SR & USART_FLAG_TXE));
-
-	//TxBuffer[count++] = DataToSend;
-  //USART_ITConfig(USART1, USART_IT_TXE, ENABLE);  
+	TxBuffer[count++] = DataToSend;  
+  USART_ITConfig(USART1, USART_IT_TXE, ENABLE);   
 }
 
 /**************************实现函数********************************************
@@ -120,18 +98,7 @@ void UART1_Put_String(unsigned char *Str)
 	//指针++ 指向下一个字节.
 	Str++;
 	}
-/*
-	//判断Str指向的数据是否有效.
-	while(*Str){
-	//是否是回车字符 如果是,则发送相应的回车 0x0d 0x0a
-	if(*Str=='\r')USART_SendData(USART1, 0x0d);
-		else if(*Str=='\n')USART_SendData(USART1, 0x0a);
-			else USART_SendData(USART1, *Str);
-	//等待发送完成.
-  	while (!(USART1->SR & USART_FLAG_TXE));
-	//指针++ 指向下一个字节.
-	Str++;
-	}		 */
+
 }
 
 
@@ -139,20 +106,20 @@ void UART1_Put_String(unsigned char *Str)
 void USART1_IRQHandler(void)
 {
 
-  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
-  {
-    char recvData;
-    // clear receive interrupt flag
-    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-    recvData = USART_ReceiveData(USART1) & 0x7F;
-    USART_SendData(USART1, ++recvData);
-  }
+	char RX_dat;
 
-  #ifdef 0
-  if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
-  {   
-    /* Write one byte to the transmit data register */
-    USART_SendData(USART1, TxBuffer[TxCounter++]);                    
+	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+	{
+		USART_ClearITPendingBit(USART1,   USART_IT_RXNE);
+
+		RX_dat=USART_ReceiveData(USART1) & 0x7F;
+		USART_SendData(USART1, RX_dat);
+
+		while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
+	}
+  else if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
+  {
+        USART_SendData(USART1, TxBuffer[TxCounter++]);                    
 
     /* Clear the USART1 transmit interrupt */
     USART_ClearITPendingBit(USART1, USART_IT_TXE); 
@@ -162,8 +129,8 @@ void USART1_IRQHandler(void)
       /* Disable the USART1 Transmit interrupt */
       USART_ITConfig(USART1, USART_IT_TXE, DISABLE);
     }    
+
   }
-  #endif
   
 
 

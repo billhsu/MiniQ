@@ -12,7 +12,7 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Upload_Speed  10   //数据上传速度  单位 Hz
+#define Upload_Speed  20   //数据上传速度  单位 Hz
 #define upload_time (1000000/Upload_Speed)  //计算上传的时间。单位为us
 
 
@@ -46,7 +46,7 @@ int main(void)
   SystemInit();
   delay_init(72);
   GPIO_Configuration();
-  Initial_UART1(9600L);
+  Initial_UART1(15200L);
   I2C_GPIO_Config();
   NVIC_Configuration();
   
@@ -56,19 +56,18 @@ int main(void)
   delay_ms(10);
   //HMC5883L_Init();
   delay_ms(10);
-
+  GPIOB->BSRR = GPIO_Pin_1;
   //IMU_init();
   
-  //Initial_Timer3();
-  //system_microsec=micros();
-  //initMotor();
-  //setPWM(100,200,0,400);
-  //UART1_Put_String("AT+BUAD4\n");
-  //UART1_Put_String("AT+NAMEMiniQ\n");
+  Initial_Timer3();
+  system_microsec=micros();
+  initMotor();
+  setPWM(35,0,0,0);
+  UART1_Put_String("Hello World\n");
   
   while(1)
   {
-    //if(micros()-system_microsec>upload_time)
+    if(micros()-system_microsec>upload_time)
     {
       
       /*Read_MPU6050_ACC(&data[0]);
@@ -101,8 +100,9 @@ int main(void)
       
       out_int16_t(&_hlt);
       */
-      UART1_Put_String("Hello!\n");
-      //system_microsec = micros();
+      ++cnt;
+      if(cnt==20) UART1_Put_String("Hello World\n");
+      system_microsec = micros();
     }
 
     

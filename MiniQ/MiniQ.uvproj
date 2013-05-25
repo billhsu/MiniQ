@@ -159,7 +159,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4098</DriverSelection>
+            <DriverSelection>4099</DriverSelection>
           </Flash1>
           <Flash2>Segger\JL2CM3.dll</Flash2>
           <Flash3>"" ()</Flash3>
