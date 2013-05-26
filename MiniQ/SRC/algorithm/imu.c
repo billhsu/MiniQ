@@ -9,7 +9,7 @@
 volatile float exInt, eyInt, ezInt;
 volatile float q0, q1, q2, q3;
 volatile uint32_t lastUpdate, now;
-extern int16_t _hlt;
+int16_t yaw,pitch, roll;
 #include <math.h>
 #define M_PI  (float)3.1415926
 
@@ -97,7 +97,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   ex = (ay*vz - az*vy) + 0*(my*wz - mz*wy);
   ey = (az*vx - ax*vz) + 0*(mz*wx - mx*wz);
   ez = (ax*vy - ay*vx) + 0*(mx*wy - my*wx);
-  _hlt = (int16_t)ex*100.0f;
+
   if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
   exInt = exInt + ex*Ki * halfT;
@@ -150,12 +150,6 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   volatile float gx=0.0, gy=0.0, gz=0.0;
   for(i=0;i<9;++i)
   {
-    /*if(data[i]<0)
-    {
-      data[i]+=32768;
-      data[i]=-data[i];
-      
-    }*/
     f_data[i]=(float)data[i];
     if(i<3) data[i]/=16.4;
     else if(i<6)f_data[i]/=32.8f;
@@ -179,6 +173,9 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   angles[0] = (int16_t)(atan2(2 * q[1] * q[2] - 2 * q[0] * q[3], 2 * q[0]*q[0] + 2 * q[1] * q[1] - 1) * 1800/M_PI);
   angles[1] = (int16_t)(atan(gx / sqrt(gy*gy + gz*gz))  * 1800/M_PI);
   angles[2] = (int16_t)(atan(gy / sqrt(gx*gx + gz*gz))  * 1800/M_PI);
+  yaw = angles[0]/10;
+  pitch = angles[1]/10;
+  roll = angles[2]/10;
 
 }
 

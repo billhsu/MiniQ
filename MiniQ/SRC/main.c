@@ -8,6 +8,8 @@
 #include "driver/timer.h"
 #include "driver/motor.h"
 #include "algorithm/imu.h"
+#include "algorithm/control.h"
+
 
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
@@ -15,7 +17,7 @@ ErrorStatus HSEStartUpStatus;
 #define Calc_Speed  100   //100Hz
 #define Calc_Time (1000000/Calc_Speed)  //us
 
-
+char volatile status;
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void WWDG_Configuration(void);
@@ -62,12 +64,12 @@ int main(void)
   Initial_TimerTick();
   system_microsec=micros();
   initMotor();
-  setPWM(0,0,0,0);
+  initControl();
   //UART1_Put_String("MiniQ\n");
   
   while(1)
   {
-    //if(micros()-system_microsec>Calc_Time)
+    if(micros()-system_microsec>Calc_Time)
     {
       
       Read_MPU6050_ACC(&data[0]);
@@ -75,7 +77,7 @@ int main(void)
       //HMC5883L_Read(&data[6]);
       
       IMU_getYawPitchRoll(result,data);
-      
+      controlLoop();
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
       

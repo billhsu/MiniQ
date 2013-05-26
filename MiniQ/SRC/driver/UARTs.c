@@ -15,7 +15,7 @@ u8 TxBuffer[258];
 u8 TxCounter=0;
 u8 count=0; 
 
-
+extern char status;
 /**************************实现函数********************************************
 *函数原型:		void Initial_UART1(u32 baudrate)
 *功　　能:		初始化STM32-SDK开发板上的RS232接口
@@ -114,13 +114,11 @@ void USART1_IRQHandler(void)
   
 		USART_ClearITPendingBit(USART1,   USART_IT_RXNE);
 
-		RX_dat=USART_ReceiveData(USART1) & 0x7F;
-    pwm = RX_dat* 10;
-    initMotor();
-    setPWM(pwm,pwm,pwm,pwm);
-		USART_SendData(USART1, RX_dat);
+		RX_dat=USART_ReceiveData(USART1);// & 0x7F;
+    status = RX_dat;
+		//USART_SendData(USART1, RX_dat);
 
-		while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
+		//while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
 	}
   else if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
   {

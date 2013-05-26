@@ -510,6 +510,11 @@
               <FileType>1</FileType>
               <FilePath>.\SRC\algorithm\imu.c</FilePath>
             </File>
+            <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SRC\algorithm\control.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
