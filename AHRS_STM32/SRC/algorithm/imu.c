@@ -94,9 +94,9 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   wz = 2*bx*(q0q2 + q1q3) + 2*bz*(0.5 - q1q1 - q2q2);  
   
   // error is sum of cross product between reference direction of fields and direction measured by sensors
-  ex = (ay*vz - az*vy) + 0*(my*wz - mz*wy);
-  ey = (az*vx - ax*vz) + 0*(mz*wx - mx*wz);
-  ez = (ax*vy - ay*vx) + 0*(mx*wy - my*wx);
+  ex = (ay*vz - az*vy) + 1*(my*wz - mz*wy);
+  ey = (az*vx - ax*vz) + 1*(mz*wx - mx*wz);
+  ez = (ax*vy - ay*vx) + 1*(mx*wy - my*wx);
   _hlt = (int16_t)ex*100.0f;
   if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
@@ -137,7 +137,7 @@ void IMU_getQ(float * q,float* mygetqval) {
    mygetqval[0], mygetqval[1], mygetqval[2], mygetqval[6], mygetqval[7], mygetqval[8]);
 
   q[0] = q0;
-  q[1] = q1;
+  q[1] = q1; 
   q[2] = q2;
   q[3] = q3;
 }

@@ -12,8 +12,8 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Upload_Speed  50   //数据上传速度  单位 Hz
-#define upload_time (1000000/Upload_Speed)  //计算上传的时间。单位为us
+#define Calc_Speed  100   //100Hz
+#define Calc_Time (1000000/Calc_Speed)  //us
 
 
 void GPIO_Configuration(void);
@@ -51,61 +51,44 @@ int main(void)
   NVIC_Configuration();
   
   delay_ms(10);
-  //Init_MPU6050();
+  Init_MPU6050();
   
   delay_ms(10);
-  //HMC5883L_Init();
+  HMC5883L_Init();
   delay_ms(10);
-  GPIOB->BSRR = GPIO_Pin_1;
-  //IMU_init();
   
-  Initial_Timer3();
+  IMU_init();
+  
+  Initial_TimerTick();
   system_microsec=micros();
   initMotor();
   setPWM(0,0,0,0);
-  UART1_Put_String("Hello World\n");
+  //UART1_Put_String("MiniQ\n");
   
   while(1)
   {
-    if(micros()-system_microsec>upload_time)
+    //if(micros()-system_microsec>Calc_Time)
     {
       
-      /*Read_MPU6050_ACC(&data[0]);
+      Read_MPU6050_ACC(&data[0]);
       Read_MPU6050_GYRO(&data[3]);
-      HMC5883L_Read(&data[6]);
+      //HMC5883L_Read(&data[6]);
+      
       IMU_getYawPitchRoll(result,data);
       
-      UART1_Put_Char(0xa5);
-      UART1_Put_Char(0x5a);
-      UART1_Put_Char(0x12);
-      UART1_Put_Char(0xa1);
-
-      
-      out_int16_t(&data[0]);
-      out_int16_t(&data[1]);
-      out_int16_t(&data[2]);
-
-      out_int16_t(&data[3]);
-      out_int16_t(&data[4]);
-      out_int16_t(&data[5]);
-
-      out_int16_t(&data[6]);
-      out_int16_t(&data[7]);
-      out_int16_t(&data[8]);
-      
+      UART1_Put_Char(0xff);
+      UART1_Put_Char(0xaa);
       
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
       
-      out_int16_t(&_hlt);
-      */
-      if(cnt<=49)++cnt;
-      else
-      {
-        UART1_Put_String("Hello World!\n");
-        cnt=0;
-      }
+      
+      if(cnt<=99)++cnt;
+      else cnt=0;
+      
+      if(cnt <=2 ) GPIOB->BSRR = GPIO_Pin_1;
+      else GPIOB->BRR  = GPIO_Pin_1;
       
       system_microsec = micros();
     }

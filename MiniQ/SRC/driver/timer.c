@@ -1,6 +1,6 @@
 #include "timer.h"
 
-void Initial_Timer3(void)
+void Initial_TimerTick(void)
 {
   TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 
@@ -19,7 +19,7 @@ void Initial_Timer3(void)
   TIM_UpdateDisableConfig(TIM3, ENABLE);
   /* ----------------------TIM3 Configuration as slave for the TIM4 ----------*/
   /* Select the TIM3 Input Trigger: TIM4 TRGO used as Input Trigger for TIM3*/
-  TIM_SelectInputTrigger(TIM3, TIM_TS_ITR2);
+  TIM_SelectInputTrigger(TIM3, TIM_TS_ITR3);
   /* Use the External Clock as TIM3 Slave Mode */
   TIM_SelectSlaveMode(TIM3, TIM_SlaveMode_External1);
   /* Enable the TIM3 Master Slave Mode */
