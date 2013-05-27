@@ -7,5 +7,8 @@ extern int16_t yaw,pitch, roll;
 
 void initControl(void);
 void controlLoop(void);
+int16_t pidCalc(int16_t actual, int16_t setPt, 
+                int16_t intThresh, int16_t* integral,
+                int16_t* lastError);
 
 #endif

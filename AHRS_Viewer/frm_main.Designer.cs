@@ -52,10 +52,10 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.lb_thr = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btn_forward = new System.Windows.Forms.Button();
             this.btn_left = new System.Windows.Forms.Button();
             this.btn_backword = new System.Windows.Forms.Button();
             this.btn_right = new System.Windows.Forms.Button();
+            this.btn_forward = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +76,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label1.Location = new System.Drawing.Point(16, 161);
+            this.label1.Location = new System.Drawing.Point(12, 161);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 2;
@@ -154,7 +154,7 @@
             this.lb_fps.AutoSize = true;
             this.lb_fps.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lb_fps.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lb_fps.Location = new System.Drawing.Point(16, 303);
+            this.lb_fps.Location = new System.Drawing.Point(9, 303);
             this.lb_fps.Name = "lb_fps";
             this.lb_fps.Size = new System.Drawing.Size(30, 13);
             this.lb_fps.TabIndex = 28;
@@ -245,7 +245,7 @@
             this.label9.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label9.Location = new System.Drawing.Point(15, 98);
+            this.label9.Location = new System.Drawing.Point(12, 98);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(36, 20);
             this.label9.TabIndex = 36;
@@ -273,7 +273,7 @@
             this.button4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button4.Location = new System.Drawing.Point(19, 268);
+            this.button4.Location = new System.Drawing.Point(12, 259);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(102, 25);
             this.button4.TabIndex = 41;
@@ -305,28 +305,17 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label3.Location = new System.Drawing.Point(133, 303);
+            this.label3.Location = new System.Drawing.Point(134, 303);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(193, 13);
             this.label3.TabIndex = 44;
             this.label3.Text = "Shipeng Xu 2013        http://BillHsu.me";
             // 
-            // btn_forward
-            // 
-            this.btn_forward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_forward.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btn_forward.Location = new System.Drawing.Point(55, 187);
-            this.btn_forward.Name = "btn_forward";
-            this.btn_forward.Size = new System.Drawing.Size(30, 30);
-            this.btn_forward.TabIndex = 45;
-            this.btn_forward.Text = "↑";
-            this.btn_forward.UseVisualStyleBackColor = true;
-            // 
             // btn_left
             // 
             this.btn_left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_left.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btn_left.Location = new System.Drawing.Point(19, 223);
+            this.btn_left.Location = new System.Drawing.Point(12, 223);
             this.btn_left.Name = "btn_left";
             this.btn_left.Size = new System.Drawing.Size(30, 30);
             this.btn_left.TabIndex = 46;
@@ -337,7 +326,7 @@
             // 
             this.btn_backword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_backword.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btn_backword.Location = new System.Drawing.Point(55, 223);
+            this.btn_backword.Location = new System.Drawing.Point(48, 223);
             this.btn_backword.Name = "btn_backword";
             this.btn_backword.Size = new System.Drawing.Size(30, 30);
             this.btn_backword.TabIndex = 47;
@@ -348,12 +337,23 @@
             // 
             this.btn_right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_right.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btn_right.Location = new System.Drawing.Point(91, 223);
+            this.btn_right.Location = new System.Drawing.Point(84, 223);
             this.btn_right.Name = "btn_right";
             this.btn_right.Size = new System.Drawing.Size(30, 30);
             this.btn_right.TabIndex = 48;
             this.btn_right.Text = "→";
             this.btn_right.UseVisualStyleBackColor = true;
+            // 
+            // btn_forward
+            // 
+            this.btn_forward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_forward.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btn_forward.Location = new System.Drawing.Point(48, 187);
+            this.btn_forward.Name = "btn_forward";
+            this.btn_forward.Size = new System.Drawing.Size(30, 30);
+            this.btn_forward.TabIndex = 45;
+            this.btn_forward.Text = "↑";
+            this.btn_forward.UseVisualStyleBackColor = true;
             // 
             // mainForm
             // 
@@ -427,10 +427,10 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label lb_thr;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btn_forward;
         private System.Windows.Forms.Button btn_left;
         private System.Windows.Forms.Button btn_backword;
         private System.Windows.Forms.Button btn_right;
+        private System.Windows.Forms.Button btn_forward;
     }
 }
 
