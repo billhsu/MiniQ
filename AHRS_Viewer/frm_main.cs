@@ -62,8 +62,8 @@ namespace ahrs_viewer
             gl.PushMatrix();
             gl.LoadIdentity();
             gl.Rotate(yaw, 0.0f, 1.0f, 0.0f);
-            gl.Rotate(pitch, 0.0f, 0.0f, 1.0f);
-            gl.Rotate(roll, 1.0f, 0.0f, 0.0f);
+            gl.Rotate(pitch, 1.0f, 0.0f, 0.0f);
+            gl.Rotate(roll, 0.0f, 0.0f, 1.0f);
             gl.GetFloat(OpenGL.GL_MODELVIEW_MATRIX, mat);
             gl.PopMatrix();
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
@@ -77,8 +77,8 @@ namespace ahrs_viewer
 
             //gl.Rotate(rx, ry, rz);
             gl.Rotate(-yaw, 0.0f, 1.0f, 0.0f);
-            gl.Rotate(-pitch, 0.0f, 0.0f, 1.0f);
-            gl.Rotate(-roll, 1.0f, 0.0f, 0.0f);
+            gl.Rotate(-pitch, 1.0f, 0.0f, 0.0f);
+            gl.Rotate(-roll, 0.0f, 0.0f, 1.0f);
             gl.Scale(1.0f, 0.5f, 2.0f);
             //  Bind the texture.
             texture.Bind(gl);
@@ -221,12 +221,14 @@ namespace ahrs_viewer
         private void button1_Click(object sender, EventArgs e)
         {
             Trace.Write("Click\n");
+            trackBar1.Value = 0;
+            lb_thr.Text = "Throttle:" + trackBar1.Value * 10 + "%";
             if (comm.IsOpen)
             {
                 closing = true;
                 comm.Close();
                 closing = false;
-                trackBar1.Value = 0;
+                
             }
             else
             {
