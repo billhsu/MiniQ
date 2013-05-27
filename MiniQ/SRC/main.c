@@ -65,7 +65,7 @@ int main(void)
   system_microsec=micros();
   initMotor();
   initControl();
-  //UART1_Put_String("MiniQ\n");
+  status = 0xff;
   
   while(1)
   {

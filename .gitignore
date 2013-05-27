@@ -166,4 +166,4 @@ pip-log.txt
 AHRS_STM32/Output/*.*
 MiniQ/Output/*.*
 
-AHRS_Viewer/
+AHRS_Viewer/obj

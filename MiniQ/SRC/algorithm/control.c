@@ -10,9 +10,9 @@ void controlLoop(void)
 {
   int16_t thr,Motor1,Motor2,Motor3,Motor4;
   
-  if(status==0xaa)
+  if(status!=0xff)
   {
-    thr=600;
+    thr=status*10;
     Motor1=(thr + roll - pitch + yaw);
 	  Motor2=(thr + roll + pitch - yaw);
 	  Motor3=(thr - roll + pitch + yaw);
