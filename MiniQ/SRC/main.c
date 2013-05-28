@@ -14,7 +14,7 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Calc_Speed  100   //100Hz
+#define Calc_Speed  25   //25Hz
 #define Calc_Time (1000000/Calc_Speed)  //us
 
 char volatile status;
@@ -42,7 +42,6 @@ int main(void)
   int16_t data[9];
   char cnt=0;
   int16_t result[3];
-  char recv[256];
 
 
   SystemInit();
@@ -69,29 +68,28 @@ int main(void)
   
   while(1)
   {
+    Read_MPU6050_ACC(&data[0]);
+    Read_MPU6050_GYRO(&data[3]);
+    //HMC5883L_Read(&data[6]);
+    
+    IMU_getYawPitchRoll(result,data);
+    controlLoop();
+    
+    if(cnt<=199)++cnt;
+    else cnt=0;
+      
+    if(cnt <=5 ) GPIOB->BSRR = GPIO_Pin_1;
+    else GPIOB->BRR  = GPIO_Pin_1;
+    
     if(micros()-system_microsec>Calc_Time)
     {
-      
-      Read_MPU6050_ACC(&data[0]);
-      Read_MPU6050_GYRO(&data[3]);
-      //HMC5883L_Read(&data[6]);
-      
-      IMU_getYawPitchRoll(result,data);
-      controlLoop();
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
       
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
-      
-      
-      if(cnt<=99)++cnt;
-      else cnt=0;
-      
-      if(cnt <=2 ) GPIOB->BSRR = GPIO_Pin_1;
-      else GPIOB->BRR  = GPIO_Pin_1;
-      
+
       system_microsec = micros();
     }
 
