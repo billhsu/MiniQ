@@ -1,0 +1,7 @@
+roll
+¡¤Left£º-
+¡¤Right£º+
+
+pitch
+¡¤Forward£º+
+¡¤Backword£º-

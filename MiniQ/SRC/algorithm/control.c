@@ -13,9 +13,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.2f;
-  Kp=2.0f;
-  Kd=3.0f;
+  Ki=0.0f;
+  Kp=1.5f;
+  Kd=7.0f;
   
   lastRoll=0;
   lastPitch=0;
@@ -33,17 +33,17 @@ void controlLoop(void)
   
   if(status!=0xff)
   {
-    thr=400+status*90;
+    thr=status*100;
     
     rollOut = pidCalc(roll,0,30,&intRoll,&lastRoll);
     pitchOut = pidCalc(pitch,0,30,&intPitch,&lastPitch);
     yawOut = pidCalc(yaw,0,30,&intYaw,&lastYaw);
     
     
-    Motor1 = thr + rollOut           ;// - yawOut;
-    Motor2 = thr           + pitchOut;// + yawOut;
-    Motor3 = thr - rollOut           ;// - yawOut;
-    Motor4 = thr           - pitchOut;// + yawOut;
+    Motor1 = 1*(thr + rollOut           );// - yawOut;
+    Motor2 = 1*(thr           + pitchOut);// + yawOut;
+    Motor3 = 1*(thr - rollOut           );// - yawOut;
+    Motor4 = 1*(thr           - pitchOut);// + yawOut;
 
     setPWM(Motor1,Motor2,Motor3,Motor4);
   }

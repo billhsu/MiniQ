@@ -328,6 +328,7 @@ namespace ahrs_viewer
             {
                 lb_thr.Text = "Throttle:" + trackBar1.Value * 10 + "%";
                 Byte[] thr = { (Byte)trackBar1.Value };
+                //Byte[] thr = { 5 };
                 comm.Write(thr, 0, 1);
                 Trace.WriteLine(lb_thr.Text);
             }
