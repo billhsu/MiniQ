@@ -1,3 +1,4 @@
+
 #include "control.h"
 #include "../driver/motor.h"
 extern char status;
@@ -15,7 +16,7 @@ void initControl(void)
   
   Ki=0.0f;
   Kp=7.0f;
-  Kd=3.0f;
+  Kd=2.0f;
   
   lastErrRoll=0;
   lastErrPitch=0;
