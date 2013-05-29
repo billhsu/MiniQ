@@ -9,7 +9,7 @@
 volatile float exInt, eyInt, ezInt;
 volatile float q0, q1, q2, q3;
 volatile uint32_t lastUpdate, now;
-
+float halfT;
 int16_t yaw,pitch, roll;
 int16_t gyroX,gyroY,gyroZ;
 
@@ -51,7 +51,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   float vx, vy, vz;//, wx, wy, wz;
   float ex, ey, ez;
   float iq0, iq1, iq2, iq3;
-  float halfT;
+  
 
   // auxiliary variables to reduce number of repeated operations
   float q0q0 = q0*q0;
@@ -65,8 +65,6 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   float q2q3 = q2*q3;
   float q3q3 = q3*q3;
   
-  
-
   now = micros();
   halfT =  ((float)(now - lastUpdate) / 1000000.0f);
   lastUpdate = now;
