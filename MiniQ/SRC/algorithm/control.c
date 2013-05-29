@@ -19,9 +19,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.0f;
-  Kp=70.0f;
-  Kd=7.0f;
+  Ki=0.1f;
+  Kp=3.5f;
+  Kd=0.032f;
   
   lastErrRoll=0;
   lastErrPitch=0;
@@ -67,7 +67,7 @@ int16_t pidCalc(int16_t actual, int16_t setPt,
 {
   int16_t err,P,I,D,out;
   err = setPt - actual;
-  err=err/10;
+  err=err;
   P = err*Kp; // calc proportional term
   
   if(actual>-1 && actual<1)
@@ -78,11 +78,11 @@ int16_t pidCalc(int16_t actual, int16_t setPt,
 	iMax = err;
 	if(iMax<0)	
 	{
-		iMax = (-iMax) + 200;
+		iMax = (-iMax) + 100;
 	}
 	else
 	{
-		iMax += 200;
+		iMax += 100;
 	}
 	if(*integral>iMax) 	*integral = iMax;
 	if(*integral<-iMax)	*integral = -iMax;

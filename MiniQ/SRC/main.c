@@ -76,13 +76,10 @@ int main(void)
     controlLoop();
     
     ++cnt;
-    
-    
-    if(cnt <=1 ) GPIOB->BSRR = GPIO_Pin_1;
-    else GPIOB->BRR  = GPIO_Pin_1;
-    
+
     if(micros()-system_microsec>Calc_Time)
     {
+      GPIOB->BSRR = GPIO_Pin_1;
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
       
@@ -92,6 +89,7 @@ int main(void)
       
       out_int16_t(&cnt);
       cnt = 0;
+      GPIOB->BRR  = GPIO_Pin_1;
       system_microsec = micros();
     }
 

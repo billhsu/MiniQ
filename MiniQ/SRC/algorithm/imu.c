@@ -157,9 +157,9 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
     
   }
   
-  gyroX = data[3]/32.8;
-  gyroY = data[4]/32.8;
-  gyroZ = data[5]/32.8;
+  gyroX = data[3];
+  gyroY = data[4];
+  gyroZ = data[5];
 
   IMU_getQ(q,f_data);
   
