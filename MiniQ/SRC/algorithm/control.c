@@ -19,9 +19,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.1f;
-  Kp=6.0f;
-  Kd=2.3f;
+  Ki=0.0f;
+  Kp=70.0f;
+  Kd=7.0f;
   
   lastErrRoll=0;
   lastErrPitch=0;
@@ -43,9 +43,9 @@ void controlLoop(void)
   {
     thr=status*100;
     
-    rollOut   =   pidCalc(roll,0,100,&intRoll,&lastErrRoll,gyroX);
-    pitchOut  =   pidCalc(pitch,0,100,&intPitch,&lastErrPitch,gyroY);
-    yawOut    =   pidCalc(yaw,0,100,&intYaw,&lastErrYaw,gyroZ);
+    rollOut   =   pidCalc(roll,0,&intRoll,&lastErrRoll,-gyroY);
+    pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,gyroX);
+    yawOut    =   pidCalc(yaw,0,&intYaw,&lastErrYaw,gyroZ);
     
     
     Motor1 = thr + rollOut            ;//- yawOut;
@@ -61,28 +61,28 @@ void controlLoop(void)
   }
 }
 
- int16_t pidCalc(int16_t actual, int16_t setPt, 
-               int16_t intThresh, int16_t* integral, 
-               int16_t* lastErr, int16_t gyro)
+int16_t pidCalc(int16_t actual, int16_t setPt, 
+                int16_t* integral,int16_t* lastErr,
+                int16_t gyro)
 {
   int16_t err,P,I,D,out;
   err = setPt - actual;
   err=err/10;
   P = err*Kp; // calc proportional term
   
-  if(actual>-5 && actual<5)
-	{                                                                            
+  if(actual>-1 && actual<1)
+	{
 		*integral = 0;
 	}
-	*integral += Ki * err*(2*halfT);
+	*integral += Ki * err;
 	iMax = err;
 	if(iMax<0)	
 	{
-		iMax = (-iMax) + 100;
+		iMax = (-iMax) + 200;
 	}
 	else
 	{
-		iMax += 100;
+		iMax += 200;
 	}
 	if(*integral>iMax) 	*integral = iMax;
 	if(*integral<-iMax)	*integral = -iMax;
@@ -90,7 +90,7 @@ void controlLoop(void)
   
   //D = (*lastErr-err)*Kd; // derivative term
   D = gyro*Kd;
-  out = P + I - D; // Total drive = P+I+D
+  out = P + I + D; // Total drive = P+I+D
   
   *lastErr = err;
 

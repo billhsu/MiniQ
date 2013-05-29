@@ -515,11 +515,6 @@
               <FileType>1</FileType>
               <FilePath>.\SRC\algorithm\control.c</FilePath>
             </File>
-            <File>
-              <FileName>pid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SRC\algorithm\pid.c</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>

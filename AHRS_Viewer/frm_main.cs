@@ -23,9 +23,9 @@ namespace ahrs_viewer
         int start_match_pos = 0;
         int recv_cnt = 0;
 
-        byte[] recv_data = new byte[8];
+        byte[] recv_data = new byte[10];
         byte[] start_mark={0xff,0xaa};
-        Int32[] imu_result = new Int32[14];
+        Int32[] imu_result = new Int32[16];
         int mFPS = 0;
 
 
@@ -185,9 +185,9 @@ namespace ahrs_viewer
 
                         recv_data[recv_cnt] = b;
                         ++recv_cnt;
-                        if (recv_cnt == 6)
+                        if (recv_cnt == 8)
                         {
-                            for (int i = 0; i < 6; i += 2)
+                            for (int i = 0; i < 8; i += 2)
                             {
                                 imu_result[i / 2] = (Int32)(UInt16)(recv_data[i] << 8 | recv_data[i + 1]);
                                 if (imu_result[i / 2] >= 32768)
@@ -201,11 +201,12 @@ namespace ahrs_viewer
                             yaw = imu_result[0] / 10.0f;
                             pitch = imu_result[1] / 10.0f;
                             roll = imu_result[2] / 10.0f;
+                            //lb_fps.Text = "FPS:" + imu_result[3]/10*25;
                             start_flag = false;
                             recv_cnt = 0;
                             start_match_pos = 0;
                         }
-                        else if (recv_cnt > 7)
+                        else if (recv_cnt > 9)
                         {
                             Trace.WriteLine("This should not appear");
                             start_flag = false;
@@ -279,13 +280,14 @@ namespace ahrs_viewer
         int oldFPS = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(oldFPS>50 && mFPS<30 && comm.IsOpen){
+            /*if(oldFPS>50 && mFPS<30 && comm.IsOpen){
                 Trace.WriteLine("Oops!");
                 comm.DiscardInBuffer();
             }
             lb_fps.Text = "FPS: " + mFPS;
             oldFPS = mFPS;
-            mFPS = 0;
+            mFPS = 0;*/
+            lb_fps.Text = "FPS:" + imu_result[3] * 25;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -336,6 +338,11 @@ namespace ahrs_viewer
             {
                 trackBar1.Value = 0;
             }
+        }
+
+        private void lb_fps_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

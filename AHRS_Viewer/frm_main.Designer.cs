@@ -159,6 +159,7 @@
             this.lb_fps.Size = new System.Drawing.Size(30, 13);
             this.lb_fps.TabIndex = 28;
             this.lb_fps.Text = "FPS:";
+            this.lb_fps.Click += new System.EventHandler(this.lb_fps_Click);
             // 
             // lb_hlt
             // 

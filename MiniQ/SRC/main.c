@@ -40,7 +40,7 @@ void out_int16_t(int16_t * data)
 int main(void)
 {
   int16_t data[9];
-  char cnt=0;
+  int16_t cnt=0;
   int16_t result[3];
 
 
@@ -65,7 +65,7 @@ int main(void)
   initMotor();
   initControl();
   status = 0xff;
-  
+  cnt = 0;
   while(1)
   {
     Read_MPU6050_ACC(&data[0]);
@@ -75,10 +75,10 @@ int main(void)
     IMU_getYawPitchRoll(result,data);
     controlLoop();
     
-    if(cnt<=199)++cnt;
-    else cnt=0;
-      
-    if(cnt <=5 ) GPIOB->BSRR = GPIO_Pin_1;
+    ++cnt;
+    
+    
+    if(cnt <=1 ) GPIOB->BSRR = GPIO_Pin_1;
     else GPIOB->BRR  = GPIO_Pin_1;
     
     if(micros()-system_microsec>Calc_Time)
@@ -89,7 +89,9 @@ int main(void)
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
-
+      
+      out_int16_t(&cnt);
+      cnt = 0;
       system_microsec = micros();
     }
 
