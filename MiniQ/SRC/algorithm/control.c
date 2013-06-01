@@ -1,4 +1,3 @@
-
 #include "control.h"
 #include "../driver/motor.h"
 extern char status;
@@ -19,9 +18,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.1f;
-  Kp=3.5f;
-  Kd=0.032f;
+  Ki=0.00f;
+  Kp=0.41f;
+  Kd=0.032f;//0.032
   
   lastErrRoll=0;
   lastErrPitch=0;
@@ -43,8 +42,8 @@ void controlLoop(void)
   {
     thr=status*100;
     
-    rollOut   =   pidCalc(roll,0,&intRoll,&lastErrRoll,-gyroY);
-    pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,gyroX);
+    rollOut   =   pidCalc(roll,0,&intRoll,&lastErrRoll,gyroY);
+    pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,-gyroX);
     yawOut    =   pidCalc(yaw,0,&intYaw,&lastErrYaw,gyroZ);
     
     
@@ -90,7 +89,7 @@ int16_t pidCalc(int16_t actual, int16_t setPt,
   
   //D = (*lastErr-err)*Kd; // derivative term
   D = gyro*Kd;
-  out = P + I + D; // Total drive = P+I+D
+  out = P + I - D; // Total drive = P+I+D
   
   *lastErr = err;
 

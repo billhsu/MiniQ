@@ -283,11 +283,11 @@ namespace ahrs_viewer
             /*if(oldFPS>50 && mFPS<30 && comm.IsOpen){
                 Trace.WriteLine("Oops!");
                 comm.DiscardInBuffer();
-            }
+            }*/
             lb_fps.Text = "FPS: " + mFPS;
             oldFPS = mFPS;
-            mFPS = 0;*/
-            lb_fps.Text = "FPS:" + imu_result[3] * 25;
+            mFPS = 0;
+            lb_fps.Text += " calcFPS:" + imu_result[3];
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -14,8 +14,8 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define Calc_Speed  25   //25Hz
-#define Calc_Time (1000000/Calc_Speed)  //us
+#define uploadSpeed  50   //50Hz
+#define uploadTime (1000000/uploadSpeed)  //us
 
 char volatile status;
 void GPIO_Configuration(void);
@@ -77,7 +77,7 @@ int main(void)
     
     ++cnt;
 
-    if(micros()-system_microsec>Calc_Time)
+    if(micros()-system_microsec>uploadTime)
     {
       GPIOB->BSRR = GPIO_Pin_1;
       UART1_Put_Char(0xff);
@@ -86,7 +86,7 @@ int main(void)
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
-      
+      cnt=uploadSpeed*cnt;
       out_int16_t(&cnt);
       cnt = 0;
       GPIOB->BRR  = GPIO_Pin_1;

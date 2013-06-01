@@ -175,13 +175,9 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   gy = 2 * (q[0]*q[1] + q[2]*q[3]);
   gz = q[0]*q[0] - q[1]*q[1] - q[2]*q[2] + q[3]*q[3];
   
-  angles[0] = (int16_t)(atan2(2 * q[1] * q[2] - 2 * q[0] * q[3], 2 * q[0]*q[0] + 2 * q[1] * q[1] - 1) * 1800/M_PI);
-  angles[1] = -(int16_t)(atan(gy / sqrt(gx*gx + gz*gz))  * 1800/M_PI);
-  angles[2] = -(int16_t)(atan(gx / sqrt(gy*gy + gz*gz))  * 1800/M_PI);
-  yaw = angles[0]/10;
-  pitch = angles[1]/10;
-  roll = angles[2]/10;
-  
+  yaw = angles[0] = (int16_t)(atan2(2 * q[1] * q[2] - 2 * q[0] * q[3], 2 * q[0]*q[0] + 2 * q[1] * q[1] - 1) * 1800/M_PI);
+  pitch=angles[1] = -(int16_t)(atan(gy / sqrt(gx*gx + gz*gz))  * 1800/M_PI);
+  roll=angles[2] = -(int16_t)(atan(gx / sqrt(gy*gy + gz*gz))  * 1800/M_PI);
 
 }
 
