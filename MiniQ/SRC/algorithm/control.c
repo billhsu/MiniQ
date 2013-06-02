@@ -1,6 +1,6 @@
 #include "control.h"
 #include "../driver/motor.h"
-extern char status;
+extern char baseThr;
 
 extern int16_t abs (int16_t i);//defined in mpu6050.c
 extern int16_t yaw,pitch, roll;
@@ -18,9 +18,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.00f;
-  Kp=0.41f;
-  Kd=0.032f;//0.032
+  Ki=0.001f;
+  Kp=0.63f;
+  Kd=0.033f;//0.032
   
   lastErrRoll=0;
   lastErrPitch=0;
@@ -38,9 +38,9 @@ void controlLoop(void)
   int16_t thr,Motor1,Motor2,Motor3,Motor4;
   int16_t rollOut,pitchOut,yawOut;
   
-  if(status!=0xff)
+  if(baseThr!=0x00)
   {
-    thr=status*100;
+    thr=(baseThr)*100;
     
     rollOut   =   pidCalc(roll,0,&intRoll,&lastErrRoll,gyroY);
     pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,-gyroX);

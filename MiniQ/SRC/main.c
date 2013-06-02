@@ -17,7 +17,7 @@ ErrorStatus HSEStartUpStatus;
 #define uploadSpeed  50   //50Hz
 #define uploadTime (1000000/uploadSpeed)  //us
 
-char volatile status;
+char volatile baseThr;
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void WWDG_Configuration(void);
@@ -64,7 +64,7 @@ int main(void)
   system_microsec=micros();
   initMotor();
   initControl();
-  status = 0xff;
+  baseThr = 0x00;
   cnt = 0;
   while(1)
   {

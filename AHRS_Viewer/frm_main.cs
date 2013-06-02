@@ -18,7 +18,7 @@ namespace ahrs_viewer
         private SerialPort comm = new SerialPort();
 
         object lockThis = new object();
-
+        
         bool start_flag = false;
         int start_match_pos = 0;
         int recv_cnt = 0;
@@ -319,8 +319,9 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                Byte[] stop = { 0xff };
-                comm.Write(stop, 0, 1);
+                comm.Write(start_mark, 0, start_mark.Length);
+                Byte[] stop = { 0x01,1,0x00 };
+                comm.Write(stop, 0, stop.Length);
             }
         }
 
@@ -329,9 +330,10 @@ namespace ahrs_viewer
             if (comm.IsOpen)
             {
                 lb_thr.Text = "Throttle:" + trackBar1.Value * 10 + "%";
-                Byte[] thr = { (Byte)trackBar1.Value };
+                comm.Write(start_mark, 0, start_mark.Length);
+                Byte[] thr = { 0x01,1,(Byte)trackBar1.Value };
                 //Byte[] thr = { 5 };
-                comm.Write(thr, 0, 1);
+                comm.Write(thr, 0, thr.Length);
                 Trace.WriteLine(lb_thr.Text);
             }
             else
@@ -340,9 +342,28 @@ namespace ahrs_viewer
             }
         }
 
-        private void lb_fps_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            
+            if (comm.IsOpen)
+            {
+                float P, D;
+                P = float.Parse(textP.Text);
+                D = float.Parse(textD.Text);
+                byte[] pBytes = BitConverter.GetBytes(P);
+                byte[] dBytes = BitConverter.GetBytes(D);
+                Byte[] setP = { 0x02 };
+                Byte[] setD = { 0x03 };
+                Byte[] cmdLen = { 4 };
+                comm.Write(start_mark, 0, start_mark.Length);
+                comm.Write(setP, 0, 1);
+                comm.Write(cmdLen, 0, cmdLen.Length);
+                comm.Write(pBytes, 0, pBytes.Length);
+
+                comm.Write(start_mark, 0, start_mark.Length);
+                comm.Write(setD, 0, 1);
+                comm.Write(cmdLen, 0, cmdLen.Length);
+                comm.Write(dBytes, 0, dBytes.Length);
+            }
         }
     }
 }

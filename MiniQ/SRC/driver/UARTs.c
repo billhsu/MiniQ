@@ -14,8 +14,15 @@ RS232RXD  -->  PA10 (UART1-RXD)
 u8 TxBuffer[258];
 u8 TxCounter=0;
 u8 count=0; 
-
-extern char status;
+u8 start_mark[2]={0xff,0xaa};
+u8 recvStatus=0;
+u8 recvCmd=0;
+u8 recvLength=0;
+u8 recvPos=0;
+u8 recvData[8]={0,0,0,0,0,0,0,0};
+extern char baseThr;
+extern float Ki,Kp,Kd;
+void parseCmd(u8 cmd, u8 len);
 /**************************实现函数********************************************
 *函数原型:		void Initial_UART1(u32 baudrate)
 *功　　能:		初始化STM32-SDK开发板上的RS232接口
@@ -107,15 +114,45 @@ void USART1_IRQHandler(void)
 {
 
 	char RX_dat;
-  uint16_t pwm;
 	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
 	{
-  
-  
 		USART_ClearITPendingBit(USART1,   USART_IT_RXNE);
 
 		RX_dat=USART_ReceiveData(USART1);// & 0x7F;
-    status = RX_dat;
+    //status = RX_dat;
+    if(recvStatus==0)
+    {
+      if(RX_dat==0xff) recvStatus=1;
+    }
+    else if(recvStatus==1)
+    {
+      if(RX_dat==0xaa) recvStatus=2;
+      else recvStatus=0;
+    }
+    else if(recvStatus==2)
+    {
+      recvCmd=RX_dat;
+      recvStatus=3;
+    }
+    else if(recvStatus==3)
+    {
+      recvLength=RX_dat;
+      recvStatus=4;
+    }
+    else if(recvStatus==4)
+    {
+      if(recvPos<recvLength)
+      {
+        recvData[recvPos]=RX_dat;
+        ++recvPos;
+      }
+      if(recvPos==recvLength) 
+      {
+        parseCmd(recvCmd,recvLength);
+        recvPos=0;
+        recvStatus=0;
+      }
+    }
 		//USART_SendData(USART1, RX_dat);
 
 		//while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}
@@ -140,5 +177,31 @@ void USART1_IRQHandler(void)
 
 }
 
+
+void parseCmd(u8 cmd, u8 len)
+{
+  char* temp;
+  switch (cmd)
+  {
+    case 0x01:
+      baseThr=recvData[0];
+      break;
+    case 0x02:
+      temp=(char*)(&Kp);
+      temp[0] = recvData[0];
+      temp[1] = recvData[1];
+      temp[2] = recvData[2];
+      temp[3] = recvData[3];
+      break;
+    case 0x03:
+      temp=(char*)(&Kd);
+      temp[0] = recvData[0];
+      temp[1] = recvData[1];
+      temp[2] = recvData[2];
+      temp[3] = recvData[3];
+    break;
+  }
+  
+}
 
 //------------------End of File----------------------------

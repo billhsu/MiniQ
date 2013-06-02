@@ -56,6 +56,9 @@
             this.btn_backword = new System.Windows.Forms.Button();
             this.btn_right = new System.Windows.Forms.Button();
             this.btn_forward = new System.Windows.Forms.Button();
+            this.textP = new System.Windows.Forms.TextBox();
+            this.textD = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -159,7 +162,6 @@
             this.lb_fps.Size = new System.Drawing.Size(30, 13);
             this.lb_fps.TabIndex = 28;
             this.lb_fps.Text = "FPS:";
-            this.lb_fps.Click += new System.EventHandler(this.lb_fps_Click);
             // 
             // lb_hlt
             // 
@@ -284,7 +286,7 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(127, 223);
+            this.trackBar1.Location = new System.Drawing.Point(127, 212);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(199, 45);
             this.trackBar1.TabIndex = 42;
@@ -295,7 +297,7 @@
             this.lb_thr.AutoSize = true;
             this.lb_thr.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lb_thr.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lb_thr.Location = new System.Drawing.Point(134, 196);
+            this.lb_thr.Location = new System.Drawing.Point(124, 196);
             this.lb_thr.Name = "lb_thr";
             this.lb_thr.Size = new System.Drawing.Size(60, 13);
             this.lb_thr.TabIndex = 43;
@@ -356,12 +358,48 @@
             this.btn_forward.Text = "↑";
             this.btn_forward.UseVisualStyleBackColor = true;
             // 
+            // textP
+            // 
+            this.textP.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textP.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.textP.Location = new System.Drawing.Point(127, 263);
+            this.textP.Name = "textP";
+            this.textP.Size = new System.Drawing.Size(57, 20);
+            this.textP.TabIndex = 49;
+            this.textP.Text = "0.0";
+            // 
+            // textD
+            // 
+            this.textD.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textD.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.textD.Location = new System.Drawing.Point(190, 263);
+            this.textD.Name = "textD";
+            this.textD.Size = new System.Drawing.Size(57, 20);
+            this.textD.TabIndex = 50;
+            this.textD.Text = "0.0";
+            // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(263, 261);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(63, 23);
+            this.button3.TabIndex = 51;
+            this.button3.Text = "Set PD";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(714, 327);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textD);
+            this.Controls.Add(this.textP);
             this.Controls.Add(this.btn_right);
             this.Controls.Add(this.btn_backword);
             this.Controls.Add(this.btn_left);
@@ -432,6 +470,9 @@
         private System.Windows.Forms.Button btn_backword;
         private System.Windows.Forms.Button btn_right;
         private System.Windows.Forms.Button btn_forward;
+        private System.Windows.Forms.TextBox textP;
+        private System.Windows.Forms.TextBox textD;
+        private System.Windows.Forms.Button button3;
     }
 }
 
