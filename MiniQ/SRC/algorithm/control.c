@@ -18,9 +18,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.001f;
-  Kp=0.63f;
-  Kd=0.033f;//0.032
+  Ki=0.00f;
+  Kp=0.54f;
+  Kd=0.05f;//0.032
   
   lastErrRoll=0;
   lastErrPitch=0;

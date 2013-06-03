@@ -64,7 +64,7 @@ int main(void)
   system_microsec=micros();
   initMotor();
   initControl();
-  baseThr = 0x00;
+  baseThr = 0;
   cnt = 0;
   while(1)
   {
@@ -76,10 +76,13 @@ int main(void)
     controlLoop();
     
     ++cnt;
+    //if(cnt<2)GPIOB->BRR = GPIO_Pin_1;
+    //else 
+    GPIOB->BRR  = GPIO_Pin_1;
 
     if(micros()-system_microsec>uploadTime)
     {
-      GPIOB->BSRR = GPIO_Pin_1;
+      
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
       
@@ -89,7 +92,7 @@ int main(void)
       cnt=uploadSpeed*cnt;
       out_int16_t(&cnt);
       cnt = 0;
-      GPIOB->BRR  = GPIO_Pin_1;
+      
       system_microsec = micros();
     }
 

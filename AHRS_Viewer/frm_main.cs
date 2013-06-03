@@ -346,13 +346,18 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                float P, D;
+                float P, D,I;
                 P = float.Parse(textP.Text);
                 D = float.Parse(textD.Text);
+                I = float.Parse(textI.Text);
+
                 byte[] pBytes = BitConverter.GetBytes(P);
                 byte[] dBytes = BitConverter.GetBytes(D);
+                byte[] iBytes = BitConverter.GetBytes(I);
+
                 Byte[] setP = { 0x02 };
                 Byte[] setD = { 0x03 };
+                Byte[] setI = { 0x04 };
                 Byte[] cmdLen = { 4 };
                 comm.Write(start_mark, 0, start_mark.Length);
                 comm.Write(setP, 0, 1);
@@ -363,6 +368,11 @@ namespace ahrs_viewer
                 comm.Write(setD, 0, 1);
                 comm.Write(cmdLen, 0, cmdLen.Length);
                 comm.Write(dBytes, 0, dBytes.Length);
+
+                comm.Write(start_mark, 0, start_mark.Length);
+                comm.Write(setI, 0, 1);
+                comm.Write(cmdLen, 0, cmdLen.Length);
+                comm.Write(iBytes, 0, iBytes.Length);
             }
         }
     }

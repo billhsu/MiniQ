@@ -59,6 +59,7 @@
             this.textP = new System.Windows.Forms.TextBox();
             this.textD = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.textI = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -365,7 +366,7 @@
             this.textP.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.textP.Location = new System.Drawing.Point(127, 263);
             this.textP.Name = "textP";
-            this.textP.Size = new System.Drawing.Size(57, 20);
+            this.textP.Size = new System.Drawing.Size(33, 20);
             this.textP.TabIndex = 49;
             this.textP.Text = "0.0";
             // 
@@ -374,9 +375,9 @@
             this.textD.BackColor = System.Drawing.SystemColors.InfoText;
             this.textD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textD.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.textD.Location = new System.Drawing.Point(190, 263);
+            this.textD.Location = new System.Drawing.Point(208, 263);
             this.textD.Name = "textD";
-            this.textD.Size = new System.Drawing.Size(57, 20);
+            this.textD.Size = new System.Drawing.Size(33, 20);
             this.textD.TabIndex = 50;
             this.textD.Text = "0.0";
             // 
@@ -387,9 +388,20 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(63, 23);
             this.button3.TabIndex = 51;
-            this.button3.Text = "Set PD";
+            this.button3.Text = "Set PID";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // textI
+            // 
+            this.textI.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textI.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.textI.Location = new System.Drawing.Point(169, 263);
+            this.textI.Name = "textI";
+            this.textI.Size = new System.Drawing.Size(33, 20);
+            this.textI.TabIndex = 52;
+            this.textI.Text = "0.0";
             // 
             // mainForm
             // 
@@ -397,6 +409,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(714, 327);
+            this.Controls.Add(this.textI);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textD);
             this.Controls.Add(this.textP);
@@ -473,6 +486,7 @@
         private System.Windows.Forms.TextBox textP;
         private System.Windows.Forms.TextBox textD;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textI;
     }
 }
 

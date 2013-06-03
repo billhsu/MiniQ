@@ -42,8 +42,8 @@ void IMU_init(void)
 }
 
 
-#define Kp 1.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
-#define Ki 0.53f   // integral gain governs rate of convergence of gyroscope biases
+#define IMU_Kp 5.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
+#define IMU_Ki 0.33f   // integral gain governs rate of convergence of gyroscope biases
 
 void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
   float norm;
@@ -66,7 +66,12 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   float q3q3 = q3*q3;
   
   now = micros();
-  halfT =  ((float)(now - lastUpdate) / 1000000.0f);
+  if(now<lastUpdate){
+  halfT =  ((float)(now + (0xffff- lastUpdate)) / 500000.0f);
+  }
+  else	{
+  halfT =  ((float)(now - lastUpdate) / 500000.0f);
+  }
   lastUpdate = now;
   
   norm = invSqrt(ax*ax + ay*ay + az*az);       
@@ -101,15 +106,15 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
 
   if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
   // integral error scaled integral gain
-  exInt = exInt + ex*Ki * halfT;
-  eyInt = eyInt + ey*Ki * halfT;
-  ezInt = ezInt + ez*Ki * halfT;
+  exInt = exInt + ex*IMU_Ki * halfT;
+  eyInt = eyInt + ey*IMU_Ki * halfT;
+  ezInt = ezInt + ez*IMU_Ki * halfT;
   
 
   // adjusted gyroscope measurements
-  gx = gx + Kp*ex + exInt;
-  gy = gy + Kp*ey + eyInt;
-  gz = gz + Kp*ez + ezInt;
+  gx = gx + IMU_Kp*ex + exInt;
+  gy = gy + IMU_Kp*ey + eyInt;
+  gz = gz + IMU_Kp*ez + ezInt;
   }
   // integrate quaternion rate and normalise
   iq0 = (-q1*gx - q2*gy - q3*gz)*halfT;
