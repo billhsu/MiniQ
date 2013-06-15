@@ -42,8 +42,8 @@ void IMU_init(void)
 }
 
 
-#define IMU_Kp 5.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
-#define IMU_Ki 0.33f   // integral gain governs rate of convergence of gyroscope biases
+#define IMU_Kp 10.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
+#define IMU_Ki 0.008f   // integral gain governs rate of convergence of gyroscope biases
 
 void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
   float norm;
