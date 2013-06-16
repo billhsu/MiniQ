@@ -73,12 +73,10 @@ int main(void)
       HMC5883L_Read(&data[6]);
       IMU_getYawPitchRoll(result,data);
       
-      UART1_Put_Char(0xa5);
-      UART1_Put_Char(0x5a);
-      UART1_Put_Char(0x12);
-      UART1_Put_Char(0xa1);
+      UART1_Put_Char(0xff);
+      UART1_Put_Char(0xaa);
 
-      out_int16_t(&data[0]);
+      /*out_int16_t(&data[0]);
       out_int16_t(&data[1]);
       out_int16_t(&data[2]);
 
@@ -90,12 +88,12 @@ int main(void)
       out_int16_t(&data[7]);
       out_int16_t(&data[8]);
       
-      
+      */
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
       
-      out_int16_t(&_hlt);
+      //out_int16_t(&_hlt);
       //system_microsec = micros();
     }
 
