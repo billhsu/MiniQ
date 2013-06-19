@@ -216,10 +216,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>34</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>75</TopLine>
-      <CurrentLine>83</CurrentLine>
+      <TopLine>81</TopLine>
+      <CurrentLine>81</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SRC\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -509,7 +509,7 @@
       <Focus>0</Focus>
       <ColumnNumber>9</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>191</TopLine>
+      <TopLine>193</TopLine>
       <CurrentLine>204</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SRC\driver\UARTs.c</PathWithFileName>
@@ -535,9 +535,9 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>10</ColumnNumber>
+      <ColumnNumber>27</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>20</TopLine>
+      <TopLine>15</TopLine>
       <CurrentLine>28</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SRC\driver\ioi2c.c</PathWithFileName>
@@ -579,7 +579,7 @@
       <Focus>0</Focus>
       <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>49</TopLine>
+      <TopLine>41</TopLine>
       <CurrentLine>60</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SRC\driver\timer.c</PathWithFileName>
@@ -612,10 +612,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>37</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>75</TopLine>
-      <CurrentLine>75</CurrentLine>
+      <TopLine>142</TopLine>
+      <CurrentLine>142</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SRC\algorithm\imu.c</PathWithFileName>
       <FilenameWithoutPath>imu.c</FilenameWithoutPath>
@@ -628,8 +628,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>67</TopLine>
-      <CurrentLine>72</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>16</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SRC\algorithm\control.c</PathWithFileName>
       <FilenameWithoutPath>control.c</FilenameWithoutPath>
@@ -669,8 +669,8 @@
       <flags>2</flags>
       <showCmd>3</showCmd>
       <MinPosition>
-        <xPos>-1</xPos>
-        <yPos>-1</yPos>
+        <xPos>-32065</xPos>
+        <yPos>-32000</yPos>
       </MinPosition>
       <MaxPosition>
         <xPos>-1</xPos>
@@ -686,8 +686,8 @@
     <MDIClientArea>
       <RegID>0</RegID>
       <MDITabState>
-        <Len>819</Len>
-        <Data>01000000040000000100000001000000010000000100000001000000FFFFFFFF000000000100000001000000000000002800000028000000010000000900000002000000010000002A453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6472697665725C74696D65722E63000000000774696D65722E6300000000FFDC7800FFFFFFFF22453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6D61696E2E6300000000066D61696E2E6300000000BECEA100FFFFFFFF2A453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6472697665725C55415254732E63000000000755415254732E6300000000BECEA100FFFFFFFF43453A5C50726F6A656374735C4D696E69515C4D696E69515C4C69627261726965735C434D5349535C436F72655C434D335C73797374656D5F73746D3332663130782E63000000001273797374656D5F73746D3332663130782E6300000000F0A0A100FFFFFFFF2A453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6472697665725C696F6932632E630000000007696F6932632E6300000000BCA8E100FFFFFFFF2C453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6472697665725C6D7075363035302E6300000000096D7075363035302E63000000009CC1B600FFFFFFFF2F453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C616C676F726974686D5C636F6E74726F6C2E630000000009636F6E74726F6C2E6300000000F7B88600FFFFFFFF2F453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C616C676F726974686D5C636F6E74726F6C2E680000000009636F6E74726F6C2E6800000000D9ADC200FFFFFFFF2B453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C616C676F726974686D5C696D752E630000000005696D752E6300000000A5C2D700FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD5000100000001000000020000000C010000650000005605000057020000</Data>
+        <Len>582</Len>
+        <Data>01000000040000000100000001000000010000000100000001000000FFFFFFFF000000000100000001000000000000002800000028000000010000000600000002000000010000002A453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6472697665725C696F6932632E630000000007696F6932632E6300000000C5D4F200FFFFFFFF2C453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6472697665725C6D7075363035302E6300000000096D7075363035302E6300000000FFDC7800FFFFFFFF2F453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C616C676F726974686D5C636F6E74726F6C2E630000000009636F6E74726F6C2E6300000000BECEA100FFFFFFFF2F453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C616C676F726974686D5C636F6E74726F6C2E680000000009636F6E74726F6C2E6800000000F0A0A100FFFFFFFF2B453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C616C676F726974686D5C696D752E630000000005696D752E6300000000BCA8E100FFFFFFFF22453A5C50726F6A656374735C4D696E69515C4D696E69515C5352435C6D61696E2E6300000000066D61696E2E63000000009CC1B600FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD5000100000001000000020000000C010000650000005605000057020000</Data>
       </MDITabState>
     </MDIClientArea>
     <ViewEx>
@@ -3182,33 +3182,9 @@
       <ActiveTab>2</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\SRC\driver\timer.c</Name>
-          <ColumnNumber>18</ColumnNumber>
-          <TopLine>49</TopLine>
-          <CurrentLine>60</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\SRC\main.c</Name>
-          <ColumnNumber>34</ColumnNumber>
-          <TopLine>75</TopLine>
-          <CurrentLine>83</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\SRC\driver\UARTs.c</Name>
-          <ColumnNumber>9</ColumnNumber>
-          <TopLine>191</TopLine>
-          <CurrentLine>204</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\Libraries\CMSIS\Core\CM3\system_stm32f10x.c</Name>
-          <ColumnNumber>13</ColumnNumber>
-          <TopLine>218</TopLine>
-          <CurrentLine>225</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>.\SRC\driver\ioi2c.c</Name>
-          <ColumnNumber>10</ColumnNumber>
-          <TopLine>20</TopLine>
+          <ColumnNumber>27</ColumnNumber>
+          <TopLine>15</TopLine>
           <CurrentLine>28</CurrentLine>
         </Doc>
         <Doc>
@@ -3220,8 +3196,8 @@
         <Doc>
           <Name>.\SRC\algorithm\control.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>67</TopLine>
-          <CurrentLine>72</CurrentLine>
+          <TopLine>1</TopLine>
+          <CurrentLine>16</CurrentLine>
         </Doc>
         <Doc>
           <Name>SRC\algorithm/control.h</Name>
@@ -3231,9 +3207,15 @@
         </Doc>
         <Doc>
           <Name>.\SRC\algorithm\imu.c</Name>
-          <ColumnNumber>37</ColumnNumber>
-          <TopLine>75</TopLine>
-          <CurrentLine>75</CurrentLine>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>142</TopLine>
+          <CurrentLine>142</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\SRC\main.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>81</TopLine>
+          <CurrentLine>81</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

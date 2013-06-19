@@ -18,8 +18,8 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.00f;
-  Kp=0.54f;
+  Ki=0.001f;
+  Kp=0.40f;
   Kd=0.05f;//0.032
   
   lastErrRoll=0;
@@ -42,7 +42,7 @@ void controlLoop(void)
   {
     thr=(baseThr)*100;
     
-    rollOut   =   pidCalc(roll,0,&intRoll,&lastErrRoll,gyroY);
+    rollOut   =   pidCalc(roll,-33,&intRoll,&lastErrRoll,gyroY);
     pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,-gyroX);
     yawOut    =   pidCalc(yaw,0,&intYaw,&lastErrYaw,gyroZ);
     

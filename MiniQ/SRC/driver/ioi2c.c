@@ -25,7 +25,7 @@ void I2C_GPIO_Config(void)
 void I2C_delay(void)
 {
 		
-   u8 i=12; //这里可以优化速度	，经测试最低到5还能写入
+   u8 i=7; //这里可以优化速度	，经测试最低到5还能写入
    while(i) 
    { 
      i--; 
