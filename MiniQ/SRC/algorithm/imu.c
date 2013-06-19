@@ -104,7 +104,8 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   ey = (az*vx - ax*vz);// + 0*(mz*wx - mx*wz);
   ez = (ax*vy - ay*vx);// + 0*(mx*wy - my*wx);
 
-  if(ex != 0.0f && ey != 0.0f && ez != 0.0f){
+  //if(ex != 0.0f && ey != 0.0f && ez != 0.0f)
+  {
   // integral error scaled integral gain
   exInt = exInt + ex*IMU_Ki * halfT;
   eyInt = eyInt + ey*IMU_Ki * halfT;
@@ -158,7 +159,7 @@ void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
   {
     f_data[i]=(float)data[i];
     if(i<3) data[i]/=16.4;
-    else if(i<6)f_data[i]/=32.8f;
+    else if(i<6)f_data[i]/=65.5;
     
   }
   
