@@ -68,6 +68,7 @@ int main(void)
   //initControl();
   baseThr = 0;
   cnt = 0;
+  PID_INIT();
   while(1)
   {
     //Read_MPU6050_ACC(&data[0]);
@@ -78,14 +79,14 @@ int main(void)
     //controlLoop();
     
     ++cnt;
-    if(cnt<2)GPIOB->BRR = GPIO_Pin_1;
+    if(cnt<5)GPIOB->BSRR = GPIO_Pin_1;
     else 
     GPIOB->BRR  = GPIO_Pin_1;
     MPU6050_Dataanl();
     MPU6050_READ();
     IMU_DataPrepare();
     IMU_TEST();
-    
+    GET_EXPRAD();
     PID_CAL();
 
     if(micros()-system_microsec>uploadTime)
@@ -93,9 +94,9 @@ int main(void)
       
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
-      result[0]=17;
-      result[1]=(int16_t)(Q_ANGLE.Pitch*10.0f);
-      result[2]=(int16_t)(Q_ANGLE.Roll*10.0f);
+      result[0]=0;
+      result[1]=(int16_t)(Q_ANGLE.Roll*10.0f);
+      result[2]=(int16_t)(Q_ANGLE.Pitch*10.0f);
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);

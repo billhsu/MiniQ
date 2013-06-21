@@ -144,3 +144,508 @@ linking...
 Program Size: Code=20120 RO-data=576 RW-data=192 ZI-data=2120  
 FromELF: creating hex file...
 ".\Output\MiniQ.axf" - 0 Error(s), 0 Warning(s).
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20120 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.306V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20120 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.319V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20128 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20128 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.313V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20112 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.306V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20128 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.313V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20112 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.319V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 1
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=20128 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 1 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.313V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling control.c...
+linking...
+Program Size: Code=20120 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.313V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling control.c...
+linking...
+Program Size: Code=20128 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.313V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'MiniQ'
+compiling control.c...
+linking...
+Program Size: Code=20128 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 0 Warning(s).
+Load "E:\\Projects\\MiniQ\\MiniQ_c\\Output\\MiniQ.AXF" 
+Set JLink Project File to "E:\Projects\MiniQ\MiniQ_c\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.15n, compiled Jun 18 2010 19:55:09
+Firmware: J-Link ARM V8 compiled Aug 24 2011 17:23:32
+Hardware: V8.00
+S/N : 20100214 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103C8
+VTarget = 3.313V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 0, TRES: 1, TRST: 0
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Hardware-Breakpoints: 6
+Software-Breakpoints: 2048
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...

@@ -79,12 +79,13 @@ void PID_CAL(void)
 	
 	yaw -= 3 * GYRO_F.Z;
 //	
-	thr = (baseThr-1)*10;
+yaw=0;
+	thr = (baseThr-1);
 ////////////////////////////////////////////////////////////////////////////////将输出值融合到四个电机
-	Motor1=(int16_t)(thr + roll - pitch + yaw);
-	Motor2=(int16_t)(thr + roll + pitch - yaw);
-	Motor3=(int16_t)(thr - roll + pitch + yaw);
-	Motor4=(int16_t)(thr - roll - pitch - yaw);
+	Motor1=(int16_t)(thr - roll + pitch + yaw);
+	Motor2=(int16_t)(thr - roll - pitch - yaw);
+	Motor3=(int16_t)(thr + roll - pitch + yaw);
+	Motor4=(int16_t)(thr + roll + pitch - yaw);
 	if(baseThr>0)
 		setPWM(Motor4,Motor1,Motor2,Motor3);
 	else
