@@ -329,7 +329,7 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                lb_thr.Text = "Throttle:" + trackBar1.Value * 10 + "%";
+                lb_thr.Text = "Throttle:" + trackBar1.Value * 1 + "%";
                 comm.Write(start_mark, 0, start_mark.Length);
                 Byte[] thr = { 0x01,1,(Byte)trackBar1.Value };
                 //Byte[] thr = { 5 };

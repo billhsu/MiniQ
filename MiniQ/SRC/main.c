@@ -76,8 +76,8 @@ int main(void)
     controlLoop();
     
     ++cnt;
-    //if(cnt<2)GPIOB->BRR = GPIO_Pin_1;
-    //else 
+    if(cnt<2)GPIOB->BRR = GPIO_Pin_1;
+    else 
     GPIOB->BRR  = GPIO_Pin_1;
 
     if(micros()-system_microsec>uploadTime)

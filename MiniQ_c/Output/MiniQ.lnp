@@ -1,0 +1,4 @@
+--cpu Cortex-M3 ".\output\main.o" ".\output\stm32f10x_it.o" ".\output\stm32f10x_rcc.o" ".\output\stm32f10x_tim.o" ".\output\stm32f10x_usart.o" ".\output\stm32f10x_wwdg.o" ".\output\misc.o" ".\output\stm32f10x_gpio.o" ".\output\stm32f10x_flash.o" ".\output\stm32f10x_i2c.o" ".\output\startup_stm32f10x_hd.o" ".\output\core_cm3.o" ".\output\system_stm32f10x.o" ".\output\uarts.o" ".\output\delay.o" ".\output\ioi2c.o" ".\output\mpu6050.o" ".\output\hmc5883l.o" ".\output\timer.o" ".\output\motor.o" ".\output\stm32_i2c.o" ".\output\imu.o" ".\output\control.o" --strict --scatter ".\Output\MiniQ.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\MiniQ.map" -o ".\Output\MiniQ.axf"

@@ -42,7 +42,7 @@ void IMU_init(void)
 }
 
 
-#define IMU_Kp 10.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
+#define IMU_Kp 80.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
 #define IMU_Ki 0.008f   // integral gain governs rate of convergence of gyroscope biases
 
 void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
@@ -67,10 +67,10 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   
   now = micros();
   if(now<lastUpdate){
-  halfT =  ((float)(now + (0xffff- lastUpdate)) / 500000.0f);
+  halfT =  ((float)(now + (0xffff- lastUpdate)) / 2000000.0f);
   }
   else	{
-  halfT =  ((float)(now - lastUpdate) / 500000.0f);
+  halfT =  ((float)(now - lastUpdate) / 2000000.0f);
   }
   lastUpdate = now;
   

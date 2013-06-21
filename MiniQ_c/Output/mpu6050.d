@@ -1,0 +1,19 @@
+.\Output\mpu6050.o: SRC\driver\mpu6050.c
+.\Output\mpu6050.o: SRC\driver\mpu6050.h
+.\Output\mpu6050.o: C:\Program Files (x86)\Keil_ARM\ARM\RV31\INC\stdint.h
+.\Output\mpu6050.o: SRC\driver\../define.h
+.\Output\mpu6050.o: SRC\driver\STM32_I2C.h
+.\Output\mpu6050.o: .\Libraries\CMSIS\Core\CM3\stm32f10x.h
+.\Output\mpu6050.o: .\Libraries\CMSIS\Core\CM3\core_cm3.h
+.\Output\mpu6050.o: .\Libraries\CMSIS\Core\CM3\system_stm32f10x.h
+.\Output\mpu6050.o: .\SRC\stm32f10x_conf.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\Output\mpu6050.o: .\Libraries\CMSIS\Core\CM3\stm32f10x.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\Output\mpu6050.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h
+.\Output\mpu6050.o: SRC\driver\delay.h
+.\Output\mpu6050.o: SRC\driver\../Extern_Variable.h

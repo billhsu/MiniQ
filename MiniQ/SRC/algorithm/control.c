@@ -1,7 +1,7 @@
 #include "control.h"
 #include "../driver/motor.h"
 extern char baseThr;
-
+#include <math.h>
 extern int16_t abs (int16_t i);//defined in mpu6050.c
 extern int16_t yaw,pitch, roll;
 extern int16_t gyroX,gyroY,gyroZ;
@@ -18,9 +18,9 @@ void initControl(void)
 {
   setPWM(0,0,0,0);
   
-  Ki=0.001f;
-  Kp=0.40f;
-  Kd=0.05f;//0.032
+  Ki=0.25f;
+  Kp=0.65f;
+  Kd=0.04f;//0.032
   
   lastErrRoll=0;
   lastErrPitch=0;
@@ -30,7 +30,7 @@ void initControl(void)
   intPitch=0;
   intYaw=0;
   
-  iMax = 0;
+  iMax = 100;
 }
 
 void controlLoop(void)
@@ -40,18 +40,22 @@ void controlLoop(void)
   
   if(baseThr!=0x00)
   {
-    thr=(baseThr)*100;
+    thr=(baseThr-1)*10;
     
-    rollOut   =   pidCalc(roll,-33,&intRoll,&lastErrRoll,gyroY);
+    rollOut   =   pidCalc(roll,-28,&intRoll,&lastErrRoll,gyroY);
     pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,-gyroX);
-    yawOut    =   pidCalc(yaw,0,&intYaw,&lastErrYaw,gyroZ);
+    yawOut    =   -pidCalc(yaw,0,&intYaw,&lastErrYaw,gyroZ);
     
-    
-    Motor1 = thr + rollOut            ;//- yawOut;
-    Motor2 = thr           + pitchOut ;//+ yawOut;
-    Motor3 = thr - rollOut            ;//- yawOut;
-    Motor4 = thr           - pitchOut ;//+ yawOut;
+    Motor1 = thr + rollOut            ;//- yawOut/4;
+    Motor2 = thr           + pitchOut ;//+ yawOut/4;
+    Motor3 = thr - rollOut            ;//- yawOut/4;
+    Motor4 = thr           - pitchOut ;//+ yawOut/4;
 
+	  //Motor4=(int16_t)(thr + rollOut - pitchOut);// + yawOut);
+	  //Motor1=(int16_t)(thr + rollOut + pitchOut);// - yawOut);
+	  //Motor2=(int16_t)(thr - rollOut + pitchOut);// + yawOut);
+	  //Motor3=(int16_t)(thr - rollOut - pitchOut);// - yawOut);
+  
     setPWM(Motor1,Motor2,Motor3,Motor4);
   }
   else
@@ -69,24 +73,13 @@ int16_t pidCalc(int16_t actual, int16_t setPt,
   err=err;
   P = err*Kp; // calc proportional term
   
-  if(actual>-1 && actual<1)
-	{
-		*integral = 0;
-	}
+
 	*integral += Ki * err;
-	iMax = err;
-	if(iMax<0)	
-	{
-		iMax = (-iMax) + 100;
-	}
-	else
-	{
-		iMax += 100;
-	}
+	
 	if(*integral>iMax) 	*integral = iMax;
 	if(*integral<-iMax)	*integral = -iMax;
 	I = *integral;// integral term
-  
+  I=0;
   //D = (*lastErr-err)*Kd; // derivative term
   D = gyro*Kd;
   out = P + I - D; // Total drive = P+I+D

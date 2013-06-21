@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\SRC -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\Libraries\CMSIS\Core\CM3 -I "C:\Program Files (x86)\Keil_ARM\ARM\INC" -I "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x" -o ".\Output\ioi2c.o" --omf_browse ".\Output\ioi2c.crf" --depend ".\Output\ioi2c.d" "SRC\driver\ioi2c.c"

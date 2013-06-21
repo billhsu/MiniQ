@@ -1,0 +1,146 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\Projects\MiniQ\MiniQ_c\MiniQ.uvproj
+Project File Date:  06/21/2013
+
+<h2>Output:</h2>
+Build target 'MiniQ'
+compiling control.c...
+SRC\algorithm\control.c(31): warning:  #223-D: function "IMU_TEST" declared implicitly
+SRC\algorithm\control.c:        IMU_TEST();                     //½Ç¶ÈÈÚºÏ
+SRC\algorithm\control.c:        ^
+SRC\algorithm\control.c(32): warning:  #223-D: function "GET_EXPRAD" declared implicitly
+SRC\algorithm\control.c:        GET_EXPRAD();
+SRC\algorithm\control.c:        ^
+SRC\algorithm\control.c(83): error:  #20: identifier "RC_DATA" is undefined
+SRC\algorithm\control.c:        thr = RC_DATA.THROTTLE+400;
+SRC\algorithm\control.c:              ^
+SRC\algorithm\control.c(90): warning:  #223-D: function "MOTO_PWMRFLASH" declared implicitly
+SRC\algorithm\control.c:                MOTO_PWMRFLASH(Motor1,Motor2,Motor3,Motor4);
+SRC\algorithm\control.c:                ^
+SRC\algorithm\control.c: SRC\algorithm\control.c: 3 warnings, 1 error
+Target not created
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(89): warning:  #223-D: function "PID_CAL" declared implicitly
+SRC\main.c:       PID_CAL();
+SRC\main.c:       ^
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 2 warnings, 0 errors
+compiling control.c...
+SRC\algorithm\control.c(82): error:  #20: identifier "RC_DATA" is undefined
+SRC\algorithm\control.c:        thr = RC_DATA.THROTTLE+400;
+SRC\algorithm\control.c:              ^
+SRC\algorithm\control.c(89): warning:  #223-D: function "MOTO_PWMRFLASH" declared implicitly
+SRC\algorithm\control.c:                MOTO_PWMRFLASH(Motor1,Motor2,Motor3,Motor4);
+SRC\algorithm\control.c:                ^
+SRC\algorithm\control.c: SRC\algorithm\control.c: 1 warning, 1 error
+Target not created
+Build target 'MiniQ'
+compiling control.c...
+SRC\algorithm\control.c(82): error:  #20: identifier "RC_DATA" is undefined
+SRC\algorithm\control.c:        thr = RC_DATA.THROTTLE+400;
+SRC\algorithm\control.c:              ^
+SRC\algorithm\control.c: SRC\algorithm\control.c: 0 warnings, 1 error
+Target not created
+Build target 'MiniQ'
+compiling control.c...
+SRC\algorithm\control.c(88): error:  #20: identifier "RC_DATA" is undefined
+SRC\algorithm\control.c:        if(FLY_ENABLE && (RC_DATA.THROTTLE>-400))
+SRC\algorithm\control.c:                          ^
+SRC\algorithm\control.c: SRC\algorithm\control.c: 0 warnings, 1 error
+Target not created
+Build target 'MiniQ'
+compiling control.c...
+linking...
+.\Output\MiniQ.axf: Error: L6218E: Undefined symbol Kd (referred from uarts.o).
+.\Output\MiniQ.axf: Error: L6218E: Undefined symbol Ki (referred from uarts.o).
+.\Output\MiniQ.axf: Error: L6218E: Undefined symbol Kp (referred from uarts.o).
+.\Output\MiniQ.axf: Not enough information to list image symbols.
+.\Output\MiniQ.axf: Finished: 1 information, 0 warning and 3 error messages.
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(24): error:  #20: identifier "PID" is undefined
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 1 error
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(24): error:  #81: more than one storage class may not be specified
+SRC\driver\UARTs.c:   extern typedef struct PID{float P,POUT,I,IOUT,D,DOUT,IMAX,SetPoint,NowPoint,LastError,PrerError;}PID;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c(25): error:  #757: variable "PID" is not a type name
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 2 errors
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(24): error:  #81: more than one storage class may not be specified
+SRC\driver\UARTs.c:   extern typedef struct PID;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c(25): error:  #20: identifier "PID" is undefined
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 2 errors
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(24): warning:  #1000-D: a storage class may not be specified here
+SRC\driver\UARTs.c:   extern struct PID;
+SRC\driver\UARTs.c:   ^
+SRC\driver\UARTs.c(25): error:  #20: identifier "PID" is undefined
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 1 warning, 1 error
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(24): error:  #169: expected a declaration
+SRC\driver\UARTs.c:   extern struct PID{} PID;
+SRC\driver\UARTs.c:                     ^
+SRC\driver\UARTs.c(25): error:  #757: variable "PID" is not a type name
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 2 errors
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(25): error:  #757: variable "PID" is not a type name
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 1 error
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+SRC\driver\UARTs.c(25): error:  #20: identifier "PID" is undefined
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 1 error
+Target not created
+Build target 'MiniQ'
+compiling main.c...
+SRC\main.c(42): warning:  #177-D: variable "data" was declared but never referenced
+SRC\main.c:     int16_t data[9];
+SRC\main.c:             ^
+SRC\main.c: SRC\main.c: 1 warning, 0 errors
+compiling UARTs.c...
+SRC\driver\UARTs.c(25): error:  #20: identifier "PID" is undefined
+SRC\driver\UARTs.c:   extern PID PID_RP;
+SRC\driver\UARTs.c:          ^
+SRC\driver\UARTs.c: SRC\driver\UARTs.c: 0 warnings, 1 error
+compiling control.c...
+Target not created
+Build target 'MiniQ'
+compiling UARTs.c...
+linking...
+Program Size: Code=20120 RO-data=576 RW-data=192 ZI-data=2120  
+FromELF: creating hex file...
+".\Output\MiniQ.axf" - 0 Error(s), 0 Warning(s).
