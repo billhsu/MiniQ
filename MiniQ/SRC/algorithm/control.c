@@ -94,7 +94,7 @@ void PID_CAL(void)
 	if(yaw_i<-PID_RP.IMAX)	yaw_i = -PID_RP.IMAX;
 	yaw += yaw_i;
 	
-	yaw -= PID_RP.D * GYRO_F.Z;
+	yaw += PID_RP.D * GYRO_F.Z;
 /////////////
 //	
 
@@ -104,14 +104,13 @@ void PID_CAL(void)
 	Motor2=(int16_t)(thr - roll - pitch - yaw);
 	Motor3=(int16_t)(thr + roll - pitch + yaw);
 	Motor4=(int16_t)(thr + roll + pitch - yaw);*/
-      Motor1 = thr - roll            ;//- yawOut/4;
-    Motor2 = thr           - pitch ;//+ yawOut/4;
-    Motor3 = thr + roll            ;//- yawOut/4;
-    Motor4 = thr           + pitch ;//+ yawOut/4;
+  Motor1 = thr - roll            - yaw;
+  Motor2 = thr           - pitch + yaw;
+  Motor3 = thr + roll            - yaw;
+  Motor4 = thr           + pitch + yaw;
 	if(baseThr>0)
 		//setPWM(Motor4,Motor1,Motor2,Motor3);
     setPWM(Motor4,Motor1,Motor2,Motor3);
-    
 	else
 		setPWM(0,0,0,0);
 }
