@@ -435,6 +435,11 @@
               <FileType>1</FileType>
               <FilePath>.\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f10x_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -499,6 +504,11 @@
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\SRC\driver\motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>STM32_I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SRC\driver\STM32_I2C.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -2,14 +2,14 @@
 #include "stm32f10x.h"
 #include "driver/UARTs.h"
 #include "driver/delay.h"
-#include "driver/ioi2c.h"
+#include "driver/STM32_I2C.h"
 #include "driver/mpu6050.h"
 #include "driver/hmc5883l.h"
 #include "driver/timer.h"
 #include "driver/motor.h"
 #include "algorithm/imu.h"
 #include "algorithm/control.h"
-
+#include "Extern_Variable.h"
 
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
@@ -41,57 +41,69 @@ int main(void)
 {
   int16_t data[9];
   int16_t cnt=0;
+  int16_t led_cnt=0;
   int16_t result[3];
-
+  uint8_t control_cnt=0;
 
   SystemInit();
   delay_init(72);
   GPIO_Configuration();
   Initial_UART1(115200L);
-  I2C_GPIO_Config();
+  //I2C_GPIO_Config();
+  i2cInit();
   NVIC_Configuration();
   
   delay_ms(10);
-  Init_MPU6050();
-  
+  //Init_MPU6050();
+  MPU6050_INIT();
+  //MPU6050_INIT();
   delay_ms(10);
-  HMC5883L_Init();
+  //HMC5883L_Init();
   delay_ms(10);
   
-  IMU_init();
+  //IMU_init();
   
   Initial_TimerTick();
   system_microsec=micros();
   initMotor();
-  initControl();
+  //initControl();
   baseThr = 0;
   cnt = 0;
+  PID_INIT();
   while(1)
   {
-    Read_MPU6050_ACC(&data[0]);
-    Read_MPU6050_GYRO(&data[3]);
-    //HMC5883L_Read(&data[6]);
-    
-    IMU_getYawPitchRoll(result,data);
-    controlLoop();
-    
     ++cnt;
-    if(cnt<2)GPIOB->BRR = GPIO_Pin_1;
-    else 
-    GPIOB->BRR  = GPIO_Pin_1;
+    ++control_cnt;
+    MPU6050_Dataanl();
+    MPU6050_READ();
+    IMU_DataPrepare();
+    if(control_cnt==2)
+    {
+      IMU_TEST();
+      GET_EXPRAD();
+      PID_CAL();
+      control_cnt=0;
+    }
 
     if(micros()-system_microsec>uploadTime)
     {
       
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
-      
+      result[0]=(int16_t)(Q_ANGLE.Yaw*10.0f);
+      result[1]=(int16_t)(Q_ANGLE.Roll*10.0f);
+      result[2]=(int16_t)(Q_ANGLE.Pitch*10.0f);
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
       cnt=uploadSpeed*cnt;
       out_int16_t(&cnt);
       cnt = 0;
+      if(led_cnt<5)GPIOB->BSRR = GPIO_Pin_1;
+      else 
+      GPIOB->BRR  = GPIO_Pin_1;
+      ++led_cnt;
+      if(led_cnt>=50)led_cnt=0;
       
       system_microsec = micros();
     }

@@ -1,90 +1,118 @@
 #include "control.h"
 #include "../driver/motor.h"
 extern char baseThr;
-#include <math.h>
-extern int16_t abs (int16_t i);//defined in mpu6050.c
-extern int16_t yaw,pitch, roll;
-extern int16_t gyroX,gyroY,gyroZ;
 
-extern float halfT;
+#include "extern_variable.h"
 
-float Ki,Kp,Kd;
-int16_t iMax;
 
-int16_t lastErrRoll, lastErrPitch, lastErrYaw;
-int16_t intRoll, intPitch, intYaw;
+PID PID_RP;
 
-void initControl(void)
+void PID_INIT(void)
 {
-  setPWM(0,0,0,0);
-  
-  Ki=0.25f;
-  Kp=0.65f;
-  Kd=0.04f;//0.032
-  
-  lastErrRoll=0;
-  lastErrPitch=0;
-  lastErrYaw=0;
-  
-  intRoll=0;
-  intPitch=0;
-  intYaw=0;
-  
-  iMax = 100;
-}
-
-void controlLoop(void)
-{
-  int16_t thr,Motor1,Motor2,Motor3,Motor4;
-  int16_t rollOut,pitchOut,yawOut;
-  
-  if(baseThr!=0x00)
-  {
-    thr=(baseThr-1)*10;
-    
-    rollOut   =   pidCalc(roll,-28,&intRoll,&lastErrRoll,gyroY);
-    pitchOut  =   pidCalc(pitch,0,&intPitch,&lastErrPitch,-gyroX);
-    yawOut    =   -pidCalc(yaw,0,&intYaw,&lastErrYaw,gyroZ);
-    
-    Motor1 = thr + rollOut            ;//- yawOut/4;
-    Motor2 = thr           + pitchOut ;//+ yawOut/4;
-    Motor3 = thr - rollOut            ;//- yawOut/4;
-    Motor4 = thr           - pitchOut ;//+ yawOut/4;
-
-	  //Motor4=(int16_t)(thr + rollOut - pitchOut);// + yawOut);
-	  //Motor1=(int16_t)(thr + rollOut + pitchOut);// - yawOut);
-	  //Motor2=(int16_t)(thr - rollOut + pitchOut);// + yawOut);
-	  //Motor3=(int16_t)(thr - rollOut - pitchOut);// - yawOut);
-  
-    setPWM(Motor1,Motor2,Motor3,Motor4);
-  }
-  else
-  {
-    setPWM(0,0,0,0);
-  }
-}
-
-int16_t pidCalc(int16_t actual, int16_t setPt, 
-                int16_t* integral,int16_t* lastErr,
-                int16_t gyro)
-{
-  int16_t err,P,I,D,out;
-  err = setPt - actual;
-  err=err;
-  P = err*Kp; // calc proportional term
-  
-
-	*integral += Ki * err;
+	PID_RP.P = 5.0f;
+	PID_RP.I = 0.0f;
+	PID_RP.D = 2.0f;
 	
-	if(*integral>iMax) 	*integral = iMax;
-	if(*integral<-iMax)	*integral = -iMax;
-	I = *integral;// integral term
-  I=0;
-  //D = (*lastErr-err)*Kd; // derivative term
-  D = gyro*Kd;
-  out = P + I - D; // Total drive = P+I+D
-  
-  *lastErr = err;
-
-  return out;
+	PID_RP.POUT = 0;
+	PID_RP.IOUT = 0;
+	PID_RP.DOUT = 0;
+	
+	PID_RP.IMAX = 300;
+	PID_RP.LastError = 0;
+	PID_RP.PrerError = 0;
 }
+void PID_CAL(void)
+{
+	static float thr=0,roll=0,pitch=0,yaw=0;
+	static float roll_i=0,pitch_i=0,yaw_i=0;
+	
+	int16_t Motor1,Motor2,Motor3,Motor4;
+	
+
+////////////////////////////////////////////////////////////////////////////////PID计算
+	roll 	= PID_RP.P * DIF_ANGLE.X;
+	
+	if(Q_ANGLE.Roll>-0.1 && Q_ANGLE.Roll<0.1)
+	{                                                                            
+		roll_i = 0;
+	}
+	roll_i -= PID_RP.I * Q_ANGLE.Roll;
+	PID_RP.IMAX = DIF_ANGLE.X * 10;
+	if(PID_RP.IMAX<0)	
+	{
+		PID_RP.IMAX = (-PID_RP.IMAX) + 100;
+	}
+	else
+	{
+		PID_RP.IMAX += 100;
+	}
+	if(roll_i>PID_RP.IMAX) 	roll_i = PID_RP.IMAX;
+	if(roll_i<-PID_RP.IMAX)	roll_i = -PID_RP.IMAX;
+	roll += roll_i;
+	
+	roll -= PID_RP.D * GYRO_F.X;
+///////////	
+	pitch 	= PID_RP.P * DIF_ANGLE.Y;
+		
+	if(Q_ANGLE.Pitch>-0.1 && Q_ANGLE.Pitch<0.1)
+	{
+		pitch_i = 0;
+	}
+	pitch_i -= PID_RP.I * Q_ANGLE.Pitch;
+	if(PID_RP.IMAX<0)	
+	{
+		PID_RP.IMAX = (-PID_RP.IMAX) + 100;
+	}
+	else
+	{
+		PID_RP.IMAX += 100;
+	}
+	if(PID_RP.IMAX<0)	PID_RP.IMAX = -PID_RP.IMAX;
+	if(pitch_i>PID_RP.IMAX) 	pitch_i = PID_RP.IMAX;
+	if(pitch_i<-PID_RP.IMAX)	pitch_i = -PID_RP.IMAX;
+	pitch += pitch_i;
+	
+	pitch -= PID_RP.D * GYRO_F.Y;
+/////////////
+	yaw 	= PID_RP.P * DIF_ANGLE.Z;
+		
+	if(Q_ANGLE.Yaw>-0.1 && Q_ANGLE.Yaw<0.1)
+	{
+		yaw_i = 0;
+	}
+	yaw_i -= PID_RP.I * Q_ANGLE.Yaw;
+	if(PID_RP.IMAX<0)	
+	{
+		PID_RP.IMAX = (-PID_RP.IMAX) + 100;
+	}
+	else
+	{
+		PID_RP.IMAX += 100;
+	}
+	if(PID_RP.IMAX<0)	PID_RP.IMAX = -PID_RP.IMAX;
+	if(yaw_i>PID_RP.IMAX) 	yaw_i = PID_RP.IMAX;
+	if(yaw_i<-PID_RP.IMAX)	yaw_i = -PID_RP.IMAX;
+	yaw += yaw_i;
+	
+	yaw -= PID_RP.D * GYRO_F.Z;
+/////////////
+//	
+
+	thr = (baseThr-1)*10;
+////////////////////////////////////////////////////////////////////////////////将输出值融合到四个电机
+	/*Motor1=(int16_t)(thr - roll + pitch + yaw);
+	Motor2=(int16_t)(thr - roll - pitch - yaw);
+	Motor3=(int16_t)(thr + roll - pitch + yaw);
+	Motor4=(int16_t)(thr + roll + pitch - yaw);*/
+      Motor1 = thr - roll            ;//- yawOut/4;
+    Motor2 = thr           - pitch ;//+ yawOut/4;
+    Motor3 = thr + roll            ;//- yawOut/4;
+    Motor4 = thr           + pitch ;//+ yawOut/4;
+	if(baseThr>0)
+		//setPWM(Motor4,Motor1,Motor2,Motor3);
+    setPWM(Motor4,Motor1,Motor2,Motor3);
+    
+	else
+		setPWM(0,0,0,0);
+}
+

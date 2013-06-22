@@ -1,59 +1,109 @@
 #include "imu.h"
-
-#include "./driver/mpu6050.h"
-#include "./driver/hmc5883L.h"
-#include "./driver/UARTs.h"
-#include "./driver/delay.h"
-#include "./driver/timer.h"
-
-volatile float exInt, eyInt, ezInt;
-volatile float q0, q1, q2, q3;
-volatile uint32_t lastUpdate, now;
-float halfT;
-int16_t yaw,pitch, roll;
-int16_t gyroX,gyroY,gyroZ;
-
+#include "../driver/timer.h"
+#include "../extern_variable.h"
 #include <math.h>
-#define M_PI  (float)3.1415926
 
+#define pi            __PI
+#define angletorad    0.01745329252
+#define radtoangle    57.295779513
+#define Gyr_Gain 	0.015267                                  
+#define ACC_Gain 	0.0011963                                
+#define FILTER_NUM	10										//滑动窗口滤波窗口大小
 
-float invSqrt(float x) {
-	float halfx = 0.5f * x;
-	float y = x;
-	long i = *(long*)&y;
-	i = 0x5f3759df - (i>>1);
-	y = *(float*)&i;
-	y = y * (1.5f - (halfx * y * y));
-	return y;
+uint8_t FLY_ENABLE=0;
+uint8_t Imu_DataReady=0;	//IMU数据准备好标志
+float IMU_CYCTIME_F;		//两次计算的时间间隔,单位为秒
+S_FLOAT_XYZ ACC_F,GYRO_F;	
+S_FLOAT_XYZ GYRO_I[3];		//陀螺仪积分
+S_INT16_XYZ ACC_AVG,GYRO_AVG;		//滑动窗口滤波后的ACC平均值和处理后的gyro值
+S_FLOAT_XYZ ACC_ANGLE;		
+S_FLOAT_XYZ EXP_ANGLE;		
+S_FLOAT_XYZ DIF_ANGLE;		
+int16_t	ACC_X_BUF[FILTER_NUM],ACC_Y_BUF[FILTER_NUM],ACC_Z_BUF[FILTER_NUM];	
+volatile uint32_t lastUpdate, now;
+void IMU_DataPrepare(void)
+{
+	static uint8_t filter_cnt=0;
+	int32_t temp1=0,temp2=0,temp3=0;
+	uint8_t i;
+
+	IMU_CYCTIME_F = (float)micros() / 1000000;
+	ACC_F.X = MPU6050_ACC_LAST.X * ACC_Gain;//本次传感器数据转换成单位格式
+	ACC_F.Y = MPU6050_ACC_LAST.Y * ACC_Gain;
+	ACC_F.Z = MPU6050_ACC_LAST.Z * ACC_Gain;
+	GYRO_F.X = MPU6050_GYRO_LAST.X * Gyr_Gain;//为了和acc一直,将gyro读数的x,y交换
+	GYRO_F.Y = MPU6050_GYRO_LAST.Y * Gyr_Gain;
+	GYRO_F.Z = MPU6050_GYRO_LAST.Z * Gyr_Gain;
+
+	ACC_X_BUF[filter_cnt] = MPU6050_ACC_LAST.X;//更新滑动窗口数组
+	ACC_Y_BUF[filter_cnt] = MPU6050_ACC_LAST.Y;
+	ACC_Z_BUF[filter_cnt] = MPU6050_ACC_LAST.Z;
+	for(i=0;i<FILTER_NUM;i++)
+	{
+		temp1 += ACC_X_BUF[i];
+		temp2 += ACC_Y_BUF[i];
+		temp3 += ACC_Z_BUF[i];
+	}
+	ACC_AVG.X = temp1 / FILTER_NUM;
+	ACC_AVG.Y = temp2 / FILTER_NUM;
+	ACC_AVG.Z = temp3 / FILTER_NUM;
+	filter_cnt++;
+	if(filter_cnt==FILTER_NUM)	filter_cnt=0;
+
+	GYRO_I[2].X = GYRO_I[1].X;				
+	GYRO_I[2].Y = GYRO_I[1].Y;
+	GYRO_I[2].Z = GYRO_I[1].Z;
+	GYRO_I[1].X = GYRO_I[0].X;
+	GYRO_I[1].Y = GYRO_I[0].Y;
+	GYRO_I[1].Z = GYRO_I[0].Z;
+	GYRO_I[0].X += GYRO_F.X * IMU_CYCTIME_F;
+	GYRO_I[0].Y += GYRO_F.Y * IMU_CYCTIME_F;
+	GYRO_I[0].Z += GYRO_F.Z * IMU_CYCTIME_F;
+
+	Imu_DataReady = 1;
 }
 
-void IMU_init(void)
-{	 
-  // initialize quaternion
-  q0 = 1.0f;
-  q1 = 0.0f;
-  q2 = 0.0f;
-  q3 = 0.0f;
-  exInt = 0.0f;
-  eyInt = 0.0f;
-  ezInt = 0.0f;
-  lastUpdate = micros();
-  now = micros();
+void IMU_TEST(void)
+{
+	if(Imu_DataReady)
+	{
+		Imu_DataReady = 0;
+		IMUupdate(GYRO_F.X*0.0174,GYRO_F.Y*0.0174,GYRO_F.Z*0.0174,(float)ACC_AVG.X,(float)ACC_AVG.Y,(float)ACC_AVG.Z);	//*0.0174转成弧度
+//	ACC_ANGLE.X = atan2(ACC_AVG.X,ACC_AVG.Z)*radtoangle;
+//	ACC_ANGLE.Y = atan2(ACC_AVG.Y,ACC_AVG.Z)*radtoangle;
+//	GYRO_I[0].X = GYRO_I[0].X * 0.98 + ACC_ANGLE.X * 0.02;
+//	GYRO_I[0].Y = GYRO_I[0].Y * 0.98 + ACC_ANGLE.Y * 0.02;
+	}
 }
+////////////////////////////////////////////////////////////////////////////////
+void GET_EXPRAD(void)			//计算期望角度,不加控制时期望角度为0,0
+{
+	EXP_ANGLE.X = (float)(0.0f);
+	EXP_ANGLE.Y = (float)(0.0f);
+	EXP_ANGLE.Z = (float)(0.0f);
+	DIF_ANGLE.X = EXP_ANGLE.X - Q_ANGLE.Roll;
+	DIF_ANGLE.Y = EXP_ANGLE.Y - Q_ANGLE.Pitch;
+  DIF_ANGLE.Z = EXP_ANGLE.Z - Q_ANGLE.Yaw;
+//	DIF_ANGLE.Z = EXP_ANGLE.Z - GYRO_I[0].Z;
+//	DIF_ANGLE.X = EXP_ANGLE.X - GYRO_I[0].X;
+//	DIF_ANGLE.Y = EXP_ANGLE.Y - GYRO_I[0].Y;
+//	DIF_ANGLE.Z = EXP_ANGLE.Z - GYRO_I[0].Z;
+}
+////////////////////////////////////////////////////////////////////////////////
+#define Kp 10.0f
+#define Ki 0.008f
+float halfT;
 
-
-#define IMU_Kp 80.0f   // proportional gain governs rate of convergence to accelerometer/magnetometer
-#define IMU_Ki 0.008f   // integral gain governs rate of convergence of gyroscope biases
-
-void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
+float q0 = 1, q1 = 0, q2 = 0, q3 = 0;   
+float exInt = 0, eyInt = 0, ezInt = 0;  
+S_FLOAT_ANGLE Q_ANGLE;
+void IMUupdate(float gx, float gy, float gz, float ax, float ay, float az)
+{
   float norm;
-  //float hx, hy, hz, bx, bz;
-  float vx, vy, vz;//, wx, wy, wz;
-  float ex, ey, ez;
-  float iq0, iq1, iq2, iq3;
-  
 
-  // auxiliary variables to reduce number of repeated operations
+  float vx, vy, vz;// wx, wy, wz;
+  float ex, ey, ez;
+
   float q0q0 = q0*q0;
   float q0q1 = q0*q1;
   float q0q2 = q0*q2;
@@ -65,125 +115,50 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
   float q2q3 = q2*q3;
   float q3q3 = q3*q3;
   
+  norm = sqrt(ax*ax + ay*ay + az*az);
+  if(norm<0.0001f && norm>-0.0001f) 
+    return;
   now = micros();
   if(now<lastUpdate){
-  halfT =  ((float)(now + (0xffff- lastUpdate)) / 2000000.0f);
+    halfT =  ((float)(now + (0xffff- lastUpdate)) / 2000000.0f);
   }
   else	{
-  halfT =  ((float)(now - lastUpdate) / 2000000.0f);
+    halfT =  ((float)(now - lastUpdate) / 2000000.0f);
   }
   lastUpdate = now;
   
-  norm = invSqrt(ax*ax + ay*ay + az*az);       
-  ax = ax * norm;
-  ay = ay * norm;
-  az = az * norm;
-  /*
-  norm = invSqrt(mx*mx + my*my + mz*mz);          
-  mx = mx * norm;
-  my = my * norm;
-  mz = mz * norm;
-  
-  // compute reference direction of flux
-  hx = 2*mx*(0.5 - q2q2 - q3q3) + 2*my*(q1q2 - q0q3) + 2*mz*(q1q3 + q0q2);
-  hy = 2*mx*(q1q2 + q0q3) + 2*my*(0.5 - q1q1 - q3q3) + 2*mz*(q2q3 - q0q1);
-  hz = 2*mx*(q1q3 - q0q2) + 2*my*(q2q3 + q0q1) + 2*mz*(0.5 - q1q1 - q2q2);      
-  bx = sqrt((hx*hx) + (hy*hy));
-  bz = hz;
-  */
-  // estimated direction of gravity and flux (v and w)
-  vx = 2*(q1q3 - q0q2);
+  ax = ax /norm;
+  ay = ay / norm;
+  az = az / norm;
+           
+  vx = 2*(q1q3 - q0q2);												
   vy = 2*(q0q1 + q2q3);
-  vz = q0q0 - q1q1 - q2q2 + q3q3;
-  /*wx = 2*bx*(0.5 - q2q2 - q3q3) + 2*bz*(q1q3 - q0q2);
-  wy = 2*bx*(q1q2 - q0q3) + 2*bz*(q0q1 + q2q3);
-  wz = 2*bx*(q0q2 + q1q3) + 2*bz*(0.5 - q1q1 - q2q2);  
-  */
-  // error is sum of cross product between reference direction of fields and direction measured by sensors
-  ex = (ay*vz - az*vy);// + 0*(my*wz - mz*wy);
-  ey = (az*vx - ax*vz);// + 0*(mz*wx - mx*wz);
-  ez = (ax*vy - ay*vx);// + 0*(mx*wy - my*wx);
+  vz = q0q0 - q1q1 - q2q2 + q3q3 ;
 
-  //if(ex != 0.0f && ey != 0.0f && ez != 0.0f)
-  {
-  // integral error scaled integral gain
-  exInt = exInt + ex*IMU_Ki * halfT;
-  eyInt = eyInt + ey*IMU_Ki * halfT;
-  ezInt = ezInt + ez*IMU_Ki * halfT;
-  
+  ex = (ay*vz - az*vy) ;                           					
+  ey = (az*vx - ax*vz) ;
+  ez = (ax*vy - ay*vx) ;
 
-  // adjusted gyroscope measurements
-  gx = gx + IMU_Kp*ex + exInt;
-  gy = gy + IMU_Kp*ey + eyInt;
-  gz = gz + IMU_Kp*ez + ezInt;
-  }
-  // integrate quaternion rate and normalise
-  iq0 = (-q1*gx - q2*gy - q3*gz)*halfT;
-  iq1 = (q0*gx + q2*gz - q3*gy)*halfT;
-  iq2 = (q0*gy - q1*gz + q3*gx)*halfT;
-  iq3 = (q0*gz + q1*gy - q2*gx)*halfT;  
-  
-  q0 += iq0;
-  q1 += iq1;
-  q2 += iq2;
-  q3 += iq3;
-  
-  // normalise quaternion
-  
-  norm = invSqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
-  q0 = q0 * norm;
-  q1 = q1 * norm;
-  q2 = q2 * norm;
-  q3 = q3 * norm;
-  
-}
+  exInt = exInt + ex * Ki;								 
+  eyInt = eyInt + ey * Ki;
+  ezInt = ezInt + ez * Ki;
 
+  gx = gx + Kp*ex + exInt;					   							
+  gy = gy + Kp*ey + eyInt;
+  gz = gz + Kp*ez + ezInt;				   							
+					   
+  q0 = q0 + (-q1*gx - q2*gy - q3*gz)*halfT;
+  q1 = q1 + (q0*gx + q2*gz - q3*gy)*halfT;
+  q2 = q2 + (q0*gy - q1*gz + q3*gx)*halfT;
+  q3 = q3 + (q0*gz + q1*gy - q2*gx)*halfT;
 
-void IMU_getQ(float * q,float* mygetqval) {
-  IMU_AHRSupdate(mygetqval[3] * M_PI/180, mygetqval[4] * M_PI/180, mygetqval[5] * M_PI/180,
-   mygetqval[0], mygetqval[1], mygetqval[2], 0,0,0/*mygetqval[6], mygetqval[7], mygetqval[8]*/);
-
-  q[0] = q0;
-  q[1] = q1;
-  q[2] = q2;
-  q[3] = q3;
-}
-
-
-void IMU_getYawPitchRoll(int16_t * angles,int16_t *data) {
-  float q[4];
-  float f_data[6];
-  int i;
-  volatile float gx=0.0, gy=0.0, gz=0.0;
-  for(i=0;i<6;++i)
-  {
-    f_data[i]=(float)data[i];
-    if(i<3) data[i]/=16.4;
-    else if(i<6)f_data[i]/=65.5;
-    
-  }
-  
-  gyroX = data[3];
-  gyroY = data[4];
-  gyroZ = data[5];
-
-  IMU_getQ(q,f_data);
-  
-  //angles[0] = (int16_t)(atan2(2 * q[1] * q[2] - 2 * q[0] * q[3], 2 * q[0]*q[0] + 2 * q[1] * q[1] - 1) * 1800.0f/M_PI); // psi
-  //angles[1] = (int16_t)(-asin(2 * q[1] * q[3] + 2 * q[0] * q[2]) * 1800.0f/M_PI); // theta
-  //angles[2] = (int16_t)(atan2(2 * q[2] * q[3] - 2 * q[0] * q[1], 2 * q[0] * q[0] + 2 * q[3] * q[3] - 1) * 1800.0f/M_PI); // phi
-
-  //angles[0] = (int16_t)(-atan2(2 * q[1] * q[2] + 2 * q[0] * q[3], -2 * q[2]*q[2] - 2 * q[3] * q[3] + 1)* 1800/M_PI); // yaw
-  //angles[1] = (int16_t)(asin(-2 * q[1] * q[3] + 2 * q[0] * q[2])* 1800/M_PI); // pitch
-  //angles[2] = (int16_t)(atan2(2 * q[2] * q[3] + 2 * q[0] * q[1], -2 * q[1] * q[1] - 2 * q[2] * q[2] + 1)* 1800/M_PI); // roll
-  
-  gx = 2 * (q[1]*q[3] - q[0]*q[2]);
-  gy = 2 * (q[0]*q[1] + q[2]*q[3]);
-  gz = q[0]*q[0] - q[1]*q[1] - q[2]*q[2] + q[3]*q[3];
-  
-  yaw = angles[0] = (int16_t)(atan2(2 * q[1] * q[2] - 2 * q[0] * q[3], 2 * q[0]*q[0] + 2 * q[1] * q[1] - 1) * 572.958);//1800/M_PI);
-  pitch=angles[1] = -(int16_t)(atan(gy / sqrt(gx*gx + gz*gz))  * 572.958);//1800/M_PI);
-  roll=angles[2] = -(int16_t)(atan(gx / sqrt(gy*gy + gz*gz))  * 572.958);//1800/M_PI);
+  norm = sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
+  q0 = q0 / norm;
+  q1 = q1 / norm;
+  q2 = q2 / norm;
+  q3 = q3 / norm;
+  Q_ANGLE.Yaw = atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0 * q0 + 2 * q1 * q1 - 1) * 57.3;// yaw
+  Q_ANGLE.Pitch  = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; // pitch
+  Q_ANGLE.Roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // roll
 
 }
-

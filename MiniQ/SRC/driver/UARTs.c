@@ -10,7 +10,7 @@ RS232RXD  -->  PA10 (UART1-RXD)
  */
 
 #include "UARTs.h"
-
+#include "../algorithm/control.h"
 u8 TxBuffer[258];
 u8 TxCounter=0;
 u8 count=0; 
@@ -21,7 +21,8 @@ u8 recvLength=0;
 u8 recvPos=0;
 u8 recvData[8]={0,0,0,0,0,0,0,0};
 extern char baseThr;
-extern float Ki,Kp,Kd;
+
+extern PID PID_RP;
 void parseCmd(u8 cmd, u8 len);
 /**************************实现函数********************************************
 *函数原型:		void Initial_UART1(u32 baudrate)
@@ -187,21 +188,21 @@ void parseCmd(u8 cmd, u8 len)
       baseThr=recvData[0];
       break;
     case 0x02:
-      temp=(char*)(&Kp);
+      temp=(char*)(&PID_RP.P);
       temp[0] = recvData[0];
       temp[1] = recvData[1];
       temp[2] = recvData[2];
       temp[3] = recvData[3];
       break;
     case 0x03:
-      temp=(char*)(&Kd);
+      temp=(char*)(&PID_RP.D);
       temp[0] = recvData[0];
       temp[1] = recvData[1];
       temp[2] = recvData[2];
       temp[3] = recvData[3];
     break;
     case 0x04:
-      temp=(char*)(&Ki);
+      temp=(char*)(&PID_RP.I);
       temp[0] = recvData[0];
       temp[1] = recvData[1];
       temp[2] = recvData[2];

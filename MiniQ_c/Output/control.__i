@@ -1,1 +1,0 @@
--c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\SRC -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\Libraries\CMSIS\Core\CM3 -I "C:\Program Files (x86)\Keil_ARM\ARM\INC" -I "C:\Program Files (x86)\Keil_ARM\ARM\INC\ST\STM32F10x" -o ".\Output\control.o" --omf_browse ".\Output\control.crf" --depend ".\Output\control.d" "SRC\algorithm\control.c"

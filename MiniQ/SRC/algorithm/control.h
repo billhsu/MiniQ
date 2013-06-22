@@ -3,10 +3,7 @@
 #include "../global.h"
 #include "stm32f10x.h"
 
-void initControl(void);
-void controlLoop(void);
-int16_t pidCalc(int16_t actual, int16_t setPt, 
-                int16_t* integral,int16_t* lastErr,
-                int16_t gyro);
-
+void PID_INIT(void);
+void PID_CAL(void);
+typedef struct PID{float P,POUT,I,IOUT,D,DOUT,IMAX,SetPoint,NowPoint,LastError,PrerError;}PID;
 #endif
