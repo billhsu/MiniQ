@@ -199,8 +199,8 @@ namespace ahrs_viewer
                             recv_cnt = 0;
 
                             yaw = imu_result[0] / 10.0f;
-                            pitch = imu_result[1] / 10.0f;
-                            roll = imu_result[2] / 10.0f;
+                            pitch = imu_result[2] / 10.0f;
+                            roll = imu_result[1] / 10.0f;
                             //lb_fps.Text = "FPS:" + imu_result[3]/10*25;
                             start_flag = false;
                             recv_cnt = 0;

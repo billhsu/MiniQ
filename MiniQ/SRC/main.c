@@ -90,9 +90,11 @@ int main(void)
       
       UART1_Put_Char(0xff);
       UART1_Put_Char(0xaa);
+      
       result[0]=(int16_t)(Q_ANGLE.Yaw*10.0f);
-      result[1]=(int16_t)(Q_ANGLE.Roll*10.0f);
-      result[2]=(int16_t)(Q_ANGLE.Pitch*10.0f);
+      result[1]=(int16_t)(Q_ANGLE.Pitch*10.0f);
+      result[2]=(int16_t)(Q_ANGLE.Roll*10.0f);
+      
       out_int16_t(&result[0]);
       out_int16_t(&result[1]);
       out_int16_t(&result[2]);
