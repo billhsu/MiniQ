@@ -32,7 +32,7 @@
 ### ADS-LD Output File: '.\Output\MiniQ.axf'
 ### ADS-LD Command File: '.\Output\MiniQ.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile '.\Output\MiniQ.lnp', Handle=0x000004E8
+### Creating CmdFile '.\Output\MiniQ.lnp', Handle=0x000005B8
 ### Writing '.lnp' file
 ### ADS-LD Command file '.\Output\MiniQ.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.

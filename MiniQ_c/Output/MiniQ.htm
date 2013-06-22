@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Output\MiniQ.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Output\MiniQ.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 481]: Last Updated: Sat Jun 22 00:28:38 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 481]: Last Updated: Sat Jun 22 11:43:53 2013
 <BR><P>
-<H3>Maximum Stack Usage =        336 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        344 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; IMU_TEST &rArr; IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 <P>
@@ -213,7 +213,7 @@ Global Symbols
 <P><STRONG><a name="[12b]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[54]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 336 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 344 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; IMU_TEST &rArr; IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -261,8 +261,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[55]"></a>main</STRONG> (Thumb, 276 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = main &rArr; IMU_TEST &rArr; IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
+<P><STRONG><a name="[55]"></a>main</STRONG> (Thumb, 312 bytes, Stack size 16 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = main &rArr; IMU_TEST &rArr; IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;micros
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initMotor
@@ -1253,6 +1253,7 @@ Global Symbols
 <P><STRONG><a name="[69]"></a>micros</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, timer.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_DataPrepare
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMUupdate
 </UL>
 
 <P><STRONG><a name="[6a]"></a>initMotor</STRONG> (Thumb, 222 bytes, Stack size 40 bytes, motor.o(.text))
@@ -1342,15 +1343,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d0]"></a>IMUupdate</STRONG> (Thumb, 1390 bytes, Stack size 136 bytes, imu.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
+<P><STRONG><a name="[d0]"></a>IMUupdate</STRONG> (Thumb, 1764 bytes, Stack size 144 bytes, imu.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;micros
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
@@ -1361,11 +1364,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_TEST
 </UL>
 
-<P><STRONG><a name="[6f]"></a>IMU_TEST</STRONG> (Thumb, 176 bytes, Stack size 56 bytes, imu.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = IMU_TEST &rArr; IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
+<P><STRONG><a name="[6f]"></a>IMU_TEST</STRONG> (Thumb, 154 bytes, Stack size 56 bytes, imu.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = IMU_TEST &rArr; IMUupdate &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
@@ -1374,7 +1376,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[70]"></a>GET_EXPRAD</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, imu.o(.text))
+<P><STRONG><a name="[70]"></a>GET_EXPRAD</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, imu.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GET_EXPRAD &rArr; __aeabi_fsub
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
@@ -1382,11 +1384,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6b]"></a>PID_INIT</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, control.o(.text))
+<P><STRONG><a name="[6b]"></a>PID_INIT</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, control.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[71]"></a>PID_CAL</STRONG> (Thumb, 814 bytes, Stack size 32 bytes, control.o(.text))
+<P><STRONG><a name="[71]"></a>PID_CAL</STRONG> (Thumb, 914 bytes, Stack size 32 bytes, control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = PID_CAL &rArr; __aeabi_cdcmple
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPWM
@@ -1395,7 +1397,6 @@ Global Symbols
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
@@ -1422,7 +1423,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[de]"></a>__aeabi_errno_addr</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text))
@@ -1472,7 +1473,7 @@ Global Symbols
 
 <P><STRONG><a name="[e8]"></a>__ARM_fpclassify</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, fpclassify.o(i.__ARM_fpclassify))
 <BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[e3]"></a>__kernel_poly</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly))
@@ -1482,17 +1483,17 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[e5]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, dunder.o(i.__mathlib_dbl_underflow))
 <BR><BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scalbn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
-<P><STRONG><a name="[d6]"></a>asin</STRONG> (Thumb, 586 bytes, Stack size 56 bytes, asin.o(i.asin))
+<P><STRONG><a name="[d7]"></a>asin</STRONG> (Thumb, 586 bytes, Stack size 56 bytes, asin.o(i.asin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = asin &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
@@ -1523,10 +1524,10 @@ Global Symbols
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 </UL>
 
-<P><STRONG><a name="[d7]"></a>atan2</STRONG> (Thumb, 346 bytes, Stack size 32 bytes, atan2.o(i.atan2))
+<P><STRONG><a name="[d6]"></a>atan2</STRONG> (Thumb, 346 bytes, Stack size 32 bytes, atan2.o(i.atan2))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
@@ -1544,7 +1545,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsqrt
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMUupdate
 </UL>
 
@@ -1566,8 +1567,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[f0]"></a>_dadd</STRONG> (Thumb, 328 bytes, Stack size 16 bytes, daddsub_clz.o(x$fpl$dadd), UNUSED)
@@ -1590,8 +1591,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_ddiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[f5]"></a>_ddiv</STRONG> (Thumb, 552 bytes, Stack size 32 bytes, ddiv.o(x$fpl$ddiv), UNUSED)
@@ -1627,7 +1628,7 @@ Global Symbols
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_DataPrepare
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMUupdate
 </UL>
 
@@ -1669,8 +1670,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[fb]"></a>_drsb</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, daddsub_clz.o(x$fpl$drsb), UNUSED)
@@ -1690,8 +1691,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[fd]"></a>_dsub</STRONG> (Thumb, 464 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub), UNUSED)
@@ -1733,9 +1734,7 @@ Global Symbols
 <P><STRONG><a name="[cb]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fdiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_CAL
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_TEST
-<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_DataPrepare
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_DataPrepare
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMUupdate
 </UL>
 
@@ -1764,6 +1763,7 @@ Global Symbols
 
 <P><STRONG><a name="[ca]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
 <BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_DataPrepare
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMUupdate
 </UL>
 
 <P><STRONG><a name="[1b1]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
@@ -1869,7 +1869,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;asin
 </UL>
 
 <P><STRONG><a name="[1b4]"></a>__fpl_inf_scalbn</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, scalbn.o(x$fpl$scalbn), UNUSED)

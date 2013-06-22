@@ -20,7 +20,7 @@ S_FLOAT_XYZ ACC_ANGLE;
 S_FLOAT_XYZ EXP_ANGLE;		
 S_FLOAT_XYZ DIF_ANGLE;		
 int16_t	ACC_X_BUF[FILTER_NUM],ACC_Y_BUF[FILTER_NUM],ACC_Z_BUF[FILTER_NUM];	
-
+volatile uint32_t lastUpdate, now;
 void IMU_DataPrepare(void)
 {
 	static uint8_t filter_cnt=0;
@@ -68,7 +68,7 @@ void IMU_TEST(void)
 	if(Imu_DataReady)
 	{
 		Imu_DataReady = 0;
-		IMUupdate(GYRO_F.X*0.0174,GYRO_F.Y*0.0174,GYRO_F.Z*0.0174,(float)ACC_AVG.X/10.0f,(float)ACC_AVG.Y/10.0f,(float)ACC_AVG.Z/10.0f);	//*0.0174转成弧度
+		IMUupdate(GYRO_F.X*0.0174,GYRO_F.Y*0.0174,GYRO_F.Z*0.0174,(float)ACC_AVG.X,(float)ACC_AVG.Y,(float)ACC_AVG.Z);	//*0.0174转成弧度
 //	ACC_ANGLE.X = atan2(ACC_AVG.X,ACC_AVG.Z)*radtoangle;
 //	ACC_ANGLE.Y = atan2(ACC_AVG.Y,ACC_AVG.Z)*radtoangle;
 //	GYRO_I[0].X = GYRO_I[0].X * 0.98 + ACC_ANGLE.X * 0.02;
@@ -83,19 +83,20 @@ void GET_EXPRAD(void)			//计算期望角度,不加控制时期望角度为0,0
 	EXP_ANGLE.Z = (float)(0.0f);
 	DIF_ANGLE.X = EXP_ANGLE.X - Q_ANGLE.Roll;
 	DIF_ANGLE.Y = EXP_ANGLE.Y - Q_ANGLE.Pitch;
+  DIF_ANGLE.Z = EXP_ANGLE.Z - Q_ANGLE.Yaw;
 //	DIF_ANGLE.Z = EXP_ANGLE.Z - GYRO_I[0].Z;
 //	DIF_ANGLE.X = EXP_ANGLE.X - GYRO_I[0].X;
 //	DIF_ANGLE.Y = EXP_ANGLE.Y - GYRO_I[0].Y;
 //	DIF_ANGLE.Z = EXP_ANGLE.Z - GYRO_I[0].Z;
 }
 ////////////////////////////////////////////////////////////////////////////////
-#define Kp 10.0f                        
-#define Ki 0.008f                         
-#define halfT 0.001f                 
+#define Kp 10.0f
+#define Ki 0.008f
+float halfT;
 
 float q0 = 1, q1 = 0, q2 = 0, q3 = 0;   
 float exInt = 0, eyInt = 0, ezInt = 0;  
-S_FLOAT_ANGLE Q_ANGLE;		
+S_FLOAT_ANGLE Q_ANGLE;
 void IMUupdate(float gx, float gy, float gz, float ax, float ay, float az)
 {
   float norm;
@@ -106,17 +107,26 @@ void IMUupdate(float gx, float gy, float gz, float ax, float ay, float az)
   float q0q0 = q0*q0;
   float q0q1 = q0*q1;
   float q0q2 = q0*q2;
-  //float q0q3 = q0*q3;
+  float q0q3 = q0*q3;
   float q1q1 = q1*q1;
-  //float q1q2 = q1*q2;
+  float q1q2 = q1*q2;
   float q1q3 = q1*q3;
   float q2q2 = q2*q2;
   float q2q3 = q2*q3;
   float q3q3 = q3*q3;
-
+  
   norm = sqrt(ax*ax + ay*ay + az*az);
   if(norm<0.0001f && norm>-0.0001f) 
-    return;   
+    return;
+  now = micros();
+  if(now<lastUpdate){
+    halfT =  ((float)(now + (0xffff- lastUpdate)) / 2000000.0f);
+  }
+  else	{
+    halfT =  ((float)(now - lastUpdate) / 2000000.0f);
+  }
+  lastUpdate = now;
+  
   ax = ax /norm;
   ay = ay / norm;
   az = az / norm;
@@ -147,7 +157,7 @@ void IMUupdate(float gx, float gy, float gz, float ax, float ay, float az)
   q1 = q1 / norm;
   q2 = q2 / norm;
   q3 = q3 / norm;
-
+  Q_ANGLE.Yaw = atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0 * q0 + 2 * q1 * q1 - 1) * 57.3;// yaw
   Q_ANGLE.Pitch  = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; // pitch
   Q_ANGLE.Roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // roll
 
