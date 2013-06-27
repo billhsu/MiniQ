@@ -375,5 +375,50 @@ namespace ahrs_viewer
                 comm.Write(iBytes, 0, iBytes.Length);
             }
         }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            if (comm.IsOpen)
+            {
+                float value = trackBar2.Value - 5;
+                byte[] valueBytes = BitConverter.GetBytes(value);
+                comm.Write(start_mark, 0, start_mark.Length);
+                Byte[] setExpX = { 0x05 };
+                Byte[] cmdLen = { 4 };
+                comm.Write(setExpX, 0, 1);
+                comm.Write(cmdLen, 0, cmdLen.Length);
+                comm.Write(valueBytes, 0, valueBytes.Length);
+            }
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            if (comm.IsOpen)
+            {
+                float value = trackBar3.Value - 5;
+                byte[] valueBytes = BitConverter.GetBytes(value);
+                comm.Write(start_mark, 0, start_mark.Length);
+                Byte[] setExpY = { 0x06 };
+                Byte[] cmdLen = { 4 };
+                comm.Write(setExpY, 0, 1);
+                comm.Write(cmdLen, 0, cmdLen.Length);
+                comm.Write(valueBytes, 0, valueBytes.Length);
+            }
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            if (comm.IsOpen)
+            {
+                float value = trackBar4.Value - 5;
+                byte[] valueBytes = BitConverter.GetBytes(value);
+                comm.Write(start_mark, 0, start_mark.Length);
+                Byte[] setExpZ = { 0x07 };
+                Byte[] cmdLen = { 4 };
+                comm.Write(setExpZ, 0, 1);
+                comm.Write(cmdLen, 0, cmdLen.Length);
+                comm.Write(valueBytes, 0, valueBytes.Length);
+            }
+        }
     }
 }

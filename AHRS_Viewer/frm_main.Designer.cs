@@ -60,8 +60,14 @@
             this.textD = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.textI = new System.Windows.Forms.TextBox();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.trackBar4 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             this.SuspendLayout();
             // 
             // comboPortName
@@ -212,10 +218,10 @@
             this.openGLControl1.DrawFPS = false;
             this.openGLControl1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.openGLControl1.FrameRate = 30;
-            this.openGLControl1.Location = new System.Drawing.Point(346, 16);
+            this.openGLControl1.Location = new System.Drawing.Point(345, 16);
             this.openGLControl1.Name = "openGLControl1";
             this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
-            this.openGLControl1.Size = new System.Drawing.Size(356, 302);
+            this.openGLControl1.Size = new System.Drawing.Size(241, 193);
             this.openGLControl1.TabIndex = 33;
             this.openGLControl1.OpenGLDraw += new System.Windows.Forms.PaintEventHandler(this.openGLControl1_OpenGLDraw);
             // 
@@ -405,12 +411,45 @@
             this.textI.TabIndex = 52;
             this.textI.Text = "0.0";
             // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(394, 215);
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar2.Size = new System.Drawing.Size(45, 104);
+            this.trackBar2.TabIndex = 53;
+            this.trackBar2.Value = 5;
+            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.Location = new System.Drawing.Point(457, 215);
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar3.Size = new System.Drawing.Size(45, 104);
+            this.trackBar3.TabIndex = 54;
+            this.trackBar3.Value = 5;
+            this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
+            // 
+            // trackBar4
+            // 
+            this.trackBar4.Location = new System.Drawing.Point(522, 215);
+            this.trackBar4.Name = "trackBar4";
+            this.trackBar4.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar4.Size = new System.Drawing.Size(45, 104);
+            this.trackBar4.TabIndex = 55;
+            this.trackBar4.Value = 5;
+            this.trackBar4.Scroll += new System.EventHandler(this.trackBar4_Scroll);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(714, 327);
+            this.ClientSize = new System.Drawing.Size(598, 327);
+            this.Controls.Add(this.trackBar4);
+            this.Controls.Add(this.trackBar3);
+            this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.textI);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textD);
@@ -451,6 +490,9 @@
             this.Load += new System.EventHandler(this.mainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -489,6 +531,9 @@
         private System.Windows.Forms.TextBox textD;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textI;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TrackBar trackBar3;
+        private System.Windows.Forms.TrackBar trackBar4;
     }
 }
 
