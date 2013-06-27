@@ -25,7 +25,7 @@ typedef union {int16_t D[3];
 				S_INT16_XYZ V;
 				}U_INT16_XYZ;
 
-extern S_INT16_XYZ 	MPU6050_ACC_LAST,MPU6050_GYRO_LAST;		//最新一次读取值
+extern S_INT16_XYZ 	HMC5883L_LAST,MPU6050_ACC_LAST,MPU6050_GYRO_LAST;		//最新一次读取值
 extern S_INT16_XYZ 	GYRO_OFFSET,ACC_OFFSET;			//零漂
 ////////////////////////////////////////////////////////////////////////////////
 //IMU

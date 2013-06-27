@@ -54,11 +54,12 @@ int main(void)
   NVIC_Configuration();
   
   delay_ms(10);
-  //Init_MPU6050();
+  HMC5883L_Init();
+  delay_ms(10);
   MPU6050_INIT();
   //MPU6050_INIT();
   delay_ms(10);
-  //HMC5883L_Init();
+  HMC5883L_Init();
   delay_ms(10);
   
   //IMU_init();
@@ -76,6 +77,7 @@ int main(void)
     ++control_cnt;
     MPU6050_Dataanl();
     MPU6050_READ();
+    HMC5883L_Read();
     IMU_DataPrepare();
     if(control_cnt==2)
     {
