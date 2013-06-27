@@ -380,7 +380,7 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                float value = (trackBar2.Value - 5)*4.0f;
+                float value = (trackBar2.Value - 5)*40.0f;
                 byte[] valueBytes = BitConverter.GetBytes(value);
                 comm.Write(start_mark, 0, start_mark.Length);
                 Byte[] setExpX = { 0x05 };
@@ -396,7 +396,7 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                float value = (trackBar3.Value - 5)*4.0f;
+                float value = (trackBar3.Value - 5)*40.0f;
                 byte[] valueBytes = BitConverter.GetBytes(value);
                 comm.Write(start_mark, 0, start_mark.Length);
                 Byte[] setExpY = { 0x06 };
