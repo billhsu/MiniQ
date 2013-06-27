@@ -11,6 +11,7 @@ RS232RXD  -->  PA10 (UART1-RXD)
 
 #include "UARTs.h"
 #include "../algorithm/control.h"
+#include "extern_variable.h"
 u8 TxBuffer[258];
 u8 TxCounter=0;
 u8 count=0; 

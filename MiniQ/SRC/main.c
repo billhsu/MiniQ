@@ -70,6 +70,9 @@ int main(void)
   baseThr = 0;
   cnt = 0;
   PID_INIT();
+  EXP_ANGLE.X = (float)(-2.7f);
+	EXP_ANGLE.Y = (float)(0.0f);
+	EXP_ANGLE.Z = (float)(0.0f);
   while(1)
   {
     ++cnt;

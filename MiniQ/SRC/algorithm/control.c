@@ -48,7 +48,7 @@ void PID_CAL(void)
 	}
 	if(roll_i>PID_RP.IMAX) 	roll_i = PID_RP.IMAX;
 	if(roll_i<-PID_RP.IMAX)	roll_i = -PID_RP.IMAX;
-	roll += roll_i;
+	//roll += roll_i;
 	
 	roll -= PID_RP.D * GYRO_F.X;
 ///////////	
@@ -70,7 +70,7 @@ void PID_CAL(void)
 	if(PID_RP.IMAX<0)	PID_RP.IMAX = -PID_RP.IMAX;
 	if(pitch_i>PID_RP.IMAX) 	pitch_i = PID_RP.IMAX;
 	if(pitch_i<-PID_RP.IMAX)	pitch_i = -PID_RP.IMAX;
-	pitch += pitch_i;
+	//pitch += pitch_i;
 	
 	pitch -= PID_RP.D * GYRO_F.Y;
 /////////////
@@ -92,7 +92,7 @@ void PID_CAL(void)
 	if(PID_RP.IMAX<0)	PID_RP.IMAX = -PID_RP.IMAX;
 	if(yaw_i>PID_RP.IMAX) 	yaw_i = PID_RP.IMAX;
 	if(yaw_i<-PID_RP.IMAX)	yaw_i = -PID_RP.IMAX;
-	yaw += yaw_i;
+	//yaw += yaw_i;
 	
 	yaw += PID_RP.D * GYRO_F.Z;
 /////////////

@@ -380,7 +380,7 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                float value = trackBar2.Value - 5;
+                float value = (trackBar2.Value - 5)*4.0f;
                 byte[] valueBytes = BitConverter.GetBytes(value);
                 comm.Write(start_mark, 0, start_mark.Length);
                 Byte[] setExpX = { 0x05 };
@@ -388,6 +388,7 @@ namespace ahrs_viewer
                 comm.Write(setExpX, 0, 1);
                 comm.Write(cmdLen, 0, cmdLen.Length);
                 comm.Write(valueBytes, 0, valueBytes.Length);
+                Trace.WriteLine(value);
             }
         }
 
@@ -395,7 +396,7 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                float value = trackBar3.Value - 5;
+                float value = (trackBar3.Value - 5)*4.0f;
                 byte[] valueBytes = BitConverter.GetBytes(value);
                 comm.Write(start_mark, 0, start_mark.Length);
                 Byte[] setExpY = { 0x06 };
@@ -403,6 +404,7 @@ namespace ahrs_viewer
                 comm.Write(setExpY, 0, 1);
                 comm.Write(cmdLen, 0, cmdLen.Length);
                 comm.Write(valueBytes, 0, valueBytes.Length);
+                Trace.WriteLine(value);
             }
         }
 
@@ -410,7 +412,7 @@ namespace ahrs_viewer
         {
             if (comm.IsOpen)
             {
-                float value = trackBar4.Value - 5;
+                float value = (trackBar4.Value - 5)*36;
                 byte[] valueBytes = BitConverter.GetBytes(value);
                 comm.Write(start_mark, 0, start_mark.Length);
                 Byte[] setExpZ = { 0x07 };
@@ -418,6 +420,7 @@ namespace ahrs_viewer
                 comm.Write(setExpZ, 0, 1);
                 comm.Write(cmdLen, 0, cmdLen.Length);
                 comm.Write(valueBytes, 0, valueBytes.Length);
+                Trace.WriteLine(value);
             }
         }
     }

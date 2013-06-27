@@ -80,9 +80,6 @@ void IMU_TEST(void)
 ////////////////////////////////////////////////////////////////////////////////
 void GET_EXPRAD(void)			//计算期望角度,不加控制时期望角度为0,0
 {
-	EXP_ANGLE.X = (float)(-2.7f);
-	EXP_ANGLE.Y = (float)(0.0f);
-	EXP_ANGLE.Z = (float)(0.0f);
 	DIF_ANGLE.X = EXP_ANGLE.X - Q_ANGLE.Roll;
 	DIF_ANGLE.Y = EXP_ANGLE.Y - Q_ANGLE.Pitch;
   DIF_ANGLE.Z = EXP_ANGLE.Z - Q_ANGLE.Yaw;
