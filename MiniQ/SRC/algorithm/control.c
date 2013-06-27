@@ -9,9 +9,9 @@ PID PID_RP;
 
 void PID_INIT(void)
 {
-	PID_RP.P = 5.0f;
+	PID_RP.P = 9.0f;
 	PID_RP.I = 0.0f;
-	PID_RP.D = 2.0f;
+	PID_RP.D = 3.0f;
 	
 	PID_RP.POUT = 0;
 	PID_RP.IOUT = 0;

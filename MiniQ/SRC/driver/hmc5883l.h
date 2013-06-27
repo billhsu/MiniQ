@@ -33,7 +33,7 @@
 
 void HMC5883L_Init(void);
 void HMC5883L_Calibrate(void);
-void HMC5883L_Read();
+void HMC5883L_Read(void);
 
 
 #endif

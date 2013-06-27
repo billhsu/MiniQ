@@ -80,7 +80,7 @@ void IMU_TEST(void)
 ////////////////////////////////////////////////////////////////////////////////
 void GET_EXPRAD(void)			//计算期望角度,不加控制时期望角度为0,0
 {
-	EXP_ANGLE.X = (float)(0.0f);
+	EXP_ANGLE.X = (float)(-2.7f);
 	EXP_ANGLE.Y = (float)(0.0f);
 	EXP_ANGLE.Z = (float)(0.0f);
 	DIF_ANGLE.X = EXP_ANGLE.X - Q_ANGLE.Roll;
@@ -156,9 +156,9 @@ void IMUupdate(float gx, float gy, float gz, float ax, float ay, float az, float
   wy = 2*bx*(q1q2 - q0q3) + 2*bz*(q0q1 + q2q3);
   wz = 2*bx*(q0q2 + q1q3) + 2*bz*(0.5 - q1q1 - q2q2); 
 
-  ex = (ay*vz - az*vy) + 1*(my*wz - mz*wy);
-  ey = (az*vx - ax*vz) + 1*(mz*wx - mx*wz);
-  ez = (ax*vy - ay*vx) + 1*(mx*wy - my*wx);
+  ex = (ay*vz - az*vy) + 0*(my*wz - mz*wy);
+  ey = (az*vx - ax*vz) + 0*(mz*wx - mx*wz);
+  ez = (ax*vy - ay*vx) + 0*(mx*wy - my*wx);
 
   exInt = exInt + ex * Ki;								 
   eyInt = eyInt + ey * Ki;

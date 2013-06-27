@@ -14,7 +14,7 @@
 GPIO_InitTypeDef GPIO_InitStructure;
 ErrorStatus HSEStartUpStatus;
 
-#define uploadSpeed  50   //50Hz
+#define uploadSpeed  25   //25Hz
 #define uploadTime (1000000/uploadSpeed)  //us
 
 char volatile baseThr;
@@ -39,7 +39,6 @@ void out_int16_t(int16_t * data)
 
 int main(void)
 {
-  int16_t data[9];
   int16_t cnt=0;
   int16_t led_cnt=0;
   int16_t result[3];
@@ -77,7 +76,7 @@ int main(void)
     ++control_cnt;
     MPU6050_Dataanl();
     MPU6050_READ();
-    HMC5883L_Read();
+    //HMC5883L_Read();
     IMU_DataPrepare();
     if(control_cnt==2)
     {

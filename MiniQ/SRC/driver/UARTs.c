@@ -208,6 +208,27 @@ void parseCmd(u8 cmd, u8 len)
       temp[2] = recvData[2];
       temp[3] = recvData[3];
     break;
+    case 0x05:
+      temp=(char*)(&EXP_ANGLE.X);
+      temp[0] = recvData[0];
+      temp[1] = recvData[1];
+      temp[2] = recvData[2];
+      temp[3] = recvData[3];
+    break;
+    case 0x06:
+      temp=(char*)(&EXP_ANGLE.Y);
+      temp[0] = recvData[0];
+      temp[1] = recvData[1];
+      temp[2] = recvData[2];
+      temp[3] = recvData[3];
+    break;
+    case 0x07:
+      temp=(char*)(&EXP_ANGLE.Z);
+      temp[0] = recvData[0];
+      temp[1] = recvData[1];
+      temp[2] = recvData[2];
+      temp[3] = recvData[3];
+    break;
   }
   
 }

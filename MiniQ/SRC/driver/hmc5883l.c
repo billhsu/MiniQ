@@ -10,6 +10,9 @@ void  HMC5883L_Init(void)
 {
    Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x14);   //30Hz
    Single_Write(HMC5883L_Addr,HMC5883L_MODE,0x00);   //连续测量模式
+   HMC5883L_LAST.X=100;
+   HMC5883L_LAST.Y=0;
+   HMC5883L_LAST.Z=0;
 }
 
 void HMC5883L_Calibrate(void)
@@ -26,7 +29,7 @@ void HMC5883L_Read()
     uint8_t tmp[6];
     int32_t s32Val;
     
-    Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x1C);   //30Hz
+    Single_Write(HMC5883L_Addr,HMC5883L_REGA,0x14);   //30Hz
     Single_Write(HMC5883L_Addr,HMC5883L_MODE,0x00);   //连续测量模式
     //delay_ms(10);
     
