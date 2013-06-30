@@ -10,12 +10,12 @@
 
     <com.zerokol.views.JoystickView
         android:id="@+id/joystickView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/angleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/joystickView"
         android:layout_marginTop="39dp"
@@ -24,28 +24,19 @@
 
     <TextView
         android:id="@+id/powerTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/angleTextView"
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/joystickView"
         android:text="TextView" />
 
-    <TextView
-        android:id="@+id/directionTextView"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/powerTextView"
-        android:layout_centerVertical="true"
-        android:text="TextView" />
-
-    <SeekBar
-        android:id="@+id/seekBar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/directionTextView"
-        android:rotation="270" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Connect" />
 
 </RelativeLayout>
