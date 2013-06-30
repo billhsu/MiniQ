@@ -11,7 +11,8 @@
     <com.zerokol.views.JoystickView
         android:id="@+id/joystickView"
         android:layout_width="200dp"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:layout_above="@+id/btnConnect" />
 
     <TextView
         android:id="@+id/angleTextView"
@@ -38,5 +39,20 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="Connect" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text=" " />
+
+    <com.tikoLabs.quadcontrol.VerticalSeekbar
+        android:id="@+id/seekbarThrust"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textStatus" />
 
 </RelativeLayout>
