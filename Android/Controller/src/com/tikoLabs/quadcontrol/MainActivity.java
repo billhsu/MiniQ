@@ -2,6 +2,8 @@ package com.tikoLabs.quadcontrol;
 
 
 
+import java.nio.ByteBuffer;
+
 import com.zerokol.views.JoystickView;
 import com.zerokol.views.JoystickView.OnJoystickMoveListener;
 
@@ -21,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +51,7 @@ public class MainActivity extends Activity {
     private TextView textStatus;
     private Button btnConnect;
 	private JoystickView joystick;
+	private VerticalSeekbar seekbarThrust;
 	//private TextView mTitle;
 	
 	// Name of the connected device
@@ -59,6 +63,16 @@ public class MainActivity extends Activity {
     // Member object for the chat services
     private BluetoothService mBTService = null;
 	
+    public static byte [] long2ByteArray (long value)
+    {
+        return ByteBuffer.allocate(8).putLong(value).array();
+    }
+
+    public static byte [] float2ByteArray (float value)
+    {  
+         return ByteBuffer.allocate(4).putFloat(value).array();
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +81,7 @@ public class MainActivity extends Activity {
         angleTextView = (TextView) findViewById(R.id.angleTextView);
         powerTextView = (TextView) findViewById(R.id.powerTextView);
         textStatus = (TextView) findViewById(R.id.textStatus);
+        seekbarThrust = (VerticalSeekbar) findViewById(R.id.seekbarThrust);
         
         btnConnect = (Button) findViewById(R.id.btnConnect);
         btnConnect.setOnClickListener(new OnClickListener() {
@@ -79,10 +94,43 @@ public class MainActivity extends Activity {
         joystick.setOnJoystickMoveListener(new OnJoystickMoveListener() {
             @Override
             public void onValueChanged(int angle, int power, int direction) {
-                 angleTextView.setText(" " + String.valueOf(angle) + "бу");
-                 powerTextView.setText(" " + String.valueOf(power) + "%");
+            	angle+=180;
+            	angle+=90;
+            	if(angle>=360)angle-=360;
+            	angle=360-angle;
+            	float roll=(float)Math.cos(angle*3.14159/180.00)*30.0f*power/100.0f;
+            	float pitch=(float)Math.sin(angle*3.14159/180.00)*30.0f*power/100.0f;
+            	byte[] rollBytes=float2ByteArray(roll);
+            	byte[] pitchBytes=float2ByteArray(pitch);
+                angleTextView.setText("Roll: " + Math.round(roll*1000)/1000.00 + "\nPitch:" + Math.round(pitch*1000)/1000.00);
+                byte[] sendRoll={(byte) 0xff, (byte) 0xaa, 0x05, 0x04};
+                mBTService.write(sendRoll);
+                mBTService.write(rollBytes);
+                byte[] sendPitch={(byte) 0xff, (byte) 0xaa, 0x06, 0x04};
+                mBTService.write(sendPitch);
+                mBTService.write(pitchBytes);
+                
             }
        }, JoystickView.DEFAULT_LOOP_INTERVAL);
+        
+        seekbarThrust.setOnSeekBarChangeListener(new VerticalSeekbar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+				// TODO Auto-generated method stub
+				byte[] send = {(byte) 0xff, (byte) 0xaa, 0x01, 0x01, (byte)(progress/5)};
+				mBTService.write(send);
+				powerTextView.setText("Thrust:"+progress);
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub				
+			}
+			@Override
+			public void onStopTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub	
+			}
+        } );
         
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -171,7 +219,7 @@ public class MainActivity extends Activity {
                 case BluetoothService.STATE_CONNECTED:
                 	textStatus.setText(R.string.title_connected_to);
                 	textStatus.append(mConnectedDeviceName);
-                    mConversationArrayAdapter.clear();
+                    //mConversationArrayAdapter.clear();
                     break;
                 case BluetoothService.STATE_CONNECTING:
                 	textStatus.setText(R.string.title_connecting);
@@ -186,13 +234,13 @@ public class MainActivity extends Activity {
                 byte[] writeBuf = (byte[]) msg.obj;
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
-                mConversationArrayAdapter.add("Me:  " + writeMessage);
+                //mConversationArrayAdapter.add("Me:  " + writeMessage);
                 break;
             case MESSAGE_READ:
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
-                mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+                //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
