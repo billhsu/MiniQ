@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="#4D4D4D" >
 
     <com.zerokol.views.JoystickView
         android:id="@+id/joystickView"
@@ -18,8 +19,7 @@
         android:id="@+id/angleTextView"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/joystickView"
-        android:layout_marginTop="39dp"
+        android:layout_below="@+id/AHRSView"
         android:layout_toRightOf="@+id/joystickView"
         android:text="TextView" />
 
@@ -53,6 +53,14 @@
         android:layout_width="wrap_content"
         android:layout_height="4dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textStatus" />
+        android:layout_below="@+id/textStatus"
+        android:progress="50" />
+
+    <com.tikoLabs.AHRS.AHRSView
+        android:id="@+id/AHRSView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignTop="@+id/joystickView"
+        android:layout_toRightOf="@+id/joystickView" />
 
 </RelativeLayout>
