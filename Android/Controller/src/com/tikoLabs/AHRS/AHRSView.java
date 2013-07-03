@@ -11,20 +11,42 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 
 public class AHRSView extends View {
+	private final float ang_rad = 3.14159f/180.0f;
 	private Paint horizontalLine;
+	private Paint ahrsLine;
 	private float centerX = 0; // Center view x position
 	private float centerY = 0; // Center view y position
+	private float shortLen = 50;
+	private float longLen = 140;
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		// TODO Auto-generated method stub
 		super.onDraw(canvas);
 		centerX = (getWidth()) / 2;
 		centerY = (getHeight()) / 2;
-		canvas.drawLine(centerX, centerY, 0, 0, horizontalLine);
+		
+		// draw ahrs line
+		drawAHRSLine(canvas, centerY, true);
+		
+		// draw center horizontal line 
+		canvas.drawLine(0+30, centerY, centerX*2-30, centerY, horizontalLine);
+		
 
 	}
-	private static float roll=0.0f,pitch=0.0f,yaw=0.0f;
+	private void drawAHRSLine(Canvas canvas, float yPos, boolean bLong)
+	{
+		float leng = shortLen;
+		if(bLong) leng = longLen;
+		leng /= 2.0f;
+		float x1,x2,y1,y2;
+		x1 = centerX+leng*(float)Math.cos(roll*ang_rad);
+		x2 = centerX-leng*(float)Math.cos(roll*ang_rad);
+		y1 = yPos-leng*(float)Math.sin(roll*ang_rad);
+		y2 = yPos+leng*(float)Math.sin(roll*ang_rad);
+		canvas.drawLine(x1, y1, x2, y2, ahrsLine);
+		
+	}
+	private static float roll=45.0f,pitch=0.0f,yaw=0.0f;
 
 	public AHRSView(Context context) {
 		super(context);
@@ -73,7 +95,11 @@ public class AHRSView extends View {
 	protected void initAHRSView() {
 		horizontalLine = new Paint();
 		horizontalLine.setStrokeWidth(2);
-		horizontalLine.setColor(Color.GREEN);
+		horizontalLine.setColor(Color.WHITE);
+		
+		ahrsLine = new Paint();
+		ahrsLine.setStrokeWidth(4);
+		ahrsLine.setColor(Color.GREEN);
 	}
 	
 	public static void setRoll(float _roll){roll=_roll;}
