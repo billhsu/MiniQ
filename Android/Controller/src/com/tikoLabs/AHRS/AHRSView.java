@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 
 public class AHRSView extends View {
-	private static float roll=25.0f,pitch=0.0f,yaw=0.0f;
+	private static float roll=80.0f,pitch=0.0f,yaw=0.0f;
 	
 	private final float ang_rad = 3.14159f/180.0f;
 	private Paint horizontalLine;
@@ -55,7 +55,7 @@ public class AHRSView extends View {
 		// draw ahrs line
 		for(int i=(int) (-pitch*2/pitchInterval)-(int) (centerY*2*2/pitchInterval); i<(int) (-pitch*2/pitchInterval)+centerY*2*2/pitchInterval; ++i)
 		{
-			drawAHRSLine(canvas, centerY-pitch*2 + pitchInterval*i, (i%2==0));
+			drawAHRSLine(canvas, (float)(centerY-pitch*2 + (pitchInterval/Math.cos(roll*ang_rad))*i), (i%2==2), i);
 		}
 		// draw center horizontal line 
 		canvas.drawLine(centerX, centerY, centerX-horPara, centerY+horPara, horizontalLine);
@@ -67,19 +67,20 @@ public class AHRSView extends View {
 		
 
 	}
-	private void drawAHRSLine(Canvas canvas, float yPos, boolean bLong)
+	private void drawAHRSLine(Canvas canvas, float yPos, boolean bLong, int i)
 	{
 		float leng = shortLen;
 		if(bLong) leng = longLen;
 		leng /= 2.0f;
 		float x1,x2,y1,y2;
-		float delta = (float)((yPos-centerY)*Math.sin(roll*ang_rad));
-		float deltaX = (float)(delta*Math.cos(roll*ang_rad));
-		float deltaY = (float)(delta*Math.sin(roll*ang_rad));
+		float delta = (float)((i*pitchInterval/Math.cos(roll*ang_rad))*Math.sin(roll*ang_rad));
+		float deltaX = (float)(1.0*delta*Math.cos(roll*ang_rad));
+		float deltaY = (float)(1.0*delta*Math.sin(roll*ang_rad));
+		
 		x1 = (float)(centerX+deltaX+leng*Math.cos(roll*ang_rad));
 		x2 = (float)(centerX+deltaX-leng*Math.cos(roll*ang_rad));
-		y1 = (float)(yPos+deltaY-leng*Math.sin(roll*ang_rad));
-		y2 = (float)(yPos+deltaY+leng*Math.sin(roll*ang_rad));
+		y1 = (float)(yPos-deltaY-leng*Math.sin(roll*ang_rad));
+		y2 = (float)(yPos-deltaY+leng*Math.sin(roll*ang_rad));
 		canvas.drawLine(x1, y1, x2, y2, ahrsLine);
 		
 	}
