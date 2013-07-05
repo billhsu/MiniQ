@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 
 public class AHRSView extends View {
-	private static float roll=80.0f,pitch=0.0f,yaw=0.0f;
+	private static float roll=-30.0f,pitch=10.0f,yaw=0.0f;
 	
 	private final float ang_rad = 3.14159f/180.0f;
 	private Paint horizontalLine;
@@ -53,9 +53,9 @@ public class AHRSView extends View {
 		canvas.drawPath(path, downPoly);
 		
 		// draw ahrs line
-		for(int i=(int) (-pitch*2/pitchInterval)-(int) (centerY*2*2/pitchInterval); i<(int) (-pitch*2/pitchInterval)+centerY*2*2/pitchInterval; ++i)
+		for(int i=(int) (-pitch*2/pitchInterval/Math.cos(roll*ang_rad))-(int) (centerY*2*2/pitchInterval/Math.cos(roll*ang_rad)); i<(int) (-pitch*2/pitchInterval/Math.cos(roll*ang_rad))+centerY*2*2/pitchInterval/Math.cos(roll*ang_rad); ++i)
 		{
-			drawAHRSLine(canvas, (float)(centerY-pitch*2 + (pitchInterval/Math.cos(roll*ang_rad))*i), (i%2==2), i);
+			drawAHRSLine(canvas, (float)(centerY-pitch*2 + (pitchInterval/Math.cos(roll*ang_rad))*i), (i%2==0), i);
 		}
 		// draw center horizontal line 
 		canvas.drawLine(centerX, centerY, centerX-horPara, centerY+horPara, horizontalLine);
