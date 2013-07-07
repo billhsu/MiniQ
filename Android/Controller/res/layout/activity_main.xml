@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/AHRSView"
         android:layout_toRightOf="@+id/joystickView"
-        android:text="TextView" />
+        android:text="Roll: 0.00\nPithc: 0.00"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/powerTextView"
@@ -30,7 +31,8 @@
         android:layout_below="@+id/angleTextView"
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/joystickView"
-        android:text="TextView" />
+        android:text="Thrust: 0"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/btnConnect"
@@ -46,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text=" " />
+        android:text=" " 
+        android:textColor="#FFFFFF" />
 
     <com.tikoLabs.quadcontrol.VerticalSeekbar
         android:id="@+id/seekbarThrust"
@@ -58,8 +61,8 @@
 
     <com.tikoLabs.AHRS.AHRSView
         android:id="@+id/AHRSView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
         android:layout_alignTop="@+id/joystickView"
         android:layout_toRightOf="@+id/joystickView" />
 

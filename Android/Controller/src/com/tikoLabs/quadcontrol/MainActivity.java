@@ -4,6 +4,7 @@ package com.tikoLabs.quadcontrol;
 
 import java.nio.ByteBuffer;
 
+import com.tikoLabs.AHRS.AHRSView;
 import com.zerokol.views.JoystickView;
 import com.zerokol.views.JoystickView.OnJoystickMoveListener;
 
@@ -52,6 +53,7 @@ public class MainActivity extends Activity {
     private Button btnConnect;
 	private JoystickView joystick;
 	private VerticalSeekbar seekbarThrust;
+	private AHRSView ahrsView;
 	//private TextView mTitle;
 	
 	// Name of the connected device
@@ -90,6 +92,11 @@ public class MainActivity extends Activity {
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
             }
         });
+        
+        ahrsView = (AHRSView) findViewById(R.id.AHRSView);
+        ahrsView.setRoll(0.0f);
+    	ahrsView.setPitch(0.0f);
+    	
         joystick = (JoystickView) findViewById(R.id.joystickView);
         joystick.setOnJoystickMoveListener(new OnJoystickMoveListener() {
             @Override
@@ -98,8 +105,10 @@ public class MainActivity extends Activity {
             	angle+=90;
             	if(angle>=360)angle-=360;
             	angle=360-angle;
-            	float roll=(float)Math.cos(angle*3.14159/180.00)*30.0f*power/100.0f;
-            	float pitch=(float)Math.sin(angle*3.14159/180.00)*30.0f*power/100.0f;
+            	float roll=(float)Math.cos(angle*3.14159/180.00)*45.0f*power/100.0f;
+            	float pitch=(float)Math.sin(angle*3.14159/180.00)*45.0f*power/100.0f;
+            	ahrsView.setRoll(roll);
+            	ahrsView.setPitch(pitch);
             	byte[] rollBytes=float2ByteArray(roll);
             	byte[] pitchBytes=float2ByteArray(pitch);
                 angleTextView.setText("Roll: " + Math.round(roll*1000)/1000.00 + "\nPitch:" + Math.round(pitch*1000)/1000.00);
