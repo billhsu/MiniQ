@@ -390,6 +390,10 @@ namespace ahrs_viewer
                 comm.Write(valueBytes, 0, valueBytes.Length);
                 Trace.WriteLine(value);
             }
+            float value2 = -10.02f;
+            byte[] value2Bytes = BitConverter.GetBytes(value2);
+            Trace.WriteLine("" + value2Bytes[0] + " " + value2Bytes[1] + " " + value2Bytes[2] + " " + value2Bytes[3]);
+
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)

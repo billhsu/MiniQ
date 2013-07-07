@@ -105,19 +105,27 @@ public class MainActivity extends Activity {
             	angle+=90;
             	if(angle>=360)angle-=360;
             	angle=360-angle;
-            	float roll=(float)Math.cos(angle*3.14159/180.00)*45.0f*power/100.0f;
-            	float pitch=(float)Math.sin(angle*3.14159/180.00)*45.0f*power/100.0f;
+            	float roll=(float)Math.cos(angle*3.14159/180.00)*20.0f*power/100.0f;
+            	float pitch=(float)Math.sin(angle*3.14159/180.00)*20.0f*power/100.0f;
             	ahrsView.setRoll(roll);
             	ahrsView.setPitch(pitch);
+            	roll=-10.02f;
             	byte[] rollBytes=float2ByteArray(roll);
             	byte[] pitchBytes=float2ByteArray(pitch);
                 angleTextView.setText("Roll: " + Math.round(roll*1000)/1000.00 + "\nPitch:" + Math.round(pitch*1000)/1000.00);
-                byte[] sendRoll={(byte) 0xff, (byte) 0xaa, 0x05, 0x04};
+                byte[] sendRoll= {(byte) 0xff, (byte) 0xaa, 0x05, 0x04, 0x00, 0x00, 0x00, 0x00};
+                sendRoll[4] = rollBytes[3];
+                sendRoll[5] = rollBytes[2];
+                sendRoll[6] = rollBytes[1];
+                sendRoll[7] = rollBytes[0];
                 mBTService.write(sendRoll);
-                mBTService.write(rollBytes);
-                byte[] sendPitch={(byte) 0xff, (byte) 0xaa, 0x06, 0x04};
+                Log.i(TAG,""+(sendRoll[4] & 0xFF)+" "+(sendRoll[5] & 0xFF)+" "+(sendRoll[6] & 0xFF)+" "+(sendRoll[7] & 0xFF));
+                byte[] sendPitch={(byte) 0xff, (byte) 0xaa, 0x06, 0x04, 0x00, 0x00, 0x00, 0x00};
+                sendPitch[4] = pitchBytes[3];
+                sendPitch[5] = pitchBytes[2];
+                sendPitch[6] = pitchBytes[1];
+                sendPitch[7] = pitchBytes[0];
                 mBTService.write(sendPitch);
-                mBTService.write(pitchBytes);
                 
             }
        }, JoystickView.DEFAULT_LOOP_INTERVAL);
