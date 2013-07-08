@@ -105,11 +105,10 @@ public class MainActivity extends Activity {
             	angle+=90;
             	if(angle>=360)angle-=360;
             	angle=360-angle;
-            	float roll=(float)Math.cos(angle*3.14159/180.00)*20.0f*power/100.0f;
-            	float pitch=(float)Math.sin(angle*3.14159/180.00)*20.0f*power/100.0f;
+            	float roll=(float)Math.cos(angle*3.14159/180.00)*60.0f*power/100.0f;
+            	float pitch=(float)Math.sin(angle*3.14159/180.00)*60.0f*power/100.0f;
             	ahrsView.setRoll(roll);
             	ahrsView.setPitch(pitch);
-            	roll=-10.02f;
             	byte[] rollBytes=float2ByteArray(roll);
             	byte[] pitchBytes=float2ByteArray(pitch);
                 angleTextView.setText("Roll: " + Math.round(roll*1000)/1000.00 + "\nPitch:" + Math.round(pitch*1000)/1000.00);
@@ -134,7 +133,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				// TODO Auto-generated method stub
-				byte[] send = {(byte) 0xff, (byte) 0xaa, 0x01, 0x01, (byte)(progress/5)};
+				byte[] send = {(byte) 0xff, (byte) 0xaa, 0x01, 0x01, (byte)(progress)};
 				mBTService.write(send);
 				powerTextView.setText("Thrust:"+progress);
 			}
