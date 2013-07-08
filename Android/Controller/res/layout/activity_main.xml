@@ -57,7 +57,7 @@
         android:layout_height="4dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textStatus"
-        android:max="50"
+        android:max="100"
         android:progress="0" />
 
     <com.tikoLabs.AHRS.AHRSView
