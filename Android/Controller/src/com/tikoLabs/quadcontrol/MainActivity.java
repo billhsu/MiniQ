@@ -105,8 +105,8 @@ public class MainActivity extends Activity {
             	angle+=90;
             	if(angle>=360)angle-=360;
             	angle=360-angle;
-            	float roll=(float)Math.cos(angle*3.14159/180.00)*60.0f*power/100.0f;
-            	float pitch=(float)Math.sin(angle*3.14159/180.00)*60.0f*power/100.0f;
+            	float roll=(float)Math.cos(angle*3.14159/180.00)*80.0f*power/100.0f;
+            	float pitch=(float)Math.sin(angle*3.14159/180.00)*80.0f*power/100.0f;
             	ahrsView.setRoll(roll);
             	ahrsView.setPitch(pitch);
             	byte[] rollBytes=float2ByteArray(roll);
