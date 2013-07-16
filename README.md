@@ -1,4 +1,4 @@
-[![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_Logo.png)](http://github.com/billhsu/MiniQ/) [![OpenSourceHardware](https://github.com/billhsu/MiniQ/raw/master/doc/osh_logo.png)](http://github.com/billhsu/MiniQ/)
+![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_Logo.png)
 =====
 
 MiniQ: A mini quadcopter: From Hardware design to Software algorithm
@@ -18,3 +18,4 @@ PC control
 
 Android control  
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/android.png)
+
