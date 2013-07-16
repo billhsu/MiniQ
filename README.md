@@ -8,13 +8,13 @@ For demo video:
 [DemoVideo2](http://v.youku.com/v_show/id_XNTczOTY4NDIw.html)
 
 PCB Preview  
-[MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_PCB.PNG)
+![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_PCB.PNG)
 
 MiniQ  
-[MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ.jpg)
+![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ.jpg)
 
 PC control  
-[MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/AHRS_Viewer.png)
+![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/AHRS_Viewer.png)
 
 Android control  
-[MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/android.png)
+![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/android.png)
