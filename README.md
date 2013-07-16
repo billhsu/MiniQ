@@ -21,7 +21,7 @@ MiniQ: A mini quadcopter: From Hardware design to Software algorithm.
   </tr>
 </table>
 
-The algorithm used for altitude heading reference system (AHRS) is DCM complementary filting.  
+The algorithm used for altitude heading reference system (AHRS) is DCM complementary filter.  
 The system calculates altitude and controls the output PWMs of the four motors 1600 times per sec.
 
 For demo video:  
