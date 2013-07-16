@@ -3,11 +3,13 @@
 
 MiniQ: A mini quadcopter: Hardware design &amp; Software algorithm
 
-In progress..
+For demo video:  
+[DemoVideo1](http://v.youku.com/v_show/id_XNTc0MTE5NjY0.html)  
+[DemoVideo2](http://v.youku.com/v_show/id_XNTczOTY4NDIw.html)
 
-Now working on control algorithms.
-
+PCB Preview  
 [![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_PCB.PNG)](http://github.com/billhsu/MiniQ/)
+
 
 [![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ.jpg)](http://github.com/billhsu/MiniQ/)
 
