@@ -1,8 +1,7 @@
 package com.tikoLabs.AHRS;
 
-import android.annotation.SuppressLint;
+
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,6 +9,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.MeasureSpec;
 
@@ -52,9 +52,8 @@ public class AHRSView extends View {
 		path.lineTo(0, centerY*2);
 
 		canvas.drawPath(path, downPoly);
-		
 		// draw ahrs line
-		for(int i=(int) (-pitch*metrics.density*2/pitchInterval/Math.cos(roll*ang_rad))-(int) (centerY*2*2/pitchInterval/Math.cos(roll*ang_rad)); i<(int) (-pitch*2/pitchInterval/Math.cos(roll*ang_rad))+centerY*2*2/pitchInterval/Math.cos(roll*ang_rad); ++i)
+		for(int i=(int) (pitch*metrics.density*2/pitchInterval/Math.cos(roll*ang_rad))-(int) (centerY*2*2/pitchInterval/Math.cos(roll*ang_rad)); i<(int) (pitch*2/pitchInterval/Math.cos(roll*ang_rad))+centerY*2*2/pitchInterval/Math.cos(roll*ang_rad); ++i)
 		{
 			drawAHRSLine(canvas, (float)(centerY-pitch*2*metrics.density + (pitchInterval/Math.cos(roll*ang_rad))*i), (i%2==0), i);
 		}
@@ -83,6 +82,22 @@ public class AHRSView extends View {
 		y1 = (float)(yPos-deltaY-leng*Math.sin(roll*ang_rad));
 		y2 = (float)(yPos-deltaY+leng*Math.sin(roll*ang_rad));
 		canvas.drawLine(x1, y1, x2, y2, ahrsLine);
+		
+		
+		x1 += (float)5.0*Math.cos(roll*ang_rad);
+		x2 -= (float)24.0*Math.cos(roll*ang_rad);
+		y1 -= (float)5.0f*Math.sin(roll*ang_rad);
+		y2 += (float)24.0f*Math.sin(roll*ang_rad);
+		
+		canvas.save();
+		canvas.rotate(-roll, x1, y1);
+		canvas.drawText(""+i*10, x1, y1, horizontalLine);
+		canvas.restore();
+		
+		canvas.save();
+		canvas.rotate(-roll, x2, y2);
+		canvas.drawText(""+i*10, x2, y2, horizontalLine);
+		canvas.restore();
 		
 	}
 	
@@ -133,7 +148,6 @@ public class AHRSView extends View {
 
 	protected void initAHRSView() {
 		DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-		float dp = 20f;
 		shortLen = metrics.density * shortLen;
 		longLen = metrics.density * longLen;
 		horPara = metrics.density * horPara;
