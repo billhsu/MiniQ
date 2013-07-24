@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 public class AHRSView extends View {
-	private float roll=-0.0f,pitch=20.0f,yaw=0.0f;
+	private float roll=-30.0f,pitch=20.0f,yaw=0.0f;
 	
 	private final float ang_rad = 3.14159f/180.0f;
 	private Paint horizontalLine;
@@ -28,9 +28,14 @@ public class AHRSView extends View {
 	private float centerY = 0; // Center view y position
 	private float shortLen = 50;
 	private float longLen = 100;
-	private float horPara=16.0f;
+	private float horPara=10.0f;
 	private float pitchInterval = 20.0f;
 	Path path;
+	
+	public void setRoll(float _roll){roll=_roll;invalidate();}
+	public void setPitch(float _pitch){pitch=-_pitch;invalidate();}
+	public void setYaw(float _yaw){roll=_yaw;invalidate();}
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -39,11 +44,11 @@ public class AHRSView extends View {
 		centerY = (getHeight()) / 2;
 		
 		
-		// draw ahrs line
+		
 		int startIndex = (int) (pitch*metrics.density*2/pitchInterval/Math.cos(roll*ang_rad) - centerY*2*2/pitchInterval/Math.cos(roll*ang_rad));
 		int endIndex = (int) (pitch*2/pitchInterval/Math.cos(roll*ang_rad) + centerY*2*2/pitchInterval/Math.cos(roll*ang_rad));
 		canvas.save();
-		canvas.rotate(-roll, centerX, centerY);
+		canvas.rotate(roll, centerX, centerY);
 		path.reset();
 		path.moveTo(-100, startIndex*10);
 		path.lineTo(centerX*2+100, startIndex*10);
@@ -61,6 +66,7 @@ public class AHRSView extends View {
 
 		canvas.drawPath(path, downPoly);
 
+		// draw ahrs line
 		for(int i=startIndex; i<endIndex; ++i)
 		{
 			drawAHRSLine(canvas, (float)(centerY-pitch*2*metrics.density + (pitchInterval)*i), (i%2==0), i);
@@ -79,8 +85,9 @@ public class AHRSView extends View {
 		float leng = shortLen;
 		if(bLong) leng = longLen;
 		leng /= 2.0f;
-		float x1,x2,y1,y2;
+		if(i==0) leng = longLen*4;
 		
+		float x1,x2,y1,y2;
 		x1 = centerX+leng;
 		x2 = centerX-leng;
 		y1 = yPos;
@@ -88,10 +95,10 @@ public class AHRSView extends View {
 		canvas.drawLine(x1, y1, x2, y2, ahrsLine);
 		
 		x1 += 5;
-		x2 -= ptText.measureText(""+i*10)+5;
+		x2 -= ptText.measureText(""+(-i)*10)+5;
 
-		canvas.drawText(""+i*10, x1, y1, ptText);
-		canvas.drawText(""+i*10, x2, y2, ptText);
+		canvas.drawText(""+(-i)*10, x1, y1, ptText);
+		canvas.drawText(""+(-i)*10, x2, y2, ptText);
 	}
 	
 
@@ -167,9 +174,5 @@ public class AHRSView extends View {
 		ptText.setColor(Color.WHITE);
 		ptText.setTextSize(20);
 	}
-	
-	public void setRoll(float _roll){roll=_roll;invalidate();}
-	public void setPitch(float _pitch){pitch=_pitch;invalidate();}
-	public void setYaw(float _yaw){roll=_yaw;invalidate();}
 
 }
