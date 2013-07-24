@@ -162,11 +162,11 @@ public class AHRSView extends View {
 		ahrsLine.setColor(Color.GREEN);
 		
 		upPoly = new Paint(Paint.ANTI_ALIAS_FLAG);
-		upPoly.setColor(Color.BLUE);
+		upPoly.setColor(Color.parseColor("#0166D8"));
 		upPoly.setStyle(Style.FILL);
 		
 		downPoly = new Paint(Paint.ANTI_ALIAS_FLAG);
-		downPoly.setColor(Color.BLACK);
+		downPoly.setColor(Color.parseColor("#AA3E17"));
 		downPoly.setStyle(Style.FILL);
 		
 		path = new Path();
