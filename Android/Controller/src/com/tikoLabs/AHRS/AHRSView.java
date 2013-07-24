@@ -1,3 +1,7 @@
+// AHRS view for Android
+// Bill Hsu (C) 2013
+// Nanyang Technological University
+
 package com.tikoLabs.AHRS;
 
 
@@ -9,18 +13,17 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.View.MeasureSpec;
 
 public class AHRSView extends View {
-	private float roll=-30.0f,pitch=10.0f,yaw=0.0f;
+	private float roll=-0.0f,pitch=20.0f,yaw=0.0f;
 	
 	private final float ang_rad = 3.14159f/180.0f;
 	private Paint horizontalLine;
 	private Paint ahrsLine;
 	private Paint downPoly;
 	private Paint upPoly;
+	private Paint ptText;
 	private float centerX = 0; // Center view x position
 	private float centerY = 0; // Center view y position
 	private float shortLen = 50;
@@ -35,28 +38,34 @@ public class AHRSView extends View {
 		centerX = (getWidth()) / 2;
 		centerY = (getHeight()) / 2;
 		
+		
+		// draw ahrs line
+		int startIndex = (int) (pitch*metrics.density*2/pitchInterval/Math.cos(roll*ang_rad) - centerY*2*2/pitchInterval/Math.cos(roll*ang_rad));
+		int endIndex = (int) (pitch*2/pitchInterval/Math.cos(roll*ang_rad) + centerY*2*2/pitchInterval/Math.cos(roll*ang_rad));
+		canvas.save();
+		canvas.rotate(-roll, centerX, centerY);
 		path.reset();
-		path.moveTo(0, 0);
-		path.lineTo(centerX*2, 0);
-		path.lineTo(centerX*2, (float)(centerY-pitch*2*metrics.density-centerX*Math.tan(roll*ang_rad)));
-		path.lineTo(0, (float)(centerY-pitch*2*metrics.density+centerX*Math.tan(roll*ang_rad)));
-		path.lineTo(0, 0);
-
+		path.moveTo(-100, startIndex*10);
+		path.lineTo(centerX*2+100, startIndex*10);
+		path.lineTo(centerX*2+100, centerY-pitch*2*metrics.density);
+		path.lineTo(-100, centerY-pitch*2*metrics.density);
+		path.lineTo(-100, startIndex*10);
 		canvas.drawPath(path, upPoly);
 		
 		path.reset();
-		path.moveTo(0, centerY*2);
-		path.lineTo(centerX*2, centerY*2);
-		path.lineTo(centerX*2, centerY-pitch*2*metrics.density-centerX*(float)Math.tan(roll*ang_rad));
-		path.lineTo(0, centerY-pitch*2*metrics.density+centerX*(float)Math.tan(roll*ang_rad));
-		path.lineTo(0, centerY*2);
+		path.moveTo(-100, centerY*2+100);
+		path.lineTo(centerX*2+100, centerY*2+100);
+		path.lineTo(centerX*2+100, centerY-pitch*2*metrics.density);
+		path.lineTo(-100, centerY-pitch*2*metrics.density);
+		path.lineTo(-100, centerY*2+100);
 
 		canvas.drawPath(path, downPoly);
-		// draw ahrs line
-		for(int i=(int) (pitch*metrics.density*2/pitchInterval/Math.cos(roll*ang_rad))-(int) (centerY*2*2/pitchInterval/Math.cos(roll*ang_rad)); i<(int) (pitch*2/pitchInterval/Math.cos(roll*ang_rad))+centerY*2*2/pitchInterval/Math.cos(roll*ang_rad); ++i)
+
+		for(int i=startIndex; i<endIndex; ++i)
 		{
-			drawAHRSLine(canvas, (float)(centerY-pitch*2*metrics.density + (pitchInterval/Math.cos(roll*ang_rad))*i), (i%2==0), i);
+			drawAHRSLine(canvas, (float)(centerY-pitch*2*metrics.density + (pitchInterval)*i), (i%2==0), i);
 		}
+		canvas.restore();
 		// draw center horizontal line 
 		canvas.drawLine(centerX, centerY, centerX-horPara, centerY+horPara, horizontalLine);
 		canvas.drawLine(centerX, centerY, centerX+horPara, centerY+horPara, horizontalLine);
@@ -64,8 +73,6 @@ public class AHRSView extends View {
 		canvas.drawLine(centerX+horPara, centerY+horPara, centerX+horPara*2, centerY, horizontalLine);
 		canvas.drawLine(centerX-horPara*2, centerY, centerX-horPara*4, centerY, horizontalLine);
 		canvas.drawLine(centerX+horPara*2, centerY, centerX+horPara*4, centerY, horizontalLine);
-		
-
 	}
 	private void drawAHRSLine(Canvas canvas, float yPos, boolean bLong, int i)
 	{
@@ -73,32 +80,18 @@ public class AHRSView extends View {
 		if(bLong) leng = longLen;
 		leng /= 2.0f;
 		float x1,x2,y1,y2;
-		float delta = (float)((i*pitchInterval/Math.cos(roll*ang_rad))*Math.sin(roll*ang_rad));
-		float deltaX = (float)(1.0*delta*Math.cos(roll*ang_rad));
-		float deltaY = (float)(1.0*delta*Math.sin(roll*ang_rad));
 		
-		x1 = (float)(centerX+deltaX+leng*Math.cos(roll*ang_rad));
-		x2 = (float)(centerX+deltaX-leng*Math.cos(roll*ang_rad));
-		y1 = (float)(yPos-deltaY-leng*Math.sin(roll*ang_rad));
-		y2 = (float)(yPos-deltaY+leng*Math.sin(roll*ang_rad));
+		x1 = centerX+leng;
+		x2 = centerX-leng;
+		y1 = yPos;
+		y2 = yPos;
 		canvas.drawLine(x1, y1, x2, y2, ahrsLine);
 		
-		
-		x1 += (float)5.0*Math.cos(roll*ang_rad);
-		x2 -= (float)24.0*Math.cos(roll*ang_rad);
-		y1 -= (float)5.0f*Math.sin(roll*ang_rad);
-		y2 += (float)24.0f*Math.sin(roll*ang_rad);
-		
-		canvas.save();
-		canvas.rotate(-roll, x1, y1);
-		canvas.drawText(""+i*10, x1, y1, horizontalLine);
-		canvas.restore();
-		
-		canvas.save();
-		canvas.rotate(-roll, x2, y2);
-		canvas.drawText(""+i*10, x2, y2, horizontalLine);
-		canvas.restore();
-		
+		x1 += 5;
+		x2 -= ptText.measureText(""+i*10)+5;
+
+		canvas.drawText(""+i*10, x1, y1, ptText);
+		canvas.drawText(""+i*10, x2, y2, ptText);
 	}
 	
 
@@ -120,7 +113,6 @@ public class AHRSView extends View {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// setting the measured values to resize the view to a certain width and
 		// height
-
 		setMeasuredDimension(measure(widthMeasureSpec), measure(heightMeasureSpec));
 
 		// before measure, get the center of view
@@ -154,12 +146,12 @@ public class AHRSView extends View {
 		pitchInterval = metrics.density * pitchInterval;
 		
 		horizontalLine = new Paint(Paint.ANTI_ALIAS_FLAG);
-		horizontalLine.setStrokeWidth(8);
-		horizontalLine.setColor(Color.YELLOW);
+		horizontalLine.setStrokeWidth(5);
+		horizontalLine.setColor(Color.parseColor("#E0D51B"));
 		
 		ahrsLine = new Paint(Paint.ANTI_ALIAS_FLAG);
 		ahrsLine.setStrokeWidth(6);
-		ahrsLine.setColor(Color.GREEN);
+		ahrsLine.setColor(Color.WHITE);
 		
 		upPoly = new Paint(Paint.ANTI_ALIAS_FLAG);
 		upPoly.setColor(Color.parseColor("#0166D8"));
@@ -170,6 +162,10 @@ public class AHRSView extends View {
 		downPoly.setStyle(Style.FILL);
 		
 		path = new Path();
+		
+		ptText = new Paint(Paint.ANTI_ALIAS_FLAG);
+		ptText.setColor(Color.WHITE);
+		ptText.setTextSize(20);
 	}
 	
 	public void setRoll(float _roll){roll=_roll;invalidate();}
