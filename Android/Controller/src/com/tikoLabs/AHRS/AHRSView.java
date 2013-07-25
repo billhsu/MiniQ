@@ -5,7 +5,6 @@
 
 package com.tikoLabs.AHRS;
 
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -65,50 +64,50 @@ public class AHRSView extends View {
 		canvas.save();
 		canvas.rotate(roll, centerX, centerY);
 		if(startIndex>-18+36*(startIndex/36) && endIndex<18+36*(endIndex/36)){
-			Log.i("AHRS","mode1");
+			//Mode 1: sky is upper and ground is lower
 			drawMode = 1;
 			float pitchFix = 0;
 			if(startIndex>-54 && startIndex<-18) pitchFix=360;
 			else if(startIndex>18){startIndex-=36;pitchFix=-360;}
 			
 			path.reset();
-			path.moveTo(-100, startIndex*10);
-			path.lineTo(centerX*2+100, startIndex*10);
-			path.lineTo(centerX*2+100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
+			path.moveTo(-200, (startIndex-5)*10);
+			path.lineTo(centerX*2+200, (startIndex-5)*10);
+			path.lineTo(centerX*2+200, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
 			Log.i("AHRS", "pitch:"+pitch+" _:"+(pitch+pitchFix));
-			path.lineTo(-100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
-			path.lineTo(-100, startIndex*10);
+			path.lineTo(-200, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
+			path.lineTo(-200, (startIndex-5)*10);
 			canvas.drawPath(path, upPoly);
 			
 			path.reset();
-			path.moveTo(-100, centerY*2+100);
-			path.lineTo(centerX*2+100, centerY*2+100);
-			path.lineTo(centerX*2+100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
-			path.lineTo(-100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
-			path.lineTo(-100, centerY*2+100);
+			path.moveTo(-200, centerY*2+200);
+			path.lineTo(centerX*2+200, centerY*2+200);
+			path.lineTo(centerX*2+200, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
+			path.lineTo(-200, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
+			path.lineTo(-200, centerY*2+200);
 			canvas.drawPath(path, downPoly);
 		}
 		else{
-			Log.i("AHRS","mode2");
+			//Mode 2: sky is lower and ground is upper 
 			drawMode = 2;
 			int i;
 			if(startIndex<-18+2) i=-18;
 			else i = 18;
 			path.reset();
 			if(i==18)startIndex-=18;
-			path.moveTo(-100, startIndex*10);
-			path.lineTo(centerX*2+100, startIndex*10);
-			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
-			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
-			path.lineTo(-100, startIndex*10);
+			path.moveTo(-200, startIndex*10);
+			path.lineTo(centerX*2+200, startIndex*10);
+			path.lineTo(centerX*2+200, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-200, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-200, startIndex*10);
 			canvas.drawPath(path, downPoly);
 			
 			path.reset();
-			path.moveTo(-100, centerY*2+100);
-			path.lineTo(centerX*2+100, centerY*2+100);
-			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
-			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
-			path.lineTo(-100, centerY*2+100);
+			path.moveTo(-200, centerY*2+200);
+			path.lineTo(centerX*2+200, centerY*2+200);
+			path.lineTo(centerX*2+200, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-200, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-200, centerY*2+200);
 			canvas.drawPath(path, upPoly);
 		}
 
@@ -151,7 +150,7 @@ public class AHRSView extends View {
 		x1 += 5;
 		
 		x2 -= ptText.measureText(""+(-i)*10)+5;
-
+		//TODO: rotate text
 		canvas.drawText(""+(-i)*10, x1, y1, ptText);
 		canvas.drawText(""+(-i)*10, x2, y2, ptText);
 	}
