@@ -1,7 +1,7 @@
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_Logo.png)
 =====
 
-MiniQ: A mini quadcopter, from hardware design to software algorithms.
+MiniQ: An opensource mini quadcopter, from hardware design to software algorithms.
 
 <table>
   <tr>
