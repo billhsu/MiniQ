@@ -16,7 +16,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -29,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	// Debugging
+    // Debugging
     private static final String TAG = "QuadControl";
     private static final boolean D = true;
 
@@ -51,12 +50,12 @@ public class MainActivity extends Activity {
     private TextView powerTextView;
     private TextView textStatus;
     private Button btnConnect;
-	private JoystickView joystick;
-	private VerticalSeekbar seekbarThrust;
-	private AHRSView ahrsView;
-	//private TextView mTitle;
-	
-	// Name of the connected device
+    private JoystickView joystick;
+    private VerticalSeekbar seekbarThrust;
+    private AHRSView ahrsView;
+    //private TextView mTitle;
+    
+    // Name of the connected device
     private String mConnectedDeviceName = null;
     // Array adapter for the conversation thread
     private ArrayAdapter<String> mConversationArrayAdapter;
@@ -64,7 +63,7 @@ public class MainActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for the chat services
     private BluetoothService mBTService = null;
-	
+    
     public static byte [] long2ByteArray (long value)
     {
         return ByteBuffer.allocate(8).putLong(value).array();
@@ -88,29 +87,29 @@ public class MainActivity extends Activity {
         btnConnect = (Button) findViewById(R.id.btnConnect);
         btnConnect.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	Intent serverIntent = new Intent(MainActivity.this, DeviceListActivity.class);
+                Intent serverIntent = new Intent(MainActivity.this, DeviceListActivity.class);
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
             }
         });
         
         ahrsView = (AHRSView) findViewById(R.id.AHRSView);
         ahrsView.setRoll(0.0f);
-    	ahrsView.setPitch(0.0f);
-    	
+        ahrsView.setPitch(0.0f);
+        
         joystick = (JoystickView) findViewById(R.id.joystickView);
         joystick.setOnJoystickMoveListener(new OnJoystickMoveListener() {
             @Override
             public void onValueChanged(int angle, int power, int direction) {
-            	angle+=180;
-            	angle+=90;
-            	if(angle>=360)angle-=360;
-            	angle=360-angle;
-            	float roll=(float)Math.cos(angle*3.14159/180.00)*180.0f*power/100.0f;
-            	float pitch=(float)Math.sin(angle*3.14159/180.00)*720.0f*power/100.0f;
-            	ahrsView.setRoll(roll);
-            	ahrsView.setPitch(pitch);
-            	byte[] rollBytes=float2ByteArray(roll);
-            	byte[] pitchBytes=float2ByteArray(pitch);
+                angle+=180;
+                angle+=90;
+                if(angle>=360)angle-=360;
+                angle=360-angle;
+                float roll=(float)Math.cos(angle*3.14159/180.00)*180.0f*power/100.0f;
+                float pitch=(float)Math.sin(angle*3.14159/180.00)*720.0f*power/100.0f;
+                ahrsView.setRoll(roll);
+                ahrsView.setPitch(pitch);
+                byte[] rollBytes=float2ByteArray(roll);
+                byte[] pitchBytes=float2ByteArray(pitch);
                 angleTextView.setText("Roll: " + Math.round(roll*1000)/1000.00 + "\nPitch:" + Math.round(pitch*1000)/1000.00);
                 byte[] sendRoll= {(byte) 0xff, (byte) 0xaa, 0x05, 0x04, 0x00, 0x00, 0x00, 0x00};
                 sendRoll[4] = rollBytes[3];
@@ -130,22 +129,22 @@ public class MainActivity extends Activity {
        }, JoystickView.DEFAULT_LOOP_INTERVAL);
         
         seekbarThrust.setOnSeekBarChangeListener(new VerticalSeekbar.OnSeekBarChangeListener() {
-			@Override
-			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-				// TODO Auto-generated method stub
-				byte[] send = {(byte) 0xff, (byte) 0xaa, 0x01, 0x01, (byte)(progress)};
-				mBTService.write(send);
-				powerTextView.setText("Thrust:"+progress);
-			}
+            @Override
+            public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+                // TODO Auto-generated method stub
+                byte[] send = {(byte) 0xff, (byte) 0xaa, 0x01, 0x01, (byte)(progress)};
+                mBTService.write(send);
+                powerTextView.setText("Thrust:"+progress);
+            }
 
-			@Override
-			public void onStartTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub				
-			}
-			@Override
-			public void onStopTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub	
-			}
+            @Override
+            public void onStartTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub                
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub    
+            }
         } );
         
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -158,20 +157,20 @@ public class MainActivity extends Activity {
         }
     }
 
-	@Override
-	protected void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-		if (!mBluetoothAdapter.isEnabled()) {
+    @Override
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        if (!mBluetoothAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         // Otherwise, setup the chat session
         } else {
             if (mBTService == null) setupChat();
         }
-	}
-	
-	@Override
+    }
+    
+    @Override
     public synchronized void onResume() {
         super.onResume();
         if(D) Log.e(TAG, "+ ON RESUME +");
@@ -183,7 +182,7 @@ public class MainActivity extends Activity {
             // Only if the state is STATE_NONE, do we know that we haven't started already
             if (mBTService.getState() == BluetoothService.STATE_NONE) {
               // Start the Bluetooth chat services
-            	mBTService.start();
+                mBTService.start();
             }
         }
     }
@@ -233,16 +232,16 @@ public class MainActivity extends Activity {
                 if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
                 switch (msg.arg1) {
                 case BluetoothService.STATE_CONNECTED:
-                	textStatus.setText(R.string.title_connected_to);
-                	textStatus.append(mConnectedDeviceName);
+                    textStatus.setText(R.string.title_connected_to);
+                    textStatus.append(mConnectedDeviceName);
                     //mConversationArrayAdapter.clear();
                     break;
                 case BluetoothService.STATE_CONNECTING:
-                	textStatus.setText(R.string.title_connecting);
+                    textStatus.setText(R.string.title_connecting);
                     break;
                 case BluetoothService.STATE_LISTEN:
                 case BluetoothService.STATE_NONE:
-                	textStatus.setText(R.string.title_not_connected);
+                    textStatus.setText(R.string.title_not_connected);
                     break;
                 }
                 break;
