@@ -1,7 +1,7 @@
 // AHRS view for Android
 // Bill Hsu (C) 2013
 // Nanyang Technological University
-
+// github.com/billhsu
 package com.tikoLabs.AHRS;
 
 
@@ -13,6 +13,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 public class AHRSView extends View {
@@ -27,9 +28,13 @@ public class AHRSView extends View {
 	private float centerX = 0; // Center view x position
 	private float centerY = 0; // Center view y position
 	private float shortLen = 50;
-	private float longLen = 100;
+	private float shortLen_ = 50;
+	private float longLen = 125;
+	private float longLen_ = 125;
 	private float horPara=10.0f;
+	private float horPara_=10.0f;
 	private float pitchInterval = 20.0f;
+	private float pitchInterval_ = 20.0f;
 	Path path;
 	
 	public void setRoll(float _roll){roll=_roll;invalidate();}
@@ -42,34 +47,60 @@ public class AHRSView extends View {
 		DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
 		centerX = (getWidth()) / 2;
 		centerY = (getHeight()) / 2;
+		shortLen = shortLen_*centerX/200;
+		longLen = longLen_*centerX/200;
+		horPara = horPara_*centerX/200;
+		pitchInterval = pitchInterval_*centerX/200;
 		
-		
-		
-		int startIndex = (int) (pitch*metrics.density*2/pitchInterval/Math.cos(roll*ang_rad) - centerY*2*2/pitchInterval/Math.cos(roll*ang_rad));
-		int endIndex = (int) (pitch*2/pitchInterval/Math.cos(roll*ang_rad) + centerY*2*2/pitchInterval/Math.cos(roll*ang_rad));
+		int startIndex = (int) (pitch/10-7);
+		int endIndex = (int) (pitch/10+7);
 		canvas.save();
 		canvas.rotate(roll, centerX, centerY);
-		path.reset();
-		path.moveTo(-100, startIndex*10);
-		path.lineTo(centerX*2+100, startIndex*10);
-		path.lineTo(centerX*2+100, centerY-pitch*2*metrics.density);
-		path.lineTo(-100, centerY-pitch*2*metrics.density);
-		path.lineTo(-100, startIndex*10);
-		canvas.drawPath(path, upPoly);
-		
-		path.reset();
-		path.moveTo(-100, centerY*2+100);
-		path.lineTo(centerX*2+100, centerY*2+100);
-		path.lineTo(centerX*2+100, centerY-pitch*2*metrics.density);
-		path.lineTo(-100, centerY-pitch*2*metrics.density);
-		path.lineTo(-100, centerY*2+100);
+		if(startIndex>-18 && endIndex<18){
+			path.reset();
+			path.moveTo(-100, startIndex*10);
+			path.lineTo(centerX*2+100, startIndex*10);
+			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density);
+			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density);
+			path.lineTo(-100, startIndex*10);
+			canvas.drawPath(path, upPoly);
+			
+			path.reset();
+			path.moveTo(-100, centerY*2+100);
+			path.lineTo(centerX*2+100, centerY*2+100);
+			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density);
+			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density);
+			path.lineTo(-100, centerY*2+100);
+			canvas.drawPath(path, downPoly);
+		}
+		else{
+			int i;
+			if(startIndex<-18+2) i=-18;
+			else i = 18;
+			path.reset();
+			if(i==18)startIndex-=18;
+			path.moveTo(-100, startIndex*10);
+			path.lineTo(centerX*2+100, startIndex*10);
+			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-100, startIndex*10);
+			canvas.drawPath(path, downPoly);
+			
+			path.reset();
+			path.moveTo(-100, centerY*2+100);
+			path.lineTo(centerX*2+100, centerY*2+100);
+			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density+pitchInterval*i);
+			path.lineTo(-100, centerY*2+100);
+			canvas.drawPath(path, upPoly);
+		}
 
-		canvas.drawPath(path, downPoly);
+		Log.i("AHRS","start:"+startIndex+" end:"+endIndex);
 
 		// draw ahrs line
 		for(int i=startIndex; i<endIndex; ++i)
 		{
-			drawAHRSLine(canvas, (float)(centerY-pitch*2*metrics.density + (pitchInterval)*i), (i%2==0), i);
+			drawAHRSLine(canvas, (float)(centerY-pitch*centerX/200*2*metrics.density + (pitchInterval)*i), (i%2==0), i);
 		}
 		canvas.restore();
 		// draw center horizontal line 
@@ -85,8 +116,11 @@ public class AHRSView extends View {
 		float leng = shortLen;
 		if(bLong) leng = longLen;
 		leng /= 2.0f;
-		if(i==0) leng = longLen*4;
 		
+		if (i>18)  {i -= 18*(i/18);}
+		if (i<-18) i += 18*(i/-18);
+		
+		if(i==0 || Math.abs(i)==18) leng = longLen*4;
 		float x1,x2,y1,y2;
 		x1 = centerX+leng;
 		x2 = centerX-leng;
@@ -95,6 +129,7 @@ public class AHRSView extends View {
 		canvas.drawLine(x1, y1, x2, y2, ahrsLine);
 		
 		x1 += 5;
+		
 		x2 -= ptText.measureText(""+(-i)*10)+5;
 
 		canvas.drawText(""+(-i)*10, x1, y1, ptText);
@@ -147,10 +182,10 @@ public class AHRSView extends View {
 
 	protected void initAHRSView() {
 		DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-		shortLen = metrics.density * shortLen;
-		longLen = metrics.density * longLen;
-		horPara = metrics.density * horPara;
-		pitchInterval = metrics.density * pitchInterval;
+		shortLen_ = metrics.density * shortLen;
+		longLen_ = metrics.density * longLen;
+		horPara_ = metrics.density * horPara;
+		pitchInterval_ = metrics.density * pitchInterval;
 		
 		horizontalLine = new Paint(Paint.ANTI_ALIAS_FLAG);
 		horizontalLine.setStrokeWidth(5);
