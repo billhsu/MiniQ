@@ -2,6 +2,7 @@
 // Bill Hsu (C) 2013
 // Nanyang Technological University
 // github.com/billhsu
+
 package com.tikoLabs.AHRS;
 
 
@@ -35,10 +36,16 @@ public class AHRSView extends View {
 	private float horPara_=10.0f;
 	private float pitchInterval = 20.0f;
 	private float pitchInterval_ = 20.0f;
+	private int drawMode = 1;
 	Path path;
 	
 	public void setRoll(float _roll){roll=_roll;invalidate();}
-	public void setPitch(float _pitch){pitch=-_pitch;invalidate();}
+	public void setPitch(float _pitch){
+		if(_pitch>360.0f)_pitch-=360.0f;
+		else if(_pitch<-360.0f)_pitch+=360.0f;
+		pitch=-_pitch;
+		invalidate();
+	}
 	public void setYaw(float _yaw){roll=_yaw;invalidate();}
 	
 	@Override
@@ -54,26 +61,36 @@ public class AHRSView extends View {
 		
 		int startIndex = (int) (pitch/10-7);
 		int endIndex = (int) (pitch/10+7);
+		Log.i("AHRS","start:"+startIndex+" end:"+endIndex);
 		canvas.save();
 		canvas.rotate(roll, centerX, centerY);
-		if(startIndex>-18 && endIndex<18){
+		if(startIndex>-18+36*(startIndex/36) && endIndex<18+36*(endIndex/36)){
+			Log.i("AHRS","mode1");
+			drawMode = 1;
+			float pitchFix = 0;
+			if(startIndex>-54 && startIndex<-18) pitchFix=360;
+			else if(startIndex>18){startIndex-=36;pitchFix=-360;}
+			
 			path.reset();
 			path.moveTo(-100, startIndex*10);
 			path.lineTo(centerX*2+100, startIndex*10);
-			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density);
-			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density);
+			path.lineTo(centerX*2+100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
+			Log.i("AHRS", "pitch:"+pitch+" _:"+(pitch+pitchFix));
+			path.lineTo(-100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
 			path.lineTo(-100, startIndex*10);
 			canvas.drawPath(path, upPoly);
 			
 			path.reset();
 			path.moveTo(-100, centerY*2+100);
 			path.lineTo(centerX*2+100, centerY*2+100);
-			path.lineTo(centerX*2+100, centerY-pitch*centerX/200*2*metrics.density);
-			path.lineTo(-100, centerY-pitch*centerX/200*2*metrics.density);
+			path.lineTo(centerX*2+100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
+			path.lineTo(-100, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
 			path.lineTo(-100, centerY*2+100);
 			canvas.drawPath(path, downPoly);
 		}
 		else{
+			Log.i("AHRS","mode2");
+			drawMode = 2;
 			int i;
 			if(startIndex<-18+2) i=-18;
 			else i = 18;
@@ -95,7 +112,7 @@ public class AHRSView extends View {
 			canvas.drawPath(path, upPoly);
 		}
 
-		Log.i("AHRS","start:"+startIndex+" end:"+endIndex);
+		
 
 		// draw ahrs line
 		for(int i=startIndex; i<endIndex; ++i)
@@ -116,10 +133,13 @@ public class AHRSView extends View {
 		float leng = shortLen;
 		if(bLong) leng = longLen;
 		leng /= 2.0f;
-		
+		int sign = 1;
+		if ((i/18)%2!=0) sign = -1;
 		if (i>18)  {i -= 18*(i/18);}
 		if (i<-18) i += 18*(i/-18);
-		
+		i = i * sign;
+		if(pitch<-180+50 && i>0) i=18-i;
+		if(pitch>180-50 && i<0) i=18+i;
 		if(i==0 || Math.abs(i)==18) leng = longLen*4;
 		float x1,x2,y1,y2;
 		x1 = centerX+leng;
