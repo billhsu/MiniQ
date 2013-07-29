@@ -1,7 +1,6 @@
 // AHRS view for Android
 // Bill Hsu (C) 2013
-// Nanyang Technological University
-// github.com/billhsu
+// weibo.com/billhsu
 
 package com.tikoLabs.AHRS;
 
@@ -148,11 +147,18 @@ public class AHRSView extends View {
         canvas.drawLine(x1, y1, x2, y2, ahrsLine);
         
         x1 += 5;
-        
+        float textLen = ptText.measureText(""+(-i)*10);
         x2 -= ptText.measureText(""+(-i)*10)+5;
         //TODO: rotate text
+        canvas.save();
+        canvas.rotate(-roll, x1+textLen/2, y1);
         canvas.drawText(""+(-i)*10, x1, y1, ptText);
+        canvas.restore();
+        canvas.save();
+        canvas.rotate(-roll, x2+textLen/2, y2);
         canvas.drawText(""+(-i)*10, x2, y2, ptText);
+        canvas.restore();
+        
     }
     
 

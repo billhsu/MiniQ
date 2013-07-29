@@ -62,8 +62,8 @@
 
     <com.tikoLabs.AHRS.AHRSView
         android:id="@+id/AHRSView"
-        android:layout_width="235dp"
-        android:layout_height="235dp"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
         android:layout_alignTop="@+id/joystickView"
         android:layout_toRightOf="@+id/joystickView" />
 
