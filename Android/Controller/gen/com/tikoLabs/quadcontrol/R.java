@@ -25,14 +25,18 @@ public final class R {
     }
     public static final class id {
         public static final int AHRSView=0x7f080002;
-        public static final int action_settings=0x7f08000d;
+        public static final int action_settings=0x7f080011;
         public static final int angleTextView=0x7f080001;
         public static final int button_scan=0x7f08000c;
         public static final int joystickView=0x7f080000;
         public static final int joystickView2=0x7f080005;
+        public static final int menu_connect=0x7f08000d;
+        public static final int menu_disconnect=0x7f08000e;
+        public static final int menu_radio_scan=0x7f08000f;
         public static final int new_devices=0x7f08000b;
         public static final int paired_devices=0x7f080009;
         public static final int powerTextView=0x7f080003;
+        public static final int preferences=0x7f080010;
         public static final int textStatus=0x7f080004;
         public static final int title_left_text=0x7f080006;
         public static final int title_new_devices=0x7f08000a;
@@ -46,7 +50,8 @@ public final class R {
         public static final int device_name=0x7f030003;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int activity_main=0x7f070000;
+        public static final int main=0x7f070001;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;

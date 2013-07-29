@@ -4,6 +4,7 @@ package com.tikoLabs.quadcontrol;
 
 import java.nio.ByteBuffer;
 
+
 import com.tikoLabs.AHRS.AHRSView;
 import com.zerokol.views.JoystickView;
 import com.zerokol.views.JoystickView.OnJoystickMoveListener;
@@ -16,6 +17,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -211,6 +213,11 @@ public class MainActivity extends Activity {
         // Stop the Bluetooth chat services
         if (mBTService != null) mBTService.stop();
         if(D) Log.e(TAG, "--- ON DESTROY ---");
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     private void ensureDiscoverable() {
