@@ -157,7 +157,7 @@ public class JoystickView extends View implements Runnable {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			xPosition = (int) centerX;
 			yPosition = (int) centerY;
-			Log.i(logTag, "ACTION_UP: "+xPosition+", "+yPosition);
+			//Log.i(logTag, "ACTION_UP: "+xPosition+", "+yPosition);
 			thread.interrupt();
 			onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
 					getDirection());
@@ -172,7 +172,7 @@ public class JoystickView extends View implements Runnable {
 			thread.start();
 			onJoystickMoveListener.onValueChanged(getAngle(), getPower(),
 					getDirection());
-			Log.i(logTag, "ACTION_DOWN");
+			//Log.i(logTag, "ACTION_DOWN");
 		}
 		return true;
 	}
@@ -259,7 +259,7 @@ public class JoystickView extends View implements Runnable {
 				public void run() {
 					onJoystickMoveListener.onValueChanged(getAngle(),
 							getPower(), getDirection());
-					Log.i(logTag, "run-onJoystickMoveListener.onValueChanged");
+					//Log.i(logTag, "run-onJoystickMoveListener.onValueChanged");
 				}
 			});
 			try {

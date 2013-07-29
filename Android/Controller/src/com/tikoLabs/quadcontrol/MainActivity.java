@@ -51,7 +51,6 @@ public class MainActivity extends Activity {
     private TextView textStatus;
     private Button btnConnect;
     private JoystickView joystick;
-    private VerticalSeekbar seekbarThrust;
     private AHRSView ahrsView;
     //private TextView mTitle;
     
@@ -82,16 +81,15 @@ public class MainActivity extends Activity {
         angleTextView = (TextView) findViewById(R.id.angleTextView);
         powerTextView = (TextView) findViewById(R.id.powerTextView);
         textStatus = (TextView) findViewById(R.id.textStatus);
-        seekbarThrust = (VerticalSeekbar) findViewById(R.id.seekbarThrust);
-        
-        btnConnect = (Button) findViewById(R.id.btnConnect);
+
+        /*btnConnect = (Button) findViewById(R.id.btnConnect);
         btnConnect.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Intent serverIntent = new Intent(MainActivity.this, DeviceListActivity.class);
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
             }
         });
-        
+        */
         ahrsView = (AHRSView) findViewById(R.id.AHRSView);
         ahrsView.setRoll(0.0f);
         ahrsView.setPitch(0.0f);
@@ -128,7 +126,8 @@ public class MainActivity extends Activity {
             }
        }, JoystickView.DEFAULT_LOOP_INTERVAL);
         
-        seekbarThrust.setOnSeekBarChangeListener(new VerticalSeekbar.OnSeekBarChangeListener() {
+        /*
+         *  seekbarThrust.setOnSeekBarChangeListener(new VerticalSeekbar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
                 // TODO Auto-generated method stub
@@ -146,7 +145,7 @@ public class MainActivity extends Activity {
                 // TODO Auto-generated method stub    
             }
         } );
-        
+        */
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         // If the adapter is null, then Bluetooth is not supported

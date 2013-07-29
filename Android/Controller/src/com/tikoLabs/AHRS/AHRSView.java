@@ -12,7 +12,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.view.View;
 
 public class AHRSView extends View {
@@ -59,7 +59,6 @@ public class AHRSView extends View {
         
         int startIndex = (int) (pitch/10-7);
         int endIndex = (int) (pitch/10+7);
-        Log.i("AHRS","start:"+startIndex+" end:"+endIndex);
         canvas.save();
         canvas.rotate(roll, centerX, centerY);
         if(startIndex>-18+36*(startIndex/36) && endIndex<18+36*(endIndex/36)){
@@ -73,7 +72,6 @@ public class AHRSView extends View {
             path.moveTo(-200, (startIndex-5)*10);
             path.lineTo(centerX*2+200, (startIndex-5)*10);
             path.lineTo(centerX*2+200, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
-            Log.i("AHRS", "pitch:"+pitch+" _:"+(pitch+pitchFix));
             path.lineTo(-200, centerY-(pitch+pitchFix)*centerX/200*2*metrics.density);
             path.lineTo(-200, (startIndex-5)*10);
             canvas.drawPath(path, upPoly);

@@ -13,7 +13,8 @@
         android:id="@+id/joystickView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_above="@+id/btnConnect" />
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/angleTextView"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/AHRSView"
         android:layout_toRightOf="@+id/joystickView"
-        android:text="Roll: 0.00\nPithc: 0.00"
+        android:text="Roll: 0.00\nPitch: 0.00"
         android:textColor="#FFFFFF" />
 
     <TextView
@@ -34,14 +35,6 @@
         android:text="Thrust: 0"
         android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/btnConnect"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Connect" />
-
     <TextView
         android:id="@+id/textStatus"
         android:layout_width="wrap_content"
@@ -51,20 +44,18 @@
         android:text=" " 
         android:textColor="#FFFFFF" />
 
-    <com.tikoLabs.quadcontrol.VerticalSeekbar
-        android:id="@+id/seekbarThrust"
-        android:layout_width="wrap_content"
-        android:layout_height="4dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textStatus"
-        android:max="100"
-        android:progress="0" />
 
     <com.tikoLabs.AHRS.AHRSView
         android:id="@+id/AHRSView"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
-        android:layout_alignTop="@+id/joystickView"
-        android:layout_toRightOf="@+id/joystickView" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true" />
+    
+    <com.zerokol.views.JoystickView
+        android:id="@+id/joystickView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>
