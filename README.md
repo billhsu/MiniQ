@@ -41,5 +41,10 @@ PC control
 Android control  
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/android.png)
 
+##Author
+**Shipeng Xu**
 
++ http://BillHsu.me
++ http://twitter.com/1991bill
++ http://weibo.com/billhsu
 
