@@ -22,7 +22,7 @@ MiniQ: An opensource mini quadcopter, from hardware design to software algorithm
 </table>
 
 The algorithm used for altitude heading reference system (AHRS) is **DCM complementary filter**.  
-The system calculates altitude and controls the output PWMs of the four motors 1600 times per sec.
+The system calculates altitude and controls the output PWMs of the four motors 1600 times per sec.  
 Wireless contronl through Bluetooth.
 For demo video:  
 [DemoVideo1](http://v.youku.com/v_show/id_XNTc0MTE5NjY0.html)  
