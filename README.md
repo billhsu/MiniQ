@@ -33,6 +33,7 @@ PCB Preview
 
 MiniQ  
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ.jpg)
+![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/pcb.jpg)
 
 PC control  
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/AHRS_Viewer.png)
