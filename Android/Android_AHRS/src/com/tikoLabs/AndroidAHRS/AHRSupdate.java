@@ -1,7 +1,7 @@
 package com.tikoLabs.AndroidAHRS;
 
 public class AHRSupdate {
-    static float sampleFreq = 512.0f;      // sample frequency in Hz
+    static volatile float timeDelta = 0.0f;
     static float betaDef = 0.1f;        // 2 * proportional gain
     static volatile float beta = betaDef;                              // 2 * proportional gain (Kp)
     static volatile float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;  // quaternion of sensor frame relative to auxiliary frame
@@ -65,10 +65,10 @@ public class AHRSupdate {
         }
 
         // Integrate rate of change of quaternion to yield quaternion
-        q0 += qDot1 * (1.0f / sampleFreq);
-        q1 += qDot2 * (1.0f / sampleFreq);
-        q2 += qDot3 * (1.0f / sampleFreq);
-        q3 += qDot4 * (1.0f / sampleFreq);
+        q0 += qDot1 * timeDelta;
+        q1 += qDot2 * timeDelta;
+        q2 += qDot3 * timeDelta;
+        q3 += qDot4 * timeDelta;
 
         // Normalise quaternion
         recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
