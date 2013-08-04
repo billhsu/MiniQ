@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements SensorEventListener{
     // Message types sent from the BluetoothChatService Handler
@@ -24,7 +25,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     
     private SensorManager mSensorManager;
     private Sensor mSensorAcc,mSensorGryo;
-
+    private TextView AHRSResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorGryo = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        AHRSResult = (TextView)findViewById(R.id.AHRSResult);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class MainActivity extends Activity implements SensorEventListener{
             gx=x;gy=y;gz=z;
         }
         AHRSupdate.MadgwickAHRSupdateIMU(gx,gy,gz,ax,ay,az);
-        Log.i("AHRS", "yaw:"+AHRSupdate.yaw+" pitch:"+AHRSupdate.pitch+" roll:"+AHRSupdate.roll);
+        AHRSResult.setText("yaw:"+AHRSupdate.yaw+"\npitch:"+AHRSupdate.pitch+"\nroll:"+AHRSupdate.roll);
     }
     
     @Override
