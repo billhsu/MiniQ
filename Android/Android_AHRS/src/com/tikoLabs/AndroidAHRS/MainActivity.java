@@ -7,7 +7,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -22,7 +21,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
-    
+    private long millis;
     private SensorManager mSensorManager;
     private Sensor mSensorAcc,mSensorGryo;
     private TextView AHRSResult;
@@ -35,6 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         mSensorAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorGryo = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         AHRSResult = (TextView)findViewById(R.id.AHRSResult);
+        millis = System.currentTimeMillis();
     }
 
     @Override
@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     
     public final void onSensorChanged(SensorEvent event)
     {
+        long timeDelta = System.currentTimeMillis() - millis;
         // Many sensors return 3 values, one for each axis.
         float x = event.values[0];
         float y = event.values[1];
@@ -56,8 +57,10 @@ public class MainActivity extends Activity implements SensorEventListener{
         else if(event.sensor.getType()==Sensor.TYPE_GYROSCOPE){
             gx=x;gy=y;gz=z;
         }
+        AHRSupdate.timeDelta = timeDelta/1000.0f;
         AHRSupdate.MadgwickAHRSupdateIMU(gx,gy,gz,ax,ay,az);
         AHRSResult.setText("yaw:"+AHRSupdate.yaw+"\npitch:"+AHRSupdate.pitch+"\nroll:"+AHRSupdate.roll);
+        millis = System.currentTimeMillis();
     }
     
     @Override
