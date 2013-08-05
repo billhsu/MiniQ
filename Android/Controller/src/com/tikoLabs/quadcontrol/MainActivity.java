@@ -1,7 +1,5 @@
 package com.tikoLabs.quadcontrol;
 
-
-
 import java.nio.ByteBuffer;
 
 
@@ -167,7 +165,7 @@ public class MainActivity extends Activity {
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         // Otherwise, setup the chat session
         } else {
-            if (mBTService == null) setupChat();
+            if (mBTService == null) setupBTService();
         }
     }
     
@@ -187,7 +185,7 @@ public class MainActivity extends Activity {
             }
         }
     }
-    private void setupChat() {
+    private void setupBTService() {
         Log.d(TAG, "setupChat()");
 
         // Initialize the BluetoothChatService to perform bluetooth connections
@@ -296,7 +294,7 @@ public class MainActivity extends Activity {
             // When the request to enable Bluetooth returns
             if (resultCode == Activity.RESULT_OK) {
                 // Bluetooth is now enabled, so set up a chat session
-                setupChat();
+                setupBTService();
             } else {
                 // User did not enable Bluetooth or an error occured
                 Log.d(TAG, "BT not enabled");

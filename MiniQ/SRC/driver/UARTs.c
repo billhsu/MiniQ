@@ -1,14 +1,3 @@
-/* UARTs.C file
-
-功能：实现	STM32-SDK 开发板上的 UART1-RS232 接口操作
-
----------硬件上的引脚连接:----------
-RS232接口：
-RS232TXD  -->  PA9  (UART1-TXD)
-RS232RXD  -->  PA10 (UART1-RXD)
-------------------------------------
- */
-
 #include "UARTs.h"
 #include "../algorithm/control.h"
 #include "extern_variable.h"
