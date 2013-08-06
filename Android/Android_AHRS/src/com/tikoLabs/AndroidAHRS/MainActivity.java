@@ -1,5 +1,7 @@
 package com.tikoLabs.AndroidAHRS;
 
+import java.nio.ByteBuffer;
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -47,6 +49,11 @@ public class MainActivity extends Activity implements SensorEventListener{
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for the chat services
     private BluetoothService mBTService = null;
+    
+    public static byte [] float2ByteArray (float value)
+    {  
+         return ByteBuffer.allocate(4).putFloat(value).array();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +148,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         }
     };
     private void setupBTService() {
-        Log.d("AHRS", "setupChat()");
+        Log.d("AHRS", "setupBTService()");
 
         // Initialize the BluetoothChatService to perform bluetooth connections
         mBTService = new BluetoothService(this, mHandler);
@@ -202,13 +209,14 @@ public class MainActivity extends Activity implements SensorEventListener{
             mx=x;my=y;mz=z;
         }
         AHRSupdate.timeDelta = timeDelta/1000.0f;
-        AHRSupdate.MadgwickAHRSupdateIMU(gx,gy,gz,ax,ay,az);
+        AHRSupdate.myUpdate(gx,gy,gz,ax,ay,az);
         AHRSResult.setText("yaw:"+AHRSupdate.yaw+"\npitch:"+AHRSupdate.roll+"\nroll:"+AHRSupdate.pitch+
                 "\nax:"+ax+"\nay:"+ay+"\naz:"+az);
         millis = System.currentTimeMillis();
-        byte[] sendResult= {(byte) 0xff, (byte) 0xaa, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
-        short sYaw=0,sRoll=0,sPitch=0;
-        sYaw = (short) (AHRSupdate.yaw*10);
+        byte[] sendResult= {(byte) 0xf0, (byte) 0x5a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        /*short sYaw=0,sRoll=0,sPitch=0;
+        sYaw = (short) (-AHRSupdate.yaw*10);
         sRoll = (short) (-AHRSupdate.roll*10);
         sPitch = (short) (AHRSupdate.pitch*10);
         byte [] yawByte = toBytes(sYaw);
@@ -216,7 +224,16 @@ public class MainActivity extends Activity implements SensorEventListener{
         byte [] pitchByte = toBytes(sPitch);
         sendResult[2] = yawByte[1];sendResult[3] = yawByte[0];
         sendResult[4] = pitchByte[1];sendResult[5] = pitchByte[0];
-        sendResult[6] = rollByte[1];sendResult[7] = rollByte[0];
+        sendResult[6] = rollByte[1];sendResult[7] = rollByte[0];*/
+        byte [] bq0 = float2ByteArray(AHRSupdate.q0);
+        byte [] bq1 = float2ByteArray(AHRSupdate.q1);
+        byte [] bq2 = float2ByteArray(AHRSupdate.q2);
+        byte [] bq3 = float2ByteArray(AHRSupdate.q3);
+        sendResult[2] = bq0[3]; sendResult[3] = bq0[2];sendResult[4] = bq0[1];sendResult[5] = bq0[0];
+        sendResult[2+4] = bq1[3]; sendResult[3+4] = bq1[2];sendResult[4+4] = bq1[1];sendResult[5+4] = bq1[0];
+        sendResult[2+8] = bq2[3]; sendResult[3+8] = bq2[2];sendResult[4+8] = bq2[1];sendResult[5+8] = bq2[0];
+        sendResult[2+12] = bq3[3]; sendResult[3+12] = bq3[2];sendResult[4+12] = bq3[1];sendResult[5+12] = bq3[0];
+        
         mBTService.write(sendResult);
     }
     

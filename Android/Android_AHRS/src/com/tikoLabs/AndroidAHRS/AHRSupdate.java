@@ -1,6 +1,7 @@
 package com.tikoLabs.AndroidAHRS;
 
 public class AHRSupdate {
+    private static final float M_PI = 3.1415926f;
     static volatile float timeDelta = 0.0f;
     static float betaDef = 0.1f;        // 2 * proportional gain
     static volatile float beta = betaDef;                              // 2 * proportional gain (Kp)
@@ -103,10 +104,6 @@ public class AHRSupdate {
         q1 *= recipNorm;
         q2 *= recipNorm;
         q3 *= recipNorm;
-        
-        yaw = (float) (Math.atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0 * q0 + 2 * q1 * q1 - 1) * 57.3);// yaw
-        pitch  = (float) (Math.asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3); // pitch
-        roll = (float) (Math.atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3); // roll
     }
     static void MadgwickAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float az) {
         float recipNorm;
@@ -174,9 +171,6 @@ public class AHRSupdate {
         q1 *= recipNorm;
         q2 *= recipNorm;
         q3 *= recipNorm;
-        yaw = (float) (Math.atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0 * q0 + 2 * q1 * q1 - 1) * 57.3);// yaw
-        pitch  = (float) (Math.asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3); // pitch
-        roll = (float) (Math.atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3); // roll
     }
     static float twoKpDef = (2.0f * 0.5f);   // 2 * proportional gain
     static float twoKiDef = (2.0f * 0.0f);   // 2 * integral gain
@@ -254,9 +248,7 @@ public class AHRSupdate {
         q1 *= recipNorm;
         q2 *= recipNorm;
         q3 *= recipNorm;
-        yaw = (float) (Math.atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0 * q0 + 2 * q1 * q1 - 1) * 57.3);// yaw
-        pitch  = (float) (Math.asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3); // pitch
-        roll = (float) (Math.atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3); // roll
+
     }
     static void MahonyAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
         float recipNorm;
@@ -357,10 +349,61 @@ public class AHRSupdate {
         q1 *= recipNorm;
         q2 *= recipNorm;
         q3 *= recipNorm;
+    }
+    static float Kp = 10.0f;
+    static float Ki = 0.008f;
+    static float exInt = 0, eyInt = 0, ezInt = 0;
+    
+    static void myUpdate(float gx, float gy, float gz, float ax, float ay, float az){
+        float norm;
+        float vx, vy, vz;
+        float ex, ey, ez;
+
+        float q0q0 = q0*q0;
+        float q0q1 = q0*q1;
+        float q0q2 = q0*q2;
+        float q0q3 = q0*q3;
+        float q1q1 = q1*q1;
+        float q1q2 = q1*q2;
+        float q1q3 = q1*q3;
+        float q2q2 = q2*q2;
+        float q2q3 = q2*q3;
+        float q3q3 = q3*q3;
         
-        yaw = (float) (Math.atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0 * q0 + 2 * q1 * q1 - 1) * 57.3);// yaw
-        pitch  = (float) (Math.asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3); // pitch
-        roll = (float) (Math.atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3); // roll
+        norm = (float) Math.sqrt(ax*ax + ay*ay + az*az);
+        if(norm<0.0001f && norm>-0.0001f) 
+          return;
+        ax = ax /norm;
+        ay = ay / norm;
+        az = az / norm;
+        
+
+        vx = 2*(q1q3 - q0q2);                                             
+        vy = 2*(q0q1 + q2q3);
+        vz = q0q0 - q1q1 - q2q2 + q3q3 ;
+
+        ex = (ay*vz - az*vy);
+        ey = (az*vx - ax*vz);
+        ez = (ax*vy - ay*vx);
+
+        exInt = exInt + ex * Ki;                               
+        eyInt = eyInt + ey * Ki;
+        ezInt = ezInt + ez * Ki;
+
+        gx = gx + Kp*ex + exInt;                                              
+        gy = gy + Kp*ey + eyInt;
+        gz = gz + Kp*ez + ezInt;                                          
+                             
+        q0 = q0 + (-q1*gx - q2*gy - q3*gz)*timeDelta/2.0f;
+        q1 = q1 + (q0*gx + q2*gz - q3*gy)*timeDelta/2.0f;
+        q2 = q2 + (q0*gy - q1*gz + q3*gx)*timeDelta/2.0f;
+        q3 = q3 + (q0*gz + q1*gy - q2*gx)*timeDelta/2.0f;
+
+        norm = (float) Math.sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
+        q0 = q0 / norm;
+        q1 = q1 / norm;
+        q2 = q2 / norm;
+        q3 = q3 / norm;
     }
 
 
