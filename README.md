@@ -25,8 +25,8 @@ The algorithm used for altitude heading reference system (AHRS) is **DCM complem
 The system calculates altitude and controls the output PWMs of the four motors 1600 times per sec.  
 Remote contronl through Bluetooth.  
 For demo video:  
-[DemoVideo1](http://v.youku.com/v_show/id_XNTc0MTE5NjY0.html)  
-[DemoVideo2](http://v.youku.com/v_show/id_XNTczOTY4NDIw.html)
+DemoVideo1: [优酷](http://v.youku.com/v_show/id_XNTc0MTE5NjY0.html) [YouTube](http://www.youtube.com/watch?v=iOF2OyRmbeg)  
+DemoVideo2: [优酷](http://v.youku.com/v_show/id_XNTczOTY4NDIw.html) [YouTube](http://www.youtube.com/watch?v=TcqmwWvhcKs)
 
 PCB Preview  
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_PCB.PNG)
