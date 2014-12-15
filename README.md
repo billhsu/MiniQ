@@ -1,6 +1,8 @@
 ![MiniQ](https://github.com/billhsu/MiniQ/raw/master/doc/MiniQ_Logo.png)
 =====
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/billhsu/MiniQ?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 MiniQ: An opensource mini quadcopter, from hardware design to software algorithms.
 
 <table>
