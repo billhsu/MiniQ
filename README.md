@@ -3,7 +3,7 @@
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/billhsu/MiniQ?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-MiniQ: An opensource mini quadcopter, from hardware design to software algorithms.
+MiniQ: An opensource mini quadcopter, from hardware design to control algorithms.
 
 <table>
   <tr>
@@ -25,7 +25,8 @@ MiniQ: An opensource mini quadcopter, from hardware design to software algorithm
 
 The algorithm used for altitude heading reference system (AHRS) is **DCM complementary filter**.  
 The system calculates altitude and controls the output PWMs of the four motors 1600 times per sec.  
-Remote contronl through Bluetooth.  
+It can be controlled remotely with bluetooth.
+
 For demo video:  
 DemoVideo1: [优酷](http://v.youku.com/v_show/id_XNTc0MTE5NjY0.html) [YouTube](http://www.youtube.com/watch?v=iOF2OyRmbeg)  
 DemoVideo2: [优酷](http://v.youku.com/v_show/id_XNTczOTY4NDIw.html) [YouTube](http://www.youtube.com/watch?v=TcqmwWvhcKs)
